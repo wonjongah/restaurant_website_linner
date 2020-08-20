@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}post_search.html{% endblock %}
+{% block content %}
+
+<h1>Search</h1>
+
+<br>
+
+<form action="." method="post"> {% csrf_token %}
+
+{{ form.as_table }}
+
+<input type="submit" value="Submit" class="btn btn-primary btn-sm">
+
+</form>
+
+<br/><br/>
+
+{% if recipe_search %}
+
+{% for recipe in recipe_search %}
+
+<h2><a href='{{ recipe.get_absolute_url }}'>{{ recipe.Rec_conName }}</a></h2>
+
+{{ recipe.Rec_conModify|date:"N d, Y" }}
+        <p>{{ recipe.get_recipe_summary | safe}}</p>
+
+{% endfor %}
+{% endif %}
+
+{% if youtube_search %}
+
+{% for youtube in youtube_search %}
+
+<h2><a href='{{ youtube.get_absolute_url }}'>{{ youtube.You_conName }}</a></h2>
+
+{{ youtube.You_conModify|date:"N d, Y" }}
+        <p>{{ youtube.get_youtube_summary | safe}}</p>
+
+{% endfor %}
+{% endif %}
+
+
+{% if hot_search %}
+
+{% for hot in hot_search %}
+
+<h2><a href='{{ hot.get_absolute_url }}'>{{ hot.title }}</a></h2>
+
+{{ hot.modify_dt|date:"N d, Y" }}
+        <p>{{ hot.content | safe}}</p>
+
+{% endfor %}
+
+{% endif %}
+
+
+
+
+{% endblock %}
