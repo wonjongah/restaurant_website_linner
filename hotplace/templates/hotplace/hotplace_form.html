@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+<! DOCTYPE html>
+{% block title %}form.html
+{% endblock %}
+{% block extra-style %}
+<style>
+body {
+    text-align: center;
+}
+form {
+    display: inline-block;
+}
+{% endblock %}
+
+
+
+
+</style>
+
+
+{% block content %}
+<div class="container">
+
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <div class="font-weight-bold"> Wrong! Please correct the error(s) below.</div>
+        {{ form.errors }}
+    </div>
+    {% endif %}
+
+    <form action="." method="post" enctype="multipart/form-data" class="card pt-3  ">{% csrf_token %}
+
+
+        <div class="form-group row">{{ form.title| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-5"> {{ form.title|add_class:"form-control"|attr:"autofocus" }}</div>
+        </div>
+        <div class="form-group row"> {{ form.slug| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-5"> {{ form.slug|add_class:"form-control"|attr:"readonly" }}</div>
+            <small class="form-text text-muted">{{ form.slug.help_text }}</small></div>
+
+        <div class="form-group row"> {{ form.rating| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-8"> {{ form.rating|add_class:"form-control" }}</div>
+        </div>
+
+        <div class="form-group row">
+            {% if hotplace.files.all %}
+            <label for="files" class="clo-form-label col-sm-2 ml-3 font-weight-bold text-left ">삭제할 파일:</label>
+            <div class="col-sm-5">
+                {% for file in hotplace.files.all %}
+                <input type="checkbox" name="delete_files" value="{{file.id}}">
+                {{file.filename}} ({{file.size| filesizeformat}})<br>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group row">
+            <label for="files"
+                   class="col-form-label col-sm-2 ml-3 font-weight-bold">첨부 파일 :</label>
+            <div class="col-sm-8 ">
+                <input type="file" id="files" name="files" multiple>
+            </div>
+        </div>
+        <div class="form-group row"> {{ form.content| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-8"> {{ form.content|add_class:"form-control" }}</div>
+        </div>
+        <div class="form-group row"> {{ form.tags| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-5"> {{ form.tags|add_class:"form-control" }}</div>
+            <small class="form-text text-muted">{{ form.tags.help_text }}</small></div>
+
+
+        <div class="form-group row"> {{ form.latitude| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div  class="col-sm-5">{{ form.latitude|add_class:"form-control" }}</div>
+        </div>
+        <div class="form-group row"> {{ form.longtitude| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div  class="col-sm-5">{{ form.longtitude|add_class:"form-control" }}</div>
+        </div>
+
+        <div class="form-group">
+            <div class="offset-sm-2 col-sm-5"><input type="submit" value="Submit" class="btn btn-info"/></div>
+        </div>
+    </form>
+    {% include "kakao_search.html" %}
+</div>
+{% endblock %}
+
+{% block extra-script %}
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+     tinymce.init({
+       selector:'textarea',
+       menubar: false,
+       statusbar: false,
+       toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | removeformat'
+     });
+</script>
+{% endblock %}

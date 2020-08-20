@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+
+<head>
+    <style>
+    .round {
+    border-radius: 50%;}
+    </style>
+
+</head>
+
+<body>
+<div align="center">
+<div class="card" style="width:400px" align="left">
+        {% if user.profile.photo %}
+        <img class="card-img-top" src="{{ user.profile.photo.url }}">
+        {% else %}
+        <img class="card-img-top" src="{% static 'User/images/default_profile.png' %}">
+        {% endif %}
+
+    <div class="card-body">
+        {% if user.profile.nickname %}
+        <h4 class="card-title">{{user.profile.nickname}}</h4>
+        {% else %}
+        <h4 class="card-title">{{user.username}}</h4>
+        {% endif %}
+
+        <p class="card-text">email: {{user.email}}</p>
+
+        {% if user.profile.intro %}
+        <p class="card-text">intro: {{user.profile.intro}}</p>
+        {% endif %}
+
+        {% if user.profile.phone %}
+        <p class="card-text">phone: {{user.profile.phone}}</p>
+        {% endif %}
+
+        <a href="{% url 'user:profile_update' %}" class="btn btn-primary">프로필 편집</a>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+</body>

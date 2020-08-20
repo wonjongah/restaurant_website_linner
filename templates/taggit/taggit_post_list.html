@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %} taggit_post_list.html {%endblock%}
+
+{% block extra-style %}
+
+<style>
+    .star_back{
+        width:100px;
+        position:relative;
+    }
+    .star{
+        background-color:gold;
+        position:absolute;
+        height:18px;
+        z-index:100;
+    }
+    .star_img{
+        width:100%;
+
+        position:absolute;
+        height:18px;
+        z-index:110;
+    }
+    .card-horizontal{
+        display:flex;
+        flex: 1 1 auto;
+    }
+
+
+
+
+
+</style>
+{% endblock %}
+{% block content %}
+
+
+
+    {% include "hotplace_printlist.html" %}
+
+
+
+{% endblock %}

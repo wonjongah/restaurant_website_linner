@@ -1,0 +1,45 @@
+{%load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}LINNER{% endblock %}</title>
+<!--    블럭을 하나 잡는다, 블럭의 명령, 블럭의 명칭 마지막 앤드블럭, 이 사이가 하나의 블럭이 되는 것-->
+<!--    이 블럭이 타이틀을 잡고 있음, 다른 곳에서 커스터마이징할 수 있음-->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<!--    부트스크랩연결-->
+    {% block extra-style %}{% endblock %}
+<!--    내용은 비어있음, 개별페이지에서 정의할 거임-->
+</head>
+<body style="padding-top:90px;">
+{% include 'menu.html' %}
+<!--여기에 만들었던 메뉴.html이 다 들어옴!-->
+    {% block content%}{% endblock %}
+<!--    내용은 비어있음, 개별페이지에서 정의할 거임-->
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
+</script>
+<!--Css files-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.4.4/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<!--js files-->
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/sweetalert2/6.4.4/sweetalert2.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% include 'pagenation.html' %}
+
+{% block extra-script %}{% endblock %}
+</html>

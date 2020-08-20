@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}hotplace_archive.html{% endblock %}
+
+
+{% block content %}
+<!--<h1>Hotplace Archives until {% now 'b d,Y' %}</h1>-->
+<ul>
+    {% for date in date_list %}
+    <li style="display:inline;">
+        <a href="{% url 'hotplace:hotplace_year_archive' date|date:'Y' %}">
+            Year-{{ date|date:'Y'}}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+<br>
+<div>
+    {% include "hotplace_printlist.html" %}
+</div>
+
+{% endblock %}
+
+

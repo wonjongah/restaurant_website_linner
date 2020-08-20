@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}recipe_create.html{% endblock %}
+{% block content %}
+<h1>Post Create/Update {{user}}</h1>
+<p class="font-italic">This is a creation or update form for your post.</p>
+<style>
+    .hidden{display:none;}
+
+</style>
+{% if form.errors %}
+<div class="alert alert-danger">
+    <div class="font-weight-bold">
+        Wrong! Please correct the error(s) below.
+    </div>
+    {{ form.errors }}
+</div>
+{% endif %}
+<div class="container">
+
+    <form action="." class="card pt-3" method="post">{% csrf_token %}
+        <div class="form-group row">
+            {{ form.Rec_conName| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-5">
+                {{ form.Rec_conName|add_class:"form-control"|attr:"autofocus" }}
+            </div>
+        </div>
+        <div class="row">
+            {{ form.Rec_conContent| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+
+            <div class="col-md-8">
+                <input class="hidden" id="upload" name="image" onchange="" type="file">
+                {{ form.Rec_conContent|add_class:"form-control" }}
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+
+        <div class="form-group row">
+            {{ form.Rec_conTags| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+            <div class="col-sm-5">
+                {{ form.Rec_conTags|add_class:"form-control" }}
+            </div>
+            <small class="form-text text-muted">{{ form.tags.help_text }}</small>
+        </div>
+
+
+        <div class="form-group">
+            <div class="offset-sm-2 col-sm-5">
+                <input class="btn btn-info" type="submit" value="let's go"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra-script %}
+
+<script>
+
+
+        tinymce.init({
+          selector: "textarea",
+          theme: "modern",
+          paste_data_images: true,
+          plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+          ],
+          toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+          toolbar2: "print preview media | forecolor backcolor emoticons",
+          image_advtab: true,
+          file_picker_callback: function(callback, value, meta) {
+            if (meta.filetype == 'image') {
+              $('#upload').trigger('click');
+              $('#upload').on('change', function() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                  callback(e.target.result, {
+                    alt: ''
+                  });
+                };
+                reader.readAsDataURL(file);
+              });
+            }
+          },
+          templates: [{
+            title: 'Test template 1',
+            content: 'Test 1'
+          }, {
+            title: 'Test template 2',
+            content: 'Test 2'
+          }]
+        });
+
+
+
+</script>
+{% endblock %}
