@@ -43,6 +43,8 @@ class Hotplace(models.Model):
     def get_absolute_url(self):
         return reverse('hotplace:detail',args=(self.slug,))
 
+    def get_absolute_url_for_search(self):
+        return ''
 
     def get_previous(self):
         return self.get_previous_by_modify_dt()

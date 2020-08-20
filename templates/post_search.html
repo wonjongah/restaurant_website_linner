@@ -45,7 +45,7 @@
 
 {% for hot in hot_search %}
 
-<h2><a href='{{ hot.get_absolute_url }}'>{{ hot.title }}</a></h2>
+<h2><a href='{{ hot.get_absolute_url_for_search }}'>{{ hot.title }}</a></h2>
 
 {{ hot.modify_dt|date:"N d, Y" }}
         <p>{{ hot.content | safe}}</p>
