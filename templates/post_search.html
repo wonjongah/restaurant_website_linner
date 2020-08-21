@@ -35,7 +35,7 @@
 <h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}'>{{ youtube.You_conName }}</a></h2>
 
 {{ youtube.You_conModify|date:"N d, Y" }}
-        <p>{{ youtube.get_youtube_summary | safe}}</p>
+<p>{{ youtube.get_youtube_summary | safe}}</p>
 
 {% endfor %}
 {% endif %}
