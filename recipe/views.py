@@ -16,6 +16,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
+from django.utils import timezone
+
 
 
 class RecipeLV(ListView):
@@ -66,6 +68,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.Rec_conMemID = self.request.user
+        form.instance.Rec_conModify = timezone.now()
         return super().form_valid(form)
 
 
@@ -85,6 +88,10 @@ class RecipeUpdateView(OwnerOnlyMixin, UpdateView):
     model = RecipeContent
     fields = ['Rec_conName', 'Rec_conContent', 'Rec_conTags']
     success_url = reverse_lazy('recipe:recipe_listview')
+
+    def form_valid(self, form):
+        form.instance.Rec_conModify = timezone.now()
+        return super().form_valid(form)
 
 class YoutubeUpdateView(OwnerOnlyMixin2, UpdateView):
 

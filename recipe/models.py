@@ -17,7 +17,7 @@ class RecipeContent(models.Model):
     # 조회수
     Rec_conCreate = models.DateTimeField('CREATE_TIME', auto_now_add=True)
     # 작성 시간
-    Rec_conModify = models.DateTimeField('MODIFY_DATE', auto_now=True)
+    Rec_conModify = models.DateTimeField('MODIFY_DATE')
     # 수정 시간
     Rec_conMemID = models.ForeignKey(User, on_delete=models.CASCADE,
                               verbose_name='OWNER', blank=True, null=True)
