@@ -20,7 +20,7 @@
 
 {% for recipe in recipe_search %}
 
-<h2><a href='{{ recipe.get_absolute_url }}'>{{ recipe.Rec_conName }}</a></h2>
+<h2><a href='{% url "recipe:recipe_detail" recipe.Rec_conId %}'>{{ recipe.Rec_conName }}</a></h2>
 
 {{ recipe.Rec_conModify|date:"N d, Y" }}
         <p>{{ recipe.get_recipe_summary | safe}}</p>
@@ -32,7 +32,7 @@
 
 {% for youtube in youtube_search %}
 
-<h2><a href='{{ youtube.get_absolute_url }}'>{{ youtube.You_conName }}</a></h2>
+<h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}'>{{ youtube.You_conName }}</a></h2>
 
 {{ youtube.You_conModify|date:"N d, Y" }}
         <p>{{ youtube.get_youtube_summary | safe}}</p>
@@ -45,7 +45,7 @@
 
 {% for hot in hot_search %}
 
-<h2><a href='{{ hot.get_absolute_url_for_search }}'>{{ hot.title }}</a></h2>
+<h2><a href="{% url 'hotplace:detail' hot.id %}">{{ hot.title }}</a></h2>
 
 {{ hot.modify_dt|date:"N d, Y" }}
         <p>{{ hot.content | safe}}</p>
