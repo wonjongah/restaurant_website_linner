@@ -1,8 +1,14 @@
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
-from django.views.generic.detail import DetailView
+from django.views.generic import DetailView, ListView
 from django.views import View, generic
 from .forms import UserForm, ProfileForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from recipe.models import RecipeContent, YoutubeContent
+from .models import Profile
 
 
 class ProfileView(DetailView):
@@ -50,3 +56,42 @@ class ProfileUpdateView(View):
             profile.save()
 
         return redirect('user:profile', pk=request.user.pk)
+
+@login_required
+def userrecipe(request):
+    user = request.user
+    user_posts=RecipeContent.objects.filter(Rec_conMemID_id=request.user)
+    template_name='user/recipepost_login.html'
+    return render(request, template_name, {'user_posts':user_posts, 'user':user})
+
+@login_required
+def useryoutube(request):
+    user = request.user
+    user_posts_you=YoutubeContent.objects.filter(You_conMemID_id=request.user)
+    template_name='user/youtubepost_login.html'
+    return render(request, template_name, {'user_posts_you':user_posts_you, 'user':user})
+
+class PostUserProfile(DetailView):
+    context_object_name = 'profile_author'
+    model = Profile
+    template_name = 'user/profile_user.html'
+
+class PostUserRecipe(ListView):
+    template_name = 'user/recipepost_user.html'
+
+    def get(self, request, *args, **kwargs):
+        queryset = RecipeContent.objects.filter(Rec_conMemID_id=kwargs['pk'])
+        ctx={
+            'list':queryset,
+        }
+        return render(request, 'user/recipepost_user.html', ctx)
+
+class PostUserYoutube(ListView):
+    template_name = 'user/youtubepost_user.html'
+
+    def get(self, request, *args, **kwargs):
+        queryset = YoutubeContent.objects.filter(You_conMemID_id=kwargs['pk'])
+        ctx={
+            'list':queryset,
+        }
+        return render(request, 'user/youtubepost_user.html', ctx)

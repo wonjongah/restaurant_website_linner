@@ -108,7 +108,7 @@
  </style>
 <div>
 
-        <h1>Recipe List {{user}}</h1>
+        <h1>Recipe List</h1>
 
 <div>
 
@@ -126,7 +126,7 @@
          class="ml-3 mt-3 rounded-circle" style="width:60px;">
     <div class="media-body">
         <h4>
-            <a href="#">{{recipe.Rec_conMemID.profile.nickname}}</a>
+            <a href="{% url 'user:userrecipe' recipe.Rec_conMemID_id %}">{{recipe.Rec_conMemID.profile.nickname}}</a>
         </h4>
         <p>
             {{recipe.Rec_conMemID.profile.intro}}

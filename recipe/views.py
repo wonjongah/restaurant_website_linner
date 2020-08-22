@@ -15,7 +15,19 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from user.models import Profile
+from django.contrib.auth.models import User
 
+class UserPostListView(ListView):
+    model = RecipeContent = Profile
+    template_name = 'recipe/user_posts.html'
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return RecipeContent.objects.filter(Rec_conMemID=user)
+    def get_username_field(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Profile.objects.filter(user=user)
 
 
 class RecipeLV(ListView):

@@ -1,7 +1,12 @@
-from django.views.generic import TemplateView, CreateView
+from django.shortcuts import render
+from django.views.generic import TemplateView, CreateView, DetailView, ListView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
+
+from user.models import Profile
 from .form import CreateUserForm
+from django.contrib.auth.models import User
+from recipe.models import RecipeContent, YoutubeContent
 
 # 유저
 from django.contrib.auth.mixins import AccessMixin

@@ -11,12 +11,13 @@
 	</head>
 	<body class="no-sidebar is-preload">
 <!-- Nav -->
-{% include 'nav.html' %}
+
+{% include 'nav2.html' %}
 			<!-- Main -->
 			<div align="center">
 		<div class="card" style="width:400px" align="left">
 
-        {% if user.profile.photo %}
+        {% if recipe.Rec_conMemID_id.profile.photo %}
         <img class="card-img-top" src="{{ user.profile.photo.url }}">
         {% else %}
         <img class="card-img-top" src="{% static 'User/images/default_profile.png' %}">
@@ -31,15 +32,13 @@
 
         <p class="card-text">email: {{user.email}}</p>
 
-        {% if user.profile.intro %}
-        <p class="card-text">intro: {{user.profile.intro}}</p>
+        {% if Rec_conMemID_id.profile.intro %}
+        <p class="card-text">intro: {{Rec_conMemID_id.profile.intro}}</p>
         {% endif %}
 
-        {% if user.profile.phone %}
-        <p class="card-text">phone: {{user.profile.phone}}</p>
+        {% if Rec_conMemID_id.profile.phone %}
+        <p class="card-text">phone: {{Rec_conMemID_id.profile.phone}}</p>
         {% endif %}
-
-        <a href="{% url 'user:profile_update' %}" class="btn btn-primary">프로필 편집</a>
     </div>
 </div>
 
