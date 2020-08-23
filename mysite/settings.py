@@ -94,8 +94,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'linner_db',
-        'HOST': '192.168.0.29',#'192.168.56.1',#'192.168.0.29',
-        'PORT':'3306',
+        'HOST': 'localhost',#'192.168.56.1',#'192.168.0.29',
+        'PORT':'3307',
         'USER':'linneruser',
         'PASSWORD':'1234',
     }

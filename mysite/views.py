@@ -18,6 +18,8 @@ from django.contrib.auth.models import User
 # 순수하게 html 템플릿만 운영할 수 있도록 도와주는
 # 공통 사용할 것~~~~~~~~~~~~~~~~~
 
+class ImageView(TemplateView):
+    template_name = 'tinymce/popup/photo_upload.html'
 
 
 class HomeView(TemplateView):
@@ -67,57 +69,40 @@ class SearchFormView(FormView):
 
 
     form_class = PostSearchForm
-
     template_name = 'post_search.html'
 
     def form_valid(self, form):
-
 
         searchWord = form.cleaned_data['search_word']
 
 # 1
         post_list = RecipeContent.objects.filter(
-
             Q(Rec_conName__icontains=searchWord) |
-
             Q(Rec_conContent__icontains=searchWord)
-
         ).distinct()
 # 2
 
         you_list = YoutubeContent.objects.filter(
-
             Q(You_conName__icontains=searchWord) |
-
             Q(You_conContent__icontains=searchWord)
-
         ).distinct()
 
 # 3
 
         hot_list = Hotplace.objects.filter(
-
             Q(title__icontains=searchWord) |
-
             Q(content__icontains=searchWord)
-
         ).distinct()
 
 
 
 
         context = {}
-
         context['form'] = form
-
         context['search_term'] = searchWord
-
         context['recipe_search'] = post_list
-
         context['youtube_search'] = you_list
-
         context['hot_search'] = hot_list
-
 
         return render(self.request, self.template_name, context)
 

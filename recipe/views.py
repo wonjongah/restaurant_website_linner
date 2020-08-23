@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView
 # 부모클래스로 리스트뷰(목록보겠다)랑 디테일뷰(한 개를 자세히 보겠다)
 from recipe.models import RecipeContent, YoutubeContent
 
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from mysite.views import OwnerOnlyMixin, OwnerOnlyMixin2
@@ -19,6 +19,8 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone
 
 
+class ImageView(TemplateView):
+    template_name = 'recipe/tinymce/popup/photo_upload.html'
 
 class RecipeLV(ListView):
     context_object_name = 'recipe_list'
