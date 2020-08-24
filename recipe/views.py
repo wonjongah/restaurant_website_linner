@@ -105,8 +105,8 @@ class RecipeUpdateView(OwnerOnlyMixin, UpdateView):
         form.instance.Rec_conModify = timezone.now()
         response = super().form_valid(form)
 
-
         delete_files = self.request.POST.getlist("delete_files")
+
         for fid in delete_files:
             file = RecipeContentAttachFile.objects.get(id=int(fid))
             file_path = os.path.join(settings.MEDIA_ROOT,str(file.upload_file))
