@@ -67,31 +67,67 @@ def userrecipe(request):
 @login_required
 def useryoutube(request):
     user = request.user
-    user_posts_you=YoutubeContent.objects.filter(You_conMemID_id=request.user)
+    user_posts_you=YoutubeContent.objects.filter(You_conMemID_id=request.user.profile)
     template_name='user/youtubepost_login.html'
     return render(request, template_name, {'user_posts_you':user_posts_you, 'user':user})
 
 class PostUserProfile(DetailView):
-    context_object_name = 'profile_author'
-    model = Profile
+    context_object_name = 'userprofile'
+    model = User
     template_name = 'user/profile_user.html'
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        userid = self.kwargs["pk"]
+        context["userid"] = userid
+        return context
 
 class PostUserRecipe(ListView):
     template_name = 'user/recipepost_user.html'
+    model = RecipeContent
+    context_object_name = "list"
 
-    def get(self, request, *args, **kwargs):
-        queryset = RecipeContent.objects.filter(Rec_conMemID_id=kwargs['pk'])
-        ctx={
-            'list':queryset,
-        }
-        return render(request, 'user/recipepost_user.html', ctx)
+    # def get(self, request, *args, **kwargs):
+    #     queryset = RecipeContent.objects.filter(Rec_conMemID_id=kwargs['pk'])
+    #     ctx={
+    #         'list':queryset,
+    #     }
+    #     return render(request, 'user/recipepost_user.html', ctx)
+    #
+    # def get_context_data(self,**kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     userid = self.kwargs["pk"]
+    #     context["userid"] = userid
+    #     return context
+    def get_queryset(self):
+        userid = self.kwargs["pk"]
+        return RecipeContent.objects.filter(Rec_conMemID=userid)
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        userid = self.kwargs["pk"]
+        context["userid"] = userid
+        return context
+
 
 class PostUserYoutube(ListView):
     template_name = 'user/youtubepost_user.html'
+    model = YoutubeContent
+    context_object_name = "youtube"
+    # def get(self, request, *args, **kwargs):
+    #     queryset = YoutubeContent.objects.filter(You_conMemID=kwargs['pk'])
+    #     ctx={
+    #         'youtube':queryset,
+    #     }
+    #     print(ctx)
+    #
+    #     return render(request, 'user/youtubepost_user.html', ctx)
+    def get_queryset(self):
+        userid = self.kwargs["pk"]
+        return YoutubeContent.objects.filter(You_conMemID=userid)
 
-    def get(self, request, *args, **kwargs):
-        queryset = YoutubeContent.objects.filter(You_conMemID_id=kwargs['pk'])
-        ctx={
-            'list':queryset,
-        }
-        return render(request, 'user/youtubepost_user.html', ctx)
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        userid = self.kwargs["pk"]
+        context["userid"] = userid
+        return context

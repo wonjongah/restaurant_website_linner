@@ -126,7 +126,7 @@
          class="ml-3 mt-3 rounded-circle" style="width:60px;">
     <div class="media-body">
         <h4>
-            <a href="{% url 'user:userrecipe' recipe.Rec_conMemID_id %}">{{recipe.Rec_conMemID.profile.nickname}}</a>
+            <a href="{% url 'user:userprofile' recipe.Rec_conMemID.id %}">{{recipe.Rec_conMemID.profile.nickname}}</a>
         </h4>
         <p>
             {{recipe.Rec_conMemID.profile.intro}}

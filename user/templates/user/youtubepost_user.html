@@ -1,27 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
-<hr style="margin-left: -50%;margin-right: -50%;" xmlns:post="http://www.w3.org/1999/xhtml"
-    xmlns:recipe="http://www.w3.org/1999/xhtml">
-<h1 style="text-align:center"> 태그들 </h1>
-<hr style="margin-left: -50%;margin-right: -50%;">
-<p style="display:inline;font-family:georgia;margin-left:-27%;font-size:50px"> our recipe </p>
-{% if user.is_active %}
-<a href="{% url 'recipe:recipe_create' %}">
-    <p style="display:inline;font-family:georgia;float:right;margin-right:-20%;font-size:33px;border-width: 2px;">write</p></a>
-{% endif %}
 
 <hr style="margin-left: -50%;margin-right: -50%;">
-
+{% include 'nav2.html' %}
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
 <div class="container">
     <!--    {% with count=1 %}-->
     <div class="row">
-        {% for i in list %}
+        {% for i in youtube %}
         <div class="col-md-4 py-6">
+
             <ul class="card" style="width:18em;max-height:300px;min-height:300px">
+                <a href="{% url 'recipe:youtube_detail' i.You_conId %}">
+
                 <h2>{{i.You_conName}}</h2>
+                </a>
                 {{ i.You_conModify|date:"N d, Y" }}
                 <p>{{ i.get_youtube_summary | safe}}</p>
                         <a class="btn btn-sm rec_like" name="{{ i.You_conId }}" type="button" value="Like">

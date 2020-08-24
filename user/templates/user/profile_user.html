@@ -16,28 +16,27 @@
 			<!-- Main -->
 			<div align="center">
 		<div class="card" style="width:400px" align="left">
-
-        {% if recipe.Rec_conMemID_id.profile.photo %}
-        <img class="card-img-top" src="{{ user.profile.photo.url }}">
+        {% if userprofile.profile.photo %}
+        <img class="card-img-top" src="{{ userprofile.profile.photo.url }}">
         {% else %}
         <img class="card-img-top" src="{% static 'User/images/default_profile.png' %}">
         {% endif %}
 
     <div class="card-body">
-        {% if user.profile.nickname %}
-        <h4 class="card-title">{{user.profile.nickname}}</h4>
+        {% if userprofile.profile.nickname %}
+        <h4 class="card-title">{{userprofile.profile.nickname}}</h4>
         {% else %}
-        <h4 class="card-title">{{user.username}}</h4>
+        <h4 class="card-title">{{userprofile.username}}</h4>
         {% endif %}
 
-        <p class="card-text">email: {{user.email}}</p>
+        <p class="card-text">email: {{userprofile.email}}</p>
 
-        {% if Rec_conMemID_id.profile.intro %}
-        <p class="card-text">intro: {{Rec_conMemID_id.profile.intro}}</p>
+        {% if userprofile.profile.intro %}
+        <p class="card-text">intro: {{userprofile.profile.intro}}</p>
         {% endif %}
 
-        {% if Rec_conMemID_id.profile.phone %}
-        <p class="card-text">phone: {{Rec_conMemID_id.profile.phone}}</p>
+        {% if userprofile.profile.phone %}
+        <p class="card-text">phone: {{userprofile.profile.phone}}</p>
         {% endif %}
     </div>
 </div>
