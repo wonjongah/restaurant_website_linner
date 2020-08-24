@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import ListView, DetailView
 # 부모클래스로 리스트뷰(목록보겠다)랑 디테일뷰(한 개를 자세히 보겠다)
-from recipe.models import RecipeContent, YoutubeContent
+from recipe.models import RecipeContent, YoutubeContent, RecipeContentAttachFile
 
 from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,6 +14,10 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+import os
+from django.conf import settings
+from django.http import FileResponse
+
 
 from django.utils import timezone
 
@@ -71,7 +74,14 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.Rec_conMemID = self.request.user
         form.instance.Rec_conModify = timezone.now()
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        files = self.request.FILES.getlist('recipe_files')
+        print(files)
+        for file in files:
+            attach_file = RecipeContentAttachFile(post=self.object, filename=file.name, size=file.size, content_type=file.content_type, upload_file=file)
+            attach_file.save()
+        return response
 
 
 class YoutubeCreateView(LoginRequiredMixin, CreateView):
@@ -93,7 +103,22 @@ class RecipeUpdateView(OwnerOnlyMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.Rec_conModify = timezone.now()
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+
+        delete_files = self.request.POST.getlist("delete_files")
+        for fid in delete_files:
+            file = RecipeContentAttachFile.objects.get(id=int(fid))
+            file_path = os.path.join(settings.MEDIA_ROOT,str(file.upload_file))
+            os.remove(file_path)
+            file.delete()
+        # 업로드 파일 얻기
+        files = self.request.FILES.getlist('recipe_files')
+        for file in files:
+            attach_file = RecipeContentAttachFile(post=self.object, filename=file.name, size=file.size, content_type=file.content_type, upload_file=file)
+            attach_file.save()
+        return response
+
 
 class YoutubeUpdateView(OwnerOnlyMixin2, UpdateView):
 
@@ -153,3 +178,11 @@ def youtube_like(request):
 
     context = {'you_likes_count':youtube.you_count_likes_user(), 'message': message}
     return HttpResponse(json.dumps(context), content_type="application/json")
+
+
+
+def recipe_download(request, id):
+    file= RecipeContentAttachFile.objects.get(id=id)
+    file_path = os.path.join(settings.MEDIA_ROOT,str(file.upload_file))
+
+    return FileResponse(open(file_path,'rb'))

@@ -109,13 +109,21 @@
 </style>
 <div>
 
-    <h1>Recipe List {{user}}</h1>
+  <div class="jumbotron jumbotron-fluid ">
+    <div id="image-panel" style="height:100%;">
 
-    <div>
+            {% for file in recipe.files.all %}
 
-        <h1>{{recipe.Rec_conName}}</h1>
+        <img id="image" src="{% url 'recipe:recipe_download' file.id %}" style="height:100%; width:100%;">
 
-        <ul>
+        {% endfor %}
+
+    </div>
+    <h1 style=" position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%);">
+        {{recipe.Rec_conName}}
+    </h1>
+
+</div>
 
             <a>{{recipe.Rec_conContent | safe}}</a></li>
 
@@ -144,14 +152,6 @@
 
 
         <a class="btn btn-sm like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
-            <!--	  <span-->
-            <!--				  class="glyphicon-->
-            <!--				    {% if user in recipe.Rec_conLikesUser.all %}-->
-            <!--				      glyphicon-heart-->
-            <!--						{% else %}-->
-            <!--							glyphicon-heart-empty-->
-            <!--						{% endif %}"-->
-            <!--				  aria-hidden="true"></span>-->
 
             {% if user in recipe.Rec_conLikesUser.all %}
             <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>

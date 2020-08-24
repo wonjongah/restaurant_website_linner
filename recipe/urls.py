@@ -21,5 +21,6 @@ urlpatterns = [
     path('recipe_like/', views.recipe_like, name='recipe_like'),
     path('youtube_like/', views.youtube_like, name='youtube_like'),
 path('photo_upload/', ImageView.as_view(), name='image'),
+path('download/<int:id>',recipe_download,name="recipe_download"),
 
 ]

@@ -35,8 +35,8 @@ class RecipeContent(models.Model):
     )
 
     class Meta:
-
-        verbose_name = 'recipe_post'
+        verbose_name = 'recipe'
+        verbose_name_plural = 'recipes'
         ordering = ('-Rec_conModify',)  # orderby 절,
 
     def __str__(self):
@@ -94,8 +94,8 @@ class YoutubeContent(models.Model):
         related_name='You_conLikesUser')
 
     class Meta:
-
-        verbose_name = 'youtube_post'
+        verbose_name = 'youtube'
+        verbose_name_plural = 'youtubes'
         ordering = ('-You_conModify',)  # orderby 절,
 
     def __str__(self):
@@ -135,3 +135,12 @@ class Reply(models.Model):
     Rep_date = models.DateTimeField(auto_now_add=True)
     # 댓글 작성 시간
 
+
+class RecipeContentAttachFile(models.Model):
+    post = models.ForeignKey(RecipeContent, on_delete=models.CASCADE, related_name='files', blank=True, null=True)
+    upload_file = models.FileField(upload_to="%Y/%m/%d",null=True,blank=True,verbose_name='파일')
+    filename = models.CharField(max_length=64,null=True,verbose_name='첨부파일명')
+    content_type = models.CharField(max_length=128,null=True,verbose_name='MIME TYPE')
+    size = models.IntegerField('파일 크기')
+    def __str__(self):
+        return self.filename

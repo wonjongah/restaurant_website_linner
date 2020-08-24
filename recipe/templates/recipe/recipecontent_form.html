@@ -18,13 +18,36 @@
 {% endif %}
 <div class="container">
 
-    <form action="." class="card pt-3" method="post">{% csrf_token %}
+    <form action="." class="card pt-3" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="form-group row">
             {{ form.Rec_conName| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
             <div class="col-sm-5">
                 {{ form.Rec_conName|add_class:"form-control"|attr:"autofocus" }}
             </div>
         </div>
+
+
+        <div class="form-group row">
+            {% if recipe.files.all %}
+            <label for="files" class="clo-form-label col-sm-2 ml-3 font-weight-bold text-left ">삭제할 파일:</label>
+            <div class="col-sm-5">
+                {% for file in recipe.files.all %}
+                <input type="checkbox" name="delete_files" value="{{file.id}}">
+                {{file.filename}} ({{file.size| filesizeformat}})<br>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group row">
+            <label for="files" class="col-form-label col-sm-2 ml-3 font-weight-bold">첨부 파일 :</label>
+            <div class="col-sm-8 ">
+                <input type="file" id="recipe_files" name="recipe_files" multiple>
+            </div>
+        </div>
+
+
+
         <div class="row">
             {{ form.Rec_conContent| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
 
@@ -64,51 +87,51 @@
 
 
 
-tinymce.init({
-	selector: 'textarea',
-	height: 600,
-	theme: 'modern',
-	plugins: [
-		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-		'searchreplace wordcount visualblocks visualchars code fullscreen',
-		'insertdatetime media nonbreaking save table contextmenu directionality',
-		'emoticons template paste textcolor colorpicker textpattern imagetools'
-	],
-	toolbar1: ' mySubmit | myButton | insertfile undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullscreen',
-	//toolbar2: 'print preview media | forecolor backcolor emoticons',
+<!--tinymce.init({-->
+<!--	selector: 'textarea',-->
+<!--	height: 600,-->
+<!--	theme: 'modern',-->
+<!--	plugins: [-->
+<!--		'advlist autolink lists link image charmap print preview hr anchor pagebreak',-->
+<!--		'searchreplace wordcount visualblocks visualchars code fullscreen',-->
+<!--		'insertdatetime media nonbreaking save table contextmenu directionality',-->
+<!--		'emoticons template paste textcolor colorpicker textpattern imagetools'-->
+<!--	],-->
+<!--	toolbar1: ' mySubmit | myButton | insertfile undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullscreen',-->
+<!--	//toolbar2: 'print preview media | forecolor backcolor emoticons',-->
 
-	image_advtab: true,
-	templates: [
-		{ title: 'Test template 1', content: 'Test 1' },
-		{ title: 'Test template 2', content: 'Test 2' }
-	],
-	content_css: [
-		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-		'//www.tinymce.com/css/codepen.min.css'
-	],
+<!--	image_advtab: true,-->
+<!--	templates: [-->
+<!--		{ title: 'Test template 1', content: 'Test 1' },-->
+<!--		{ title: 'Test template 2', content: 'Test 2' }-->
+<!--	],-->
+<!--	content_css: [-->
+<!--		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',-->
+<!--		'//www.tinymce.com/css/codepen.min.css'-->
+<!--	],-->
 
-	setup: function (editor) {
-		editor.addButton('myButton', {
-			text: '파일 업로드',
-			icon: false,
-			onclick: function (data) {
-				window.open('{% url 'recipe:image' %}','_fileupload','width=800, height=600');
-			}
-		});
+<!--	setup: function (editor) {-->
+<!--		editor.addButton('myButton', {-->
+<!--			text: '파일 업로드',-->
+<!--			icon: false,-->
+<!--			onclick: function (data) {-->
+<!--				window.open('{% url 'recipe:image' %}','_fileupload','width=800, height=600');-->
+<!--			}-->
+<!--		});-->
 
-		editor.addButton('mySubmit', {
-			text: '문서저장하기',
-			icon: false,
-			onclick: function () {
-				if(confirm('저장하시겠습니까?'))
-				{
-					document.FORM_NAME.submit();
-				}
-			}
-		});
-	}
+<!--		editor.addButton('mySubmit', {-->
+<!--			text: '문서저장하기',-->
+<!--			icon: false,-->
+<!--			onclick: function () {-->
+<!--				if(confirm('저장하시겠습니까?'))-->
+<!--				{-->
+<!--					document.FORM_NAME.submit();-->
+<!--				}-->
+<!--			}-->
+<!--		});-->
+<!--	}-->
 
-});
+<!--});-->
 
 
 
@@ -276,42 +299,42 @@ tinymce.init({
 <!--});-->
 
 
-<!--        tinymce.init({-->
-<!--          selector: "textarea",-->
-<!--          theme: "modern",-->
-<!--          paste_data_images: true,-->
-<!--          plugins: [-->
-<!--            "advlist autolink lists link image charmap print preview hr anchor pagebreak",-->
-<!--            "searchreplace wordcount visualblocks visualchars code fullscreen",-->
-<!--            "insertdatetime media nonbreaking save table contextmenu directionality",-->
-<!--            "emoticons template paste textcolor colorpicker textpattern"-->
-<!--          ],-->
-<!--          toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",-->
-<!--          toolbar2: "print preview media | forecolor backcolor emoticons",-->
-<!--          image_advtab: true,-->
-<!--          file_picker_callback: function(callback, value, meta) {-->
-<!--            if (meta.filetype == 'image') {-->
-<!--              $('#upload').trigger('click');-->
-<!--              $('#upload').on('change', function() {-->
-<!--                var file = this.files[0];-->
-<!--                var reader = new FileReader();-->
-<!--                reader.onload = function(e) {-->
-<!--                  callback(e.target.result, {-->
-<!--                    alt: ''-->
-<!--                  });-->
-<!--                };-->
-<!--                reader.readAsDataURL(file);-->
-<!--              });-->
-<!--            }-->
-<!--          },-->
-<!--          templates: [{-->
-<!--            title: 'Test template 1',-->
-<!--            content: 'Test 1'-->
-<!--          }, {-->
-<!--            title: 'Test template 2',-->
-<!--            content: 'Test 2'-->
-<!--          }]-->
-<!--        });-->
+        tinymce.init({
+          selector: "textarea",
+          theme: "modern",
+          paste_data_images: true,
+          plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern"
+          ],
+          toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+          toolbar2: "print preview media | forecolor backcolor emoticons",
+          image_advtab: true,
+          file_picker_callback: function(callback, value, meta) {
+            if (meta.filetype == 'image') {
+              $('#upload').trigger('click');
+              $('#upload').on('change', function() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                  callback(e.target.result, {
+                    alt: ''
+                  });
+                };
+                reader.readAsDataURL(file);
+              });
+            }
+          },
+          templates: [{
+            title: 'Test template 1',
+            content: 'Test 1'
+          }, {
+            title: 'Test template 2',
+            content: 'Test 2'
+          }]
+        });
 
 
 
