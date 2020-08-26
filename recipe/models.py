@@ -7,6 +7,8 @@ from django.utils.text import slugify
 from tinymce.models import HTMLField
 from django.conf import settings
 
+from user.models import Profile
+
 
 class RecipeContent(models.Model):
     Rec_conId = models.AutoField(primary_key = True)
@@ -78,7 +80,7 @@ class YoutubeContent(models.Model):
     # 작성 시간
     You_conModify = models.DateTimeField('MODIFY_DATE', auto_now=True)
     # 수정 시간
-    You_conMemID = models.ForeignKey(User, on_delete=models.CASCADE,
+    You_conMemID = models.ForeignKey(Profile, on_delete=models.CASCADE,
                               verbose_name='OWNER', blank=True, null=True)
     # 작성자
     You_conPickCount = models.IntegerField(default=0)

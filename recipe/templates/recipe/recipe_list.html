@@ -20,6 +20,7 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
 <div class="container">
+
     <div class="row">
         {% for recipe in recipe_list %}
         <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}">
@@ -42,10 +43,6 @@
         <p>{{ recipe.get_recipe_summary | safe}}</p>
 
 
-<br>
-                    <br><br>
-
-
         <a class="btn btn-sm rec_like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
 
 
@@ -63,6 +60,7 @@
     </div>
     {% endfor %}
 </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -97,9 +95,8 @@
 
 
 
-
-
 </script>
+
 
 
 
@@ -203,8 +200,6 @@ body{
 
 
 
-
-
 </style>
 
 <br>
@@ -288,9 +283,8 @@ body{
 
 
 
-
-
     </script>
+
 
 
 </div>

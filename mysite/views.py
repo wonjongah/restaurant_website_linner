@@ -1,13 +1,17 @@
 from django.views.generic import TemplateView, CreateView, FormView, ListView
+from django.shortcuts import render
+from django.views.generic import TemplateView, CreateView, DetailView, ListView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
+
+from user.models import Profile
+from .form import CreateUserForm
+from django.contrib.auth.models import User
+from recipe.models import RecipeContent, YoutubeContent
 
 # 유저
 from django.contrib.auth.mixins import AccessMixin
 from django.views.defaults import permission_denied
-from .form import CreateUserForm
-from recipe.models import RecipeContent, YoutubeContent
-from hotplace.models import Hotplace
 
 from django.db.models import Q
 from django.shortcuts import render
@@ -24,7 +28,6 @@ class ImageView(TemplateView):
 
 class HomeView(TemplateView):
     template_name = 'home.html'
-
 class UserCreateView(CreateView):
     template_name = 'registration/signup.html'
     form_class = CreateUserForm

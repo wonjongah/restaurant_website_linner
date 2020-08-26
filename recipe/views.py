@@ -1,8 +1,12 @@
+from urllib.parse import urlparse
+from django.contrib import messages
 from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import ListView, DetailView
 # 부모클래스로 리스트뷰(목록보겠다)랑 디테일뷰(한 개를 자세히 보겠다)
+from django.views.generic.base import View
+
 from recipe.models import RecipeContent, YoutubeContent, RecipeContentAttachFile
 
 from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
@@ -10,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from mysite.views import OwnerOnlyMixin, OwnerOnlyMixin2
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -18,8 +22,23 @@ import os
 from django.conf import settings
 from django.http import FileResponse
 
+from user.models import Profile
+from django.contrib.auth.models import User
 
 from django.utils import timezone
+
+
+
+class UserPostListView(ListView):
+    model = RecipeContent = Profile
+    template_name = 'recipe/user_posts.html'
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return RecipeContent.objects.filter(Rec_conMemID=user)
+    def get_username_field(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Profile.objects.filter(user=user)
 
 
 class ImageView(TemplateView):
@@ -91,7 +110,7 @@ class YoutubeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'recipe/youtubecontent_form.html'
 
     def form_valid(self, form):
-        form.instance.You_conMemID = self.request.user
+        form.instance.You_conMemID = self.request.user.profile
         return super().form_valid(form)
 
 
@@ -159,6 +178,25 @@ def recipe_like(request):
 
     context = {'rec_likes_count':recipe.rec_count_likes_user(), 'message': message}
     return HttpResponse(json.dumps(context), content_type="application/json")
+
+class recipe_like_list(ListView):
+    template_name = 'recipe/recipe_list_like.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.warning(request, '로그인을 먼저 하세요')
+            return HttpResponseRedirect('/')
+        return super().dispatch( request, *args, **kwargs)
+
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        queryset = user.Rec_conLikesUser.all()
+        queryset2 = user.You_conLikesUser.all()
+        ctx = {'recipe': queryset,
+               'youtube_list' : queryset2}
+        print(ctx)
+        return render(request, 'recipe/recipe_list_like.html', ctx)
 
 
 @login_required
