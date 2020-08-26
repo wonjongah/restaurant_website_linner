@@ -83,10 +83,9 @@
                             </div>
                         </div>
                         <div class="img-square-wrapper">
-                            {% for file in hotplace.files.all %}
-                            <a class="card-link stretched-link" href="{% url 'hotplace:detail' hotplace.id %}">
-                                <img id="image" src="{% url 'hotplace:download' file.id %}"
-                                     style="height:100%; width:100%;">
+                            {% for file in hotplace.files.all|slice:":1" %}
+                            <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">
+                                <img id="image" src="{% url 'hotplace:download' file.id %}" style="height:100%; width:100%;">
                             </a>
                             {% endfor %}
 

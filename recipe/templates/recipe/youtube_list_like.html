@@ -23,14 +23,7 @@
 
 
                     <a class="btn btn-sm you_like" name="{{ youtube.You_conId }}" type="button" value="Like">
-                        <!--	  <span-->
-                        <!--				  class="glyphicon-->
-                        <!--				    {% if user in recipe.Rec_conLikesUser.all %}-->
-                        <!--				      glyphicon-heart-->
-                        <!--						{% else %}-->
-                        <!--							glyphicon-heart-empty-->
-                        <!--						{% endif %}"-->
-                        <!--				  aria-hidden="true"></span>-->
+
 
                         {% if user in youtube.You_conLikesUser.all %}
                         <i class="fas fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
