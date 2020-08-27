@@ -37,8 +37,9 @@ class RecipeContent(models.Model):
     )
 
     class Meta:
-        verbose_name = 'recipe'
-        verbose_name_plural = 'recipes'
+        verbose_name = 'recipe_post'
+        # verbose_name = 'recipe'
+        # verbose_name_plural = 'recipes'
         ordering = ('-Rec_conModify',)  # orderby 절,
 
     def __str__(self):
@@ -80,7 +81,7 @@ class YoutubeContent(models.Model):
     # 작성 시간
     You_conModify = models.DateTimeField('MODIFY_DATE', auto_now=True)
     # 수정 시간
-    You_conMemID = models.ForeignKey(Profile, on_delete=models.CASCADE,
+    You_conMemID = models.ForeignKey(User, on_delete=models.CASCADE,
                               verbose_name='OWNER', blank=True, null=True)
     # 작성자
     You_conPickCount = models.IntegerField(default=0)

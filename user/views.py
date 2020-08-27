@@ -67,7 +67,7 @@ def userrecipe(request):
 @login_required
 def useryoutube(request):
     user = request.user
-    user_posts_you=YoutubeContent.objects.filter(You_conMemID_id=request.user.profile)
+    user_posts_you=YoutubeContent.objects.filter(You_conMemID_id=request.user)
     template_name='user/youtubepost_login.html'
     return render(request, template_name, {'user_posts_you':user_posts_you, 'user':user})
 
