@@ -18,5 +18,5 @@ class Profile(models.Model):
         return reverse('user_posts', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return self.user.username
 

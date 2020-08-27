@@ -80,53 +80,54 @@
 
 
 
+
+
     </style>
 </head>
 <body>
 
 <div id="navbar">
-<div id="sidebar">
-    <ul>
-        <a type="button" href="{% url 'recipe:recipe_listview' %}">Recipe</a>
-        <a type="button" href="{% url 'hotplace:index' %}">Hot Place</a>
-          <a type="button" href="{% url 'search' %}">Search</a>
-        <li class="nav-item dropdown mx-1 btn btn-primary">
-        {% if user.is_active %}
-        <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
-        <i class="fas fa-user"></i>
-            &ensp;{% firstof user.get_short_name user.get_username %}&ensp;</a>
-        <div class="dropdown-menu">
-        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-        <a class="dropdown-item" href="{% url 'password_change' %}">
-        Change Password</a>
-        </div>
-        <a class="btn btn-primary"  href="{% url 'user:profile' user.id %}">
-            <span class="glyphicon glyphicon-heart"></span>
-            My Page</a>
-        <a type="button" href="{% url 'recipe:recipe_like_list' %}">My Pick</a>
-        {% else %}
-        <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
-        <i class="fas fa-user"></i>&ensp;Anonymous&ensp;</a>
-        <div class="dropdown-menu">
-        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-        <a class="dropdown-item" href="{% url 'signup' %}">Register</a>
-        </div>
-        {% endif %}
+    <div id="sidebar">
+        <ul>
+            <li class="nav-item dropdown mx-1 btn">
+                {% if user.is_active %}
+                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                    <i class="fas fa-user"></i>
+                    &ensp;{% firstof user.get_short_name user.get_username %}&ensp;</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    <a class="dropdown-item" href="{% url 'password_change' %}">
+                        Change Password</a>
+                </div>
+                <a class="btn" href="{% url 'user:profile' user.id %}">
+                    <span class="glyphicon glyphicon-heart"></span>
+                    My Page</a>
+                <a type="button" href="{% url 'recipe:recipe_like_list' %}">My Pick</a>
+                {% else %}
+                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                    <i class="fas fa-user"></i>&ensp;Anonymous&ensp;</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                    <a class="dropdown-item" href="{% url 'signup' %}">Register</a>
+                </div>
+                {% endif %}
+                <div class="dropdown-divider"></div>
+            </li>
+            <a type="button" href="{% url 'recipe:recipe_listview' %}">Recipe</a>
+            <a type="button" href="{% url 'hotplace:index' %}">Hot Place</a>
+            <a type="button" href="{% url 'search' %}">Search</a>
 
-        </li>
-    </ul>
-</div>
-<div id="toggle-btn" onclick="toggleSidebar(this)">
-    <span></span>
-    <span></span>
-    <span></span>
+        </ul>
+    </div>
+    <a id="toggle-btn" onclick="toggleSidebar(this)">
+        <span></span>
+        <span></span>
+        <span></span>
 
-</div>
+    </a>
     <a href="{% url 'home' %}"><img alt="logo" style="margin-left:130px;" src="{% static 'images/linner.png' %}" type="button">
     </a>
 </div>
-
-
 
 
 <script>
@@ -135,6 +136,8 @@ function toggleSidebar(ref) {
   ref.classList.toggle('active');
   document.getElementById('sidebar').classList.toggle('active');
 }
+
+
 
 
 </script>

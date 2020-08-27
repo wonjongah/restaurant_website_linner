@@ -7,7 +7,7 @@ from hotplace.models import *
 from django.views.generic import CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from mysite.views import OwnerOnlyMixin
+from mysite.views import OwnerOnlyMixin1
 
 #파일업로드
 from django.utils import timezone
@@ -77,7 +77,7 @@ class HotplaceCreateView(LoginRequiredMixin,CreateView):
             attach_file.save()
         return response
 
-class HotplaceUpdateView(OwnerOnlyMixin,UpdateView):
+class HotplaceUpdateView(OwnerOnlyMixin1,UpdateView):
     model = Hotplace
     fields = ['title','rating','content','tags','latitude','longtitude']
     success_url = reverse_lazy('hotplace:index')
@@ -100,7 +100,7 @@ class HotplaceUpdateView(OwnerOnlyMixin,UpdateView):
             attach_file.save()
         return response
 
-class HotplaceDeleteView(OwnerOnlyMixin,DeleteView):
+class HotplaceDeleteView(OwnerOnlyMixin1,DeleteView):
     model = Hotplace
     success_url = reverse_lazy('hotplace:index')
 

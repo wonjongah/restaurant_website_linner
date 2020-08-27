@@ -228,23 +228,23 @@
             </div>
         </div>
         <script>
-swal({
-    title: "Are you sure?",
-    text: "You will not be able to recover this Details!",
-    type: "warning",   showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "No, cancel!",
-    closeOnConfirm: false,   closeOnCancel: false
-}).then((result) => {
-    if (result.value) {
-        swal(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-        )
-    }
-})
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this Details!",
+                type: "warning",   showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: false,   closeOnCancel: false
+            }).then((result) => {
+                if (result.value) {
+                    swal(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+            })
         </script>
 
     </div>

@@ -109,6 +109,7 @@
 
 
 
+
 </style>
 <div class="card">
 
@@ -124,17 +125,17 @@
 
         </ul>
         <div class="media border p-3">
-            <img src="{{youtube.You_conMemID.photo.url}}" alt="{{youtube.You_conMemID_id.nickname}}"
-         class="ml-3 mt-3 rounded-circle" style="width:60px;">
+            <img src="{{youtube.You_conMemID.photo.url}}" alt="{{youtube.You_conMemID.nickname}}"
+                 class="ml-3 mt-3 rounded-circle" style="width:60px;">
             <div class="media-body">
                 <h4>
                     <a href="{% url 'user:userprofile' youtube.You_conMemID.id %}">{{youtube.You_conMemID.nickname}}</a>
                 </h4>
-        <p>
-            {{youtube.You_conMemID.intro}}
-        </p>
-    </div>
-</div>
+                <p>
+                    {{youtube.You_conMemID.intro}}
+                </p>
+            </div>
+        </div>
 
     </div>
 
@@ -152,14 +153,7 @@
 
 
         <a class="btn btn-sm like" name="{{ youtube.You_conId }}" type="button" value="Like">
-            <!--	  <span-->
-            <!--				  class="glyphicon-->
-            <!--				    {% if user in recipe.Rec_conLikesUser.all %}-->
-            <!--				      glyphicon-heart-->
-            <!--						{% else %}-->
-            <!--							glyphicon-heart-empty-->
-            <!--						{% endif %}"-->
-            <!--				  aria-hidden="true"></span>-->
+
 
             {% if user in youtube.You_conLikesUser.all %}
             <i class="fas fa-heart" id="you_heart"></i>
@@ -172,6 +166,7 @@
 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
+
     $(".like").click(function () { // .like 버튼을 클릭 감지
         var pk = $(this).attr('name')  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         $.ajax({ // ajax로 서버와 통신
@@ -198,6 +193,7 @@
             },
         });
     })
+
 
 
         </script>
@@ -232,23 +228,25 @@
         </div>
 
         <script>
-swal({
-    title: "Are you sure?",
-    text: "You will not be able to recover this Details!",
-    type: "warning",   showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "No, cancel!",
-    closeOnConfirm: false,   closeOnCancel: false
-}).then((result) => {
-    if (result.value) {
-        swal(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-        )
-    }
-})
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this Details!",
+                type: "warning",   showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: false,   closeOnCancel: false
+            }).then((result) => {
+                if (result.value) {
+                    swal(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+            })
+
         </script>
 
 

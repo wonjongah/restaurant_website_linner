@@ -10,89 +10,59 @@ from oauth2client.tools import argparser
 
 
 
-import urllib
-import json
-
-def get_all_video_in_channel(channel_id):
-    api_key = "AIzaSyDKH4KaYVdOJjN5HTg-PxFlGBEWekU3pVc"
-
-    base_video_url = 'https://www.youtube.com/watch?v='
-    base_search_url = 'https://www.googleapis.com/youtube/v3/search?'
-
-    first_url = base_search_url+'key={}&channelId={}&part=snippet,id&order=date&maxResults=25'.format(api_key, channel_id)
-
-    video_links = []
-    url = first_url
-    while True:
-        inp = urllib.urlopen(url)
-        resp = json.load(inp)
-
-        for i in resp['items']:
-            if i['id']['kind'] == "youtube#video":
-                video_links.append(base_video_url + i['id']['videoId'])
-
-        try:
-            next_page_token = resp['nextPageToken']
-            url = first_url + '&pageToken={}'.format(next_page_token)
-        except:
-            break
-    return video_links
 
 
+DEVELOPER_KEY = "AIzaSyDKH4KaYVdOJjN5HTg-PxFlGBEWekU3pVc"
+YOUTUBE_API_SERVICE_NAME = "youtube"
+YOUTUBE_API_VERSION = "v3"
 
-#
-#
-# DEVELOPER_KEY = "AIzaSyDKH4KaYVdOJjN5HTg-PxFlGBEWekU3pVc"
-# YOUTUBE_API_SERVICE_NAME = "youtube"
-# YOUTUBE_API_VERSION = "v3"
-#
-#
-# def youtube_search():
-#     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
-#                     developerKey=DEVELOPER_KEY)
-#
-#     # Call the search.list method to retrieve results matching the specified
-#     # query term.
-#     search_response = youtube.search().list(
-#         q='haha ha',
-#         order="date",
-#         part="snippet",
-#         maxResults=30
-#     ).execute()
-#
-#     print(search_response)
-#     videos = []
-#     channels = []
-#     playlists = []
-#
-#     # Add each result to the appropriate list, and then display the lists of
-#     # matching videos, channels, and playlists.
-#     for search_result in search_response.get("items", []):
-#         if search_result["id"]["kind"] == "youtube#video":
-#             videos.append("%s (%s)" % (search_result["snippet"]["title"],
-#                                        search_result["id"]['videoId']))
-#         elif search_result["id"]["kind"] == "youtube#channel":
-#             channels.append("%s (%s)" % (search_result["snippet"]["title"],
-#                                          search_result["id"]["channelId"]))
-#         elif search_result["id"]["kind"] == "youtube#playlist":
-#             playlists.append("%s (%s)" % (search_result["snippet"]["title"],
-#                                           search_result["id"]["playlistId"]))
-#
-#     print("\n\nVideos:\n\n", "\n".join(videos), "\n")
-#     print("\n\nChannels:\n\n", "\n".join(channels), "\n")
-#     print("\n\nPlaylists:\n\n", "\n".join(playlists), "\n")
-#
-#
-# if __name__ == "__main__":
-#     argparser.add_argument("--q", help="Search term", default="Google")
-#     argparser.add_argument("--max-results", help="Max results", default=25)
-#     args = argparser.parse_args()
-#
-# try:
-#     youtube_search()
-# except HttpError as e:
-#     print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
-#
+
+def youtube_search():
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
+                    developerKey=DEVELOPER_KEY)
+
+    # Call the search.list method to retrieve results matching the specified
+    # query term.
+    search_response = youtube.search().list(
+        q='haha ha',
+        order="date",
+        part="snippet",
+        maxResults=30
+    ).execute()
+
+    print(search_response)
+    videos = []
+    channels = []
+    playlists = []
+
+    # Add each result to the appropriate list, and then display the lists of
+    # matching videos, channels, and playlists.
+    for search_result in search_response.get("items", []):
+        if search_result["id"]["kind"] == "youtube#video":
+            videos.append("%s (%s)" % (search_result["snippet"]["title"],
+                                       search_result["id"]['videoId']))
+        elif search_result["id"]["kind"] == "youtube#channel":
+            channels.append("%s (%s)" % (search_result["snippet"]["title"],
+                                         search_result["id"]["channelId"]))
+        elif search_result["id"]["kind"] == "youtube#playlist":
+            playlists.append("%s (%s)" % (search_result["snippet"]["title"],
+                                          search_result["id"]["playlistId"]))
+
+    print("\n\nVideos:\n\n", "\n".join(videos), "\n")
+    print("\n\nChannels:\n\n", "\n".join(channels), "\n")
+    print("\n\nPlaylists:\n\n", "\n".join(playlists), "\n")
+
+
+if __name__ == "__main__":
+    argparser.add_argument("--q", help="Search term", default="Google")
+    argparser.add_argument("--max-results", help="Max results", default=25)
+    args = argparser.parse_args()
+
+try:
+    youtube_search()
+except HttpError as e:
+    print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
+
 
 
 # from googleapiclient.discovery import build
