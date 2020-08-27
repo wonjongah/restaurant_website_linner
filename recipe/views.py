@@ -1,22 +1,48 @@
-from django.shortcuts import render
+from urllib.parse import urlparse
+from django.contrib import messages
 from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import ListView, DetailView
 # 부모클래스로 리스트뷰(목록보겠다)랑 디테일뷰(한 개를 자세히 보겠다)
-from recipe.models import RecipeContent, YoutubeContent
+from django.views.generic.base import View
 
-from django.views.generic import CreateView, UpdateView, DeleteView
+from recipe.models import RecipeContent, YoutubeContent, RecipeContentAttachFile
+
+from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from mysite.views import OwnerOnlyMixin, OwnerOnlyMixin2
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+import os
+from django.conf import settings
+from django.http import FileResponse
+
+from user.models import Profile
+from django.contrib.auth.models import User
+
+from django.utils import timezone
 
 
+
+class UserPostListView(ListView):
+    model = RecipeContent = Profile
+    template_name = 'recipe/user_posts.html'
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return RecipeContent.objects.filter(Rec_conMemID=user)
+    def get_username_field(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Profile.objects.filter(user=user)
+
+
+class ImageView(TemplateView):
+    template_name = 'recipe/tinymce/popup/photo_upload.html'
 
 class RecipeLV(ListView):
     context_object_name = 'recipe_list'
@@ -66,7 +92,15 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.Rec_conMemID = self.request.user
-        return super().form_valid(form)
+        form.instance.Rec_conModify = timezone.now()
+        response = super().form_valid(form)
+
+        files = self.request.FILES.getlist('recipe_files')
+        print(files)
+        for file in files:
+            attach_file = RecipeContentAttachFile(post=self.object, filename=file.name, size=file.size, content_type=file.content_type, upload_file=file)
+            attach_file.save()
+        return response
 
 
 class YoutubeCreateView(LoginRequiredMixin, CreateView):
@@ -76,7 +110,7 @@ class YoutubeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'recipe/youtubecontent_form.html'
 
     def form_valid(self, form):
-        form.instance.You_conMemID = self.request.user
+        form.instance.You_conMemID = self.request.user.profile
         return super().form_valid(form)
 
 
@@ -85,6 +119,24 @@ class RecipeUpdateView(OwnerOnlyMixin, UpdateView):
     model = RecipeContent
     fields = ['Rec_conName', 'Rec_conContent', 'Rec_conTags']
     success_url = reverse_lazy('recipe:recipe_listview')
+
+    def form_valid(self, form):
+        form.instance.Rec_conModify = timezone.now()
+        response = super().form_valid(form)
+
+        delete_files = self.request.POST.getlist("delete_files")
+        for fid in delete_files:
+            file = RecipeContentAttachFile.objects.get(id=int(fid))
+            file_path = os.path.join(settings.MEDIA_ROOT,str(file.upload_file))
+            os.remove(file_path)
+            file.delete()
+        # 업로드 파일 얻기
+        files = self.request.FILES.getlist('recipe_files')
+        for file in files:
+            attach_file = RecipeContentAttachFile(post=self.object, filename=file.name, size=file.size, content_type=file.content_type, upload_file=file)
+            attach_file.save()
+        return response
+
 
 class YoutubeUpdateView(OwnerOnlyMixin2, UpdateView):
 
@@ -127,6 +179,25 @@ def recipe_like(request):
     context = {'rec_likes_count':recipe.rec_count_likes_user(), 'message': message}
     return HttpResponse(json.dumps(context), content_type="application/json")
 
+class recipe_like_list(ListView):
+    template_name = 'recipe/recipe_list_like.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.warning(request, '로그인을 먼저 하세요')
+            return HttpResponseRedirect('/')
+        return super().dispatch( request, *args, **kwargs)
+
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        queryset = user.Rec_conLikesUser.all()
+        queryset2 = user.You_conLikesUser.all()
+        ctx = {'recipe': queryset,
+               'youtube_list' : queryset2}
+        print(ctx)
+        return render(request, 'recipe/recipe_list_like.html', ctx)
+
 
 @login_required
 @require_POST
@@ -144,3 +215,11 @@ def youtube_like(request):
 
     context = {'you_likes_count':youtube.you_count_likes_user(), 'message': message}
     return HttpResponse(json.dumps(context), content_type="application/json")
+
+
+
+def recipe_download(request, id):
+    file= RecipeContentAttachFile.objects.get(id=id)
+    file_path = os.path.join(settings.MEDIA_ROOT,str(file.upload_file))
+
+    return FileResponse(open(file_path,'rb'))

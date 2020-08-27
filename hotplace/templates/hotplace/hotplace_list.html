@@ -34,19 +34,20 @@
 
 
 
+
 </style>
 {% endblock %}
 
 {% block content %}
 <div>
     <div class="container">
-    {% include "taggit/taggit_cloud2.html" %}
+        {% include "taggit/taggit_cloud2.html" %}
     </div>
 
 
     {% if user.is_active %}
     <div class="text-right mr-3" style="float:right;">
-        <a href="{% url 'hotplace:add' %}" class="btn btn-light btn-sm tag_margin my-5">
+        <a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'hotplace:add' %}">
             <i class="fas fa-pencil-alt"></i>글쓰기
         </a>
     </div>
@@ -61,12 +62,13 @@
 
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">{{hotplace.title}}</a></h4>
+                                <a class="card-link stretched-link" href="{% url 'hotplace:detail' hotplace.id %}">{{hotplace.title}}</a>
+                            </h4>
                             <div style="height:15px;">
                                 <div class="star_back">
                                     <div class="star" style="width:calc(20% * {{hotplace.rating}})"></div>
-                                    <img class="star_img" src="{% static 'images/stars.png' %}"
-                                         alt="{{hotplace.rating}}"
+                                    <img alt="{{hotplace.rating}}" class="star_img"
+                                         src="{% static 'images/stars.png' %}"
                                          title="{{hotplace.rating}}">
                                 </div>
                             </div>

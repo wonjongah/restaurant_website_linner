@@ -108,25 +108,39 @@
  </style>
 <div>
 
-        <h1>Recipe List {{user}}</h1>
+  <div class="jumbotron jumbotron-fluid ">
+    <div id="image-panel" style="height:100%;">
 
-<div>
+            {% for file in recipe.files.all %}
 
-<h1>{{recipe.Rec_conName}}</h1>
+        <img id="image" src="{% url 'recipe:recipe_download' file.id %}" style="height:100%; width:100%;">
 
-<ul>
+        {% endfor %}
 
- <a>{{recipe.Rec_conContent | safe}}</a></li>
+    </div>
+    <h1 style=" position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%);">
+        {{recipe.Rec_conName}}
+    </h1>
 
-</ul>
- <div class="card" style="width: 18rem;">
-  <div class="card-header">
-    {% if post.user.profile.photo %}
-    <img src="{{ post.user.profile.photo.url }}" width="25" alt="">
-    {% endif %}
-  </div>
+</div>
+
+            <a>{{recipe.Rec_conContent | safe}}</a>
+
+
  </div>
-            </ul>
+
+    <div class="media border p-3">
+    <img src="{{recipe.Rec_conMemID.profile.photo.url}}" alt="{{recipe.Rec_conMemID.profile.nickname}}"
+         class="ml-3 mt-3 rounded-circle" style="width:60px;">
+    <div class="media-body">
+        <h4>
+            <a href="{% url 'user:userprofile' recipe.Rec_conMemID.id %}">{{recipe.Rec_conMemID.profile.nickname}}</a>
+        </h4>
+        <p>
+            {{recipe.Rec_conMemID.profile.intro}}
+        </p>
+    </div>
+</div>
 
 </div>
 
@@ -143,14 +157,6 @@
 
 
             <a class="btn btn-sm like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
-                <!--	  <span-->
-                <!--				  class="glyphicon-->
-                <!--				    {% if user in recipe.Rec_conLikesUser.all %}-->
-                <!--				      glyphicon-heart-->
-                <!--						{% else %}-->
-                <!--							glyphicon-heart-empty-->
-                <!--						{% endif %}"-->
-                <!--				  aria-hidden="true"></span>-->
 
                 {% if user in recipe.Rec_conLikesUser.all %}
                 <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>

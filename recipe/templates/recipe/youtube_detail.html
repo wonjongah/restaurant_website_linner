@@ -123,6 +123,18 @@
             <a>{{youtube.You_conContent | safe}}</a></li>
 
         </ul>
+        <div class="media border p-3">
+            <img src="{{youtube.You_conMemID.photo.url}}" alt="{{youtube.You_conMemID_id.nickname}}"
+         class="ml-3 mt-3 rounded-circle" style="width:60px;">
+            <div class="media-body">
+                <h4>
+                    <a href="{% url 'user:userprofile' youtube.You_conMemID.id %}">{{youtube.You_conMemID.nickname}}</a>
+                </h4>
+        <p>
+            {{youtube.You_conMemID.intro}}
+        </p>
+    </div>
+</div>
 
     </div>
 

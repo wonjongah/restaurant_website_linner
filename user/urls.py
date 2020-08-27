@@ -10,4 +10,9 @@ app_name = 'user'
 urlpatterns = [
     path('<int:pk>/', ProfileView.as_view(), name='profile'),
     path('profile_update/', login_required(views.ProfileUpdateView.as_view()), name='profile_update'),
+    path('recipe/', views.userrecipe, name='recipeprofile'),
+    path('youtube/', views.useryoutube, name='youtubeprofile'),
+    path('user/<int:pk>', PostUserProfile.as_view(), name = 'userprofile'),
+    path('recipe/<int:pk>', PostUserRecipe.as_view(), name = 'userrecipe'),
+    path('youtube/<int:pk>', PostUserYoutube.as_view(), name='useryoutube'),
 ]

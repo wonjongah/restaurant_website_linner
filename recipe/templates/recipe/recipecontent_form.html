@@ -18,18 +18,42 @@
 {% endif %}
 <div class="container">
 
-    <form action="." class="card pt-3" method="post">{% csrf_token %}
+    <form action="." class="card pt-3" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="form-group row">
             {{ form.Rec_conName| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
             <div class="col-sm-5">
                 {{ form.Rec_conName|add_class:"form-control"|attr:"autofocus" }}
             </div>
         </div>
+
+
+        <div class="form-group row">
+            {% if recipe.files.all %}
+            <label for="files" class="clo-form-label col-sm-2 ml-3 font-weight-bold text-left ">삭제할 파일:</label>
+            <div class="col-sm-5">
+                {% for file in recipe.files.all %}
+                <input type="checkbox" name="delete_files" value="{{file.id}}">
+                {{file.filename}} ({{file.size| filesizeformat}})<br>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group row">
+            <label for="files" class="col-form-label col-sm-2 ml-3 font-weight-bold">첨부 파일 :</label>
+            <div class="col-sm-8 ">
+                <input type="file" id="recipe_files" name="recipe_files" multiple>
+            </div>
+        </div>
+
+
+
         <div class="row">
             {{ form.Rec_conContent| add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
 
             <div class="col-md-8">
-                <input class="hidden" id="upload" name="image" onchange="" type="file">
+
+                <input class="hidden" id="upload" name="image" onchange="" type="file" multiple>
                 {{ form.Rec_conContent|add_class:"form-control" }}
             </div>
             <div class="col-md-4"></div>
@@ -56,8 +80,223 @@
 {% endblock %}
 
 {% block extra-script %}
-
+<!--  <script type="text/javascript" src="/tinymce/tinymce.min.js"></script>-->
 <script>
+
+
+
+
+
+<!--tinymce.init({-->
+<!--	selector: 'textarea',-->
+<!--	height: 600,-->
+<!--	theme: 'modern',-->
+<!--	plugins: [-->
+<!--		'advlist autolink lists link image charmap print preview hr anchor pagebreak',-->
+<!--		'searchreplace wordcount visualblocks visualchars code fullscreen',-->
+<!--		'insertdatetime media nonbreaking save table contextmenu directionality',-->
+<!--		'emoticons template paste textcolor colorpicker textpattern imagetools'-->
+<!--	],-->
+<!--	toolbar1: ' mySubmit | myButton | insertfile undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullscreen',-->
+<!--	//toolbar2: 'print preview media | forecolor backcolor emoticons',-->
+
+<!--	image_advtab: true,-->
+<!--	templates: [-->
+<!--		{ title: 'Test template 1', content: 'Test 1' },-->
+<!--		{ title: 'Test template 2', content: 'Test 2' }-->
+<!--	],-->
+<!--	content_css: [-->
+<!--		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',-->
+<!--		'//www.tinymce.com/css/codepen.min.css'-->
+<!--	],-->
+
+<!--	setup: function (editor) {-->
+<!--		editor.addButton('myButton', {-->
+<!--			text: '파일 업로드',-->
+<!--			icon: false,-->
+<!--			onclick: function (data) {-->
+<!--				window.open('{% url 'recipe:image' %}','_fileupload','width=800, height=600');-->
+<!--			}-->
+<!--		});-->
+
+<!--		editor.addButton('mySubmit', {-->
+<!--			text: '문서저장하기',-->
+<!--			icon: false,-->
+<!--			onclick: function () {-->
+<!--				if(confirm('저장하시겠습니까?'))-->
+<!--				{-->
+<!--					document.FORM_NAME.submit();-->
+<!--				}-->
+<!--			}-->
+<!--		});-->
+<!--	}-->
+
+<!--});-->
+
+
+
+<!--tinymce.init({-->
+<!--	selector: 'textarea',-->
+<!--	height: 600,-->
+<!--	language_url: '/tinymce/langs/ko.js',-->
+<!--	theme: 'modern',-->
+<!--	plugins: [-->
+<!--		'advlist autolink lists link image charmap print preview hr anchor pagebreak',-->
+<!--		'searchreplace wordcount visualblocks visualchars code fullscreen',-->
+<!--		'insertdatetime media nonbreaking save table contextmenu directionality',-->
+<!--		'emoticons template paste textcolor colorpicker textpattern imagetools'-->
+<!--	],-->
+<!--	toolbar1: ' mySubmit | myButton | insertfile undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullscreen',-->
+<!--	//toolbar2: 'print preview media | forecolor backcolor emoticons',-->
+
+<!--	image_advtab: true,-->
+<!--	templates: [-->
+<!--		{ title: 'Test template 1', content: 'Test 1' },-->
+<!--		{ title: 'Test template 2', content: 'Test 2' }-->
+<!--	],-->
+<!--	content_css: [-->
+<!--		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',-->
+<!--		'//www.tinymce.com/css/codepen.min.css'-->
+<!--	],-->
+
+<!--	setup: function (editor) {-->
+<!--		editor.addButton('myButton', {-->
+<!--			text: 'File',-->
+<!--			icon: false,-->
+<!--			onclick: function () {-->
+<!--				window.open('{% url 'recipe:image' %}','_fileupload','width=800, height=600');-->
+<!--			}-->
+<!--		});-->
+
+<!--		editor.addButton('mySubmit', {-->
+<!--			text: '문서저장하기',-->
+<!--			icon: false,-->
+<!--			onclick: function () {-->
+<!--				if(confirm('저장하시겠습니까?'))-->
+<!--				{-->
+<!--					document.FORM_NAME.submit();-->
+<!--				}-->
+<!--			}-->
+<!--		});-->
+<!--	}-->
+
+<!--});-->
+
+
+
+
+
+<!--       tinymce.init({-->
+<!--            selector: "textarea",-->
+<!--            theme: "modern",-->
+<!--            height:1000,-->
+<!--            min_height: 800,-->
+<!--            menubar:false,-->
+<!--            plugins: "autolink autosave code link media image table textcolor autoresize",-->
+<!--            toolbar: "undo redo | styleselect | forecolor bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table link media custom_image code ",-->
+<!--            setup: function(editor) {-->
+<!--            editor.addButton('custom_image', {-->
+<!--                    title: 'insert_images',-->
+<!--                    icon: 'image',-->
+<!--                    onclick: function() {-->
+<!--                        window.open("{% url 'recipe:image' %}","tinymcePop","width=400,height=350");-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+
+<!--        });-->
+
+
+<!--tinymce.init({-->
+
+<!--  selector: 'textarea',-->
+
+<!--  plugins : 'advlist autolink link image lists charmap print preview',-->
+
+<!--  toolbar: [-->
+
+<!--    'undo redo | styleselect | bold italic | alignleft aligncenter alignright | link image'-->
+
+<!--  ],-->
+
+<!--  height: 400,-->
+
+<!--  branding: false,-->
+
+<!--  image_title: true,-->
+
+<!--  file_picker_types: 'image',-->
+
+<!--  file_picker_callback: function(cb, value, meta) {-->
+
+<!--    var input = document.createElement('input');-->
+
+<!--    input.setAttribute('type', 'file');-->
+
+<!--    input.setAttribute('accept', 'image/*');-->
+
+
+
+<!--    input.onchange = function() {-->
+
+<!--      var file = this.files[0];-->
+
+
+
+<!--      var reader = new FileReader();-->
+
+<!--      reader.onload = function () {-->
+
+<!--        var id = 'blobid' + (new Date()).getTime();-->
+
+<!--        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;-->
+
+<!--        var base64 = reader.result.split(',')[1];-->
+
+<!--        var blobInfo = blobCache.create(id, file, base64);-->
+
+<!--        blobCache.add(blobInfo);-->
+
+
+
+<!--        cb(blobInfo.blobUri(), { title: file.name });-->
+
+<!--      };-->
+
+<!--      reader.readAsDataURL(file);-->
+
+<!--    };-->
+
+
+
+<!--    input.click();-->
+
+<!--  },-->
+
+<!--relative_urls : false,-->
+
+<!--remove_script_host : false,-->
+
+
+<!--  images_reuse_filename: true,-->
+
+<!--  language: 'ko_KR',-->
+
+<!--  setup: function (editor) {-->
+
+<!--    geditor = editor;-->
+
+
+
+<!--    editor.on('change', function (e) {-->
+
+<!--      editor.save();-->
+
+<!--    });-->
+
+<!--  }-->
+
+<!--});-->
 
 
         tinymce.init({
