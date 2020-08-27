@@ -36,9 +36,12 @@ class UserPostListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return RecipeContent.objects.filter(Rec_conMemID=user)
+
+
     def get_username_field(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Profile.objects.filter(user=user)
+
 
 
 class ImageView(TemplateView):
