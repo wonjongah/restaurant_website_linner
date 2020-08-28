@@ -113,8 +113,9 @@ class YoutubeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'recipe/youtubecontent_form.html'
 
     def form_valid(self, form):
-        form.instance.You_conMemID = self.request.user.profile
+        form.instance.You_conMemID = self.request.user
         return super().form_valid(form)
+
 
 
 class RecipeUpdateView(OwnerOnlyMixin, UpdateView):
@@ -146,6 +147,7 @@ class YoutubeUpdateView(OwnerOnlyMixin2, UpdateView):
     model = YoutubeContent
     fields = ['You_conName',  'You_conContent', 'You_conTags']
     success_url = reverse_lazy('recipe:recipe_listview')
+
 
 class RecipeDeleteView(OwnerOnlyMixin, DeleteView):
 

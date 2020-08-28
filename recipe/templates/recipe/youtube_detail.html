@@ -125,14 +125,14 @@
 
         </ul>
         <div class="media border p-3">
-            <img src="{{youtube.You_conMemID.photo.url}}" alt="{{youtube.You_conMemID.nickname}}"
+            <img src="{{youtube.You_conMemID.profile.photo.url}}" alt="{{youtube.You_conMemID.profile.nickname}}"
                  class="ml-3 mt-3 rounded-circle" style="width:60px;">
             <div class="media-body">
                 <h4>
-                    <a href="{% url 'user:userprofile' youtube.You_conMemID.id %}">{{youtube.You_conMemID.nickname}}</a>
+                    <a href="{% url 'user:userprofile' youtube.You_conMemID.id %}">{{youtube.You_conMemID.profile.nickname}}</a>
                 </h4>
                 <p>
-                    {{youtube.You_conMemID.intro}}
+                    {{youtube.You_conMemID.profile.intro}}
                 </p>
             </div>
         </div>
