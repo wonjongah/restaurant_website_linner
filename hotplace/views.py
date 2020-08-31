@@ -24,6 +24,10 @@ class HotplaceLV(ListView):
     template_name = 'hotplace/hotplace_printlist.html'
     context_object_name = 'hotplaces'
 
+    def get_ordering(self):
+        orderBy = self.request.GET.get('orderby')
+        return orderBy
+
 
 class HotplaceDV(DetailView):
     model = Hotplace
