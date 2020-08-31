@@ -31,6 +31,9 @@ class Hotplace(models.Model):
 
     owner = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
 
+    # 조회수
+    read_count = models.IntegerField(default=0)
+       
 
     class Meta:
         verbose_name = 'hotplace'

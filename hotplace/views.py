@@ -27,6 +27,17 @@ class HotplaceLV(ListView):
 
 class HotplaceDV(DetailView):
     model = Hotplace
+    context_object_name = 'hotplace'
+    template_name = 'hotplace/hotplace_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        hotplace_post = self.get_object()
+        hotplace_post.read_count += 1
+        hotplace_post.save()
+        return context
+
+
 
 # Tag View
 class TagCloudTV(TemplateView):

@@ -81,6 +81,10 @@
                                 {% endfor %}
 
                             </div>
+                            <div>
+                                <p>조회수 : {{ hotplace.read_count}}</p>
+
+                            </div>
                         </div>
                         <div class="img-square-wrapper">
                             {% for file in hotplace.files.all|slice:":1" %}
