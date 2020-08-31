@@ -25,7 +25,12 @@ class HotplaceLV(ListView):
     context_object_name = 'hotplaces'
 
     def get_ordering(self):
-        orderBy = self.request.GET.get('orderby')
+        orderBy = self.request.GET.get('sort')
+
+        if orderBy == 'rating' or orderBy =='read_count':
+            return '-'+orderBy
+        
+
         return orderBy
 
 
