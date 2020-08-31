@@ -1,3 +1,4 @@
+{% load static %}
 {% extends 'base.html' %}
 
 {% block title %}hotplace_best.html{% endblock %}
@@ -42,7 +43,55 @@
 {% block content %}
 
 <div>
-    {% include "hotplace_printlist.html" %}
+    <div class="container">
+
+        <div class="row">
+            {% for hotplace in object_list %}
+            {% if hotplace.rating >= 4 %}
+            <div class="col-lg-6  col-md-6 col-sm-12 my-3">
+                <div class="card">
+                    <div class="card-horizontal">
+
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">{{hotplace.title}}</a></h4>
+                            <div style="height:15px;">
+                                <div class="star_back">
+                                    <div class="star" style="width:calc(20% * {{hotplace.rating}})"></div>
+                                    <img class="star_img" src="{% static 'images/stars.png' %}"
+                                         alt="{{hotplace.rating}}"
+                                         title="{{hotplace.rating}}">
+                                </div>
+                            </div>
+                            <div>
+                                <b>TAGS</b><i class="fas fa-tag"></i>
+                                {% load taggit_templatetags2_tags %}
+                                {% get_tags_for_object hotplace as "tags" %}
+                                {% for tag in tags %}
+                                <a href="{%url 'hotplace:tagged_object_list' tag.name%}">{{tag.name}}</a>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <div class="img-square-wrapper">
+                            {% for file in hotplace.files.all|slice:":1" %}
+                            <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">
+                                <img id="image" src="{% url 'hotplace:download' file.id %}" style="height:100%; width:100%;">
+                            </a>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+
+</div>
 </div>
 
 {% endblock %}
