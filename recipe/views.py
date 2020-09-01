@@ -1,5 +1,7 @@
 from urllib.parse import urlparse
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.db.models import Count
 from django.shortcuts import render
 
 # Create your views here.
@@ -7,6 +9,7 @@ from django.views.generic import ListView, DetailView
 # 부모클래스로 리스트뷰(목록보겠다)랑 디테일뷰(한 개를 자세히 보겠다)
 from django.views.generic.base import View
 
+from recipe.form import ReplyForm
 from recipe.models import RecipeContent, YoutubeContent, RecipeContentAttachFile
 
 from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
@@ -52,14 +55,26 @@ class RecipeLV(ListView):
     template_name = 'recipe/recipe_list.html'
     queryset = RecipeContent.objects.all()
     paginate_by = 3
+    print(RecipeContent.objects.all())
 
     def get_context_data(self, **kwargs):
         context = super(ListView, self).get_context_data(**kwargs)
         context['youtube_list'] = YoutubeContent.objects.all()
         # 한 뷰에 여러 개 모델 콘텍스트 가져오고 싶을 때!!!!!!!!!!!!!!!!!!!!!!!
-
         return context
 
+def index(request):
+    sort = request.GET.get('sort', '')
+
+    if sort == 'Rec_conLikesUser':
+        recipe_list = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
+        return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
+    elif sort == 'Rec_conReadcount':
+        recipe_list = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
+        return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
+    else:
+        recipe_list = RecipeContent.objects.all().order_by('-Rec_conModify')
+        return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
 
 class RecipeDV(DetailView):
     model = RecipeContent
@@ -73,6 +88,13 @@ class RecipeDV(DetailView):
         recipe_post.Rec_conReadcount += 1
         recipe_post.save()
         return context
+
+# def RecipeDV(request, Rec_conId):
+#     recipe = get_object_or_404(RecipeContent, pk=Rec_conId)
+#     if request.method == "POST":
+#         reply_form = ReplyForm(request.POST)
+#         reply_form.instance.Rep_name_id = request.user.id
+#         reply_form.instance.Rep_conid_id =
 
 class YoutubeDV(DetailView):
     model = YoutubeContent
@@ -176,9 +198,13 @@ def recipe_like(request):
 
     if recipe.Rec_conLikesUser.filter(id=user.id).exists():
         recipe.Rec_conLikesUser.remove(user)
+        recipe.Rec_conPickCount -= 1
+        recipe.save()
         message = '좋아요 취소'
     else:
         recipe.Rec_conLikesUser.add(user)
+        recipe.Rec_conPickCount += 1
+        recipe.save()
         message = '좋아요'
 
     context = {'rec_likes_count':recipe.rec_count_likes_user(), 'message': message}
@@ -228,3 +254,11 @@ def recipe_download(request, id):
     file_path = os.path.join(settings.MEDIA_ROOT,str(file.upload_file))
 
     return FileResponse(open(file_path,'rb'))
+
+# def RecipeDV(request, Rec_conId):
+#     recipe = get_object_or_404(RecipeContent, pk=Rec_conId)
+#
+#     if request.method == "POST":
+#         reply_form = ReplyForm(request.POST)
+#         reply_form.instance.Rep_name_id = request.user.id
+#         reply_form.instance.Rep_conid_id = Rep_conid

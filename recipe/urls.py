@@ -9,6 +9,7 @@ app_name = 'recipe'
 
 urlpatterns = [
     path('', RecipeLV.as_view(), name='recipe_listview'),
+    path('post/', views.index, name='index'),
     path('post/', RecipeLV.as_view(), name='recipe_listview'),
     path('<int:pk>', RecipeDV.as_view(), name='recipe_detail'),
     path('youtube/<int:pk>', YoutubeDV.as_view(), name='youtube_detail'),
@@ -23,5 +24,4 @@ urlpatterns = [
     path('youtube_like/', views.youtube_like, name='youtube_like'),
     path('photo_upload/', ImageView.as_view(), name='image'),
     path('download/<int:id>',recipe_download,name="recipe_download"),
-
 ]
