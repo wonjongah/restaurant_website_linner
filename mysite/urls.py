@@ -18,12 +18,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from mysite.views import HomeView, UserCreateView, UserCreateDoneTV, SearchFormView, ImageView
+from mysite.views import HomeView,HomeView2, UserCreateView, UserCreateDoneTV, SearchFormView, ImageView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeView.as_view(), name='home'),
+    path('', HomeView2.as_view(), name='home'),
     path('recipe/', include('recipe.urls')),
     path('hotplace/', include('hotplace.urls')),
 

@@ -1,4 +1,6 @@
+{% extends "base.html" %}
 {% load static %}
+
 
 {% block extra-style %}
 
@@ -31,7 +33,6 @@
 
 </style>
 {% endblock %}
-
 {% block content %}
 
 <div>
@@ -39,11 +40,11 @@
 
         <div class="row">
             {% for hotplace in object_list %}
-            {% if hotplace.rating >= 4 %}
+            {% if hotplace.rating >= 4   %}
             <div class="col-lg-6  col-md-6 col-sm-12 my-3">
                 <div class="card">
                     <div class="card-horizontal">
-
+                        
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">{{hotplace.title}}</a></h4>
@@ -87,6 +88,5 @@
 </div>
 
 {% endblock %}
-
-{% block extra-script %} {% endblock %}
-
+{% block extra-script %}
+{% endblock %}
