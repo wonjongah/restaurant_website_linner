@@ -23,7 +23,9 @@
                                 {% load taggit_templatetags2_tags %}
                                 {% get_tags_for_object hotplace as "tags" %}
                                 {% for tag in tags %}
-                                <a href="{%url 'hotplace:tagged_object_list' tag.name%}">{{tag.name}}</a>
+                               <a href="{%url 'hotplace:tagged_object_list' tag.name%}">{{tag.name}}</a>
+
+
                                 {% endfor %}
 
                             </div>

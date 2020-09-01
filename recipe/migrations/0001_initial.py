@@ -33,7 +33,8 @@ class Migration(migrations.Migration):
                 ('Rec_conTags', taggit.managers.TaggableManager(blank=True, help_text='A comma-separated list of tags.', through='taggit.TaggedItem', to='taggit.Tag', verbose_name='Tags')),
             ],
             options={
-                'verbose_name': 'recipe_post',
+                'verbose_name': 'recipe',
+                'verbose_name_plural': 'recipes',
                 'ordering': ('-Rec_conModify',),
             },
         ),

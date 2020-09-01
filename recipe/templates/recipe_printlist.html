@@ -1,0 +1,30 @@
+{% load static %}
+<div class="container">
+
+        <div class="row">
+            {% for recipe in recipe_list %}
+            <div class="col-lg-6  col-md-6 col-sm-12 my-3">
+                <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}" class="card-link stretched-link">{{recipe.Rec_conName}}</a></h4>
+
+                            <div>
+                                <b>TAGS</b><i class="fas fa-tag"></i>
+                                {% load taggit_templatetags2_tags %}
+                                {% get_tags_for_object recipe as "tags" %}
+                                {% for tag in tags %}
+                                <a href="{%url 'recipe:tagged_object_list' tag.name%}">{{tag.name}}</a>
+                                {% endfor %}
+
+                            </div>
+
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>

@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from mysite.views import HomeView, UserCreateView, UserCreateDoneTV, SearchFormView, ImageView
+from mysite.views import HomeView, UserCreateView, UserCreateDoneTV, SearchFormView
 
 
 urlpatterns = [
@@ -33,6 +33,6 @@ urlpatterns = [
     path('accounts/signup/', UserCreateView.as_view(), name='signup'),
     path('accounts/signup/done/', UserCreateDoneTV.as_view(), name='signup_done'),
     path('search/', SearchFormView.as_view(), name='search'),
-    path('photo_upload/', ImageView.as_view(), name='image'),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -18,15 +18,10 @@ urlpatterns=[
     path('archive/<int:year>/',HotplaceYAV.as_view(),name='hotplace_year_archive'),
     path('archive/<int:year>/<str:month>/',HotplaceMAV.as_view(),name='hotplace_month_archive'),
 
-    # 추가 삭제
-    # hotplace/add
     path('add/',HotplaceCreateView.as_view(),name='add'),
-    # hotplace/99/update
     path('<int:pk>/update/',HotplaceUpdateView.as_view(),name="update"),
-    # hotplace/99/delete
     path('<int:pk>/delete/',HotplaceDeleteView.as_view(),name='delete'),
 
-    #다운로드
     path('download/<int:id>',download,name="download"),
 
 

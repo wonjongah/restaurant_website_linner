@@ -1,29 +1,27 @@
-{% extends "base.html" %}
 
-{% block title %}taggit_cloud.html{% endblock %}
 
-{% block extra-style %}
 <style type="text/css">
 
-    .tag-1{font-size:12px;}
-    .tag-2{font-size:12px;}
-    .tag-3{font-size:12px;}
-    .tag-4{font-size:12px;}
-    .tag-5{font-size:12px;}
-    .tag-6{font-size:12px;}
+    .tag-1{font-size:12px; }
+    .tag-2{font-size:12px; }
+    .tag-3{font-size:12px; }
+    .tag-4{font-size:12px; }
+    .tag-5{font-size:12px; }
+    .tag-6{font-size:12px; }
 
     .tag_outline{
-        height:34px;
+        height:38px;
         width:100%;
         overflow:hidden;
-        }
+
+    }
 
     .tag_cloud{
-        width:80%;
+        width:90%;
         float:left;
     }
     .btn-moreInfo{
-        width:20%;
+
         white-space:nowrap;
         float:right;
     }
@@ -32,9 +30,19 @@
     }
 
     .btn-closeInfo{
-      width:20%;
+
       white-space:nowrap;
       float:right;
+
+
+    }
+    .tag_margin{
+        margin-top:5px;
+        margin-bottom:5px;
+        border-color:RGB(209, 209, 209);
+        color:RGB(174, 174, 174);
+
+
 
     }
 
@@ -42,12 +50,8 @@
 
 
 
-
 </style>
-{% endblock %}
 
-{% block content %}
-<h1>Tag Cloud</h1>
 <br>
 <div class="tag_outline">
     <div class="tag_cloud">
@@ -57,9 +61,13 @@
         {% for tag in tags %}
         {% if tag.num_times != 0%}
         <span class="tag-{{tag.weight|floatformat:0}}">
-                <span class="btn btn-light btn-sm tag_size">
-                    {{tag.name}}({{tag.num_times}})
+                <span class="btn btn-light btn-sm tag_margin">
+                    <a href="{% url 'recipe:tagged_object_list' tag.name %}">
+                        {{tag.name}}
+                    </a>
+
                 </span>
+
 
         </span>
         {% endif %}
@@ -69,9 +77,6 @@
 
 </div>
 
-
-{% endblock %}
-{% block extra-script %}
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function(){
@@ -84,11 +89,11 @@
             }else if($('.btn-closeInfo').hasClass('btn-closeInfo')){
                 $('.btn-closeInfo').addClass('btn-moreInfo').removeClass('btn-closeInfo');
                 $(this).text('더보기');
-                $('.tag_outline').css('height','34');
+                $('.tag_outline').css('height','38');
             }
         });
     });
 </script>
-{% endblock %}
+
 
 

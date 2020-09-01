@@ -47,6 +47,26 @@ class UserPostListView(ListView):
 
 
 
+
+class RecipeTagCloudTV(TemplateView):
+    template_name = 'taggit/taggit_cloud3.html'
+
+class RecipeTaggedObjectLV(ListView):
+    template_name = 'taggit/taggit_post_list2.html'
+    model = RecipeContent
+
+    def get_queryset(self):
+        return RecipeContent.objects.filter(Rec_conTags__name=self.kwargs.get('tag'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tagname'] = self.kwargs['tag']
+        return context
+
+
+
+
+
 class ImageView(TemplateView):
     template_name = 'recipe/tinymce/popup/photo_upload.html'
 
@@ -54,7 +74,6 @@ class RecipeLV(ListView):
     context_object_name = 'recipe_list'
     template_name = 'recipe/recipe_list.html'
     queryset = RecipeContent.objects.all()
-    paginate_by = 3
     print(RecipeContent.objects.all())
 
     def get_context_data(self, **kwargs):
@@ -67,7 +86,7 @@ def index(request):
     sort = request.GET.get('sort', '')
 
     if sort == 'Rec_conLikesUser':
-        recipe_list = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
+        recipe_list = RecipeContent.objects.all().order_by('Rec_conPickCount', '-Rec_conModify')
         return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
     elif sort == 'Rec_conReadcount':
         recipe_list = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
@@ -198,7 +217,10 @@ def recipe_like(request):
 
     if recipe.Rec_conLikesUser.filter(id=user.id).exists():
         recipe.Rec_conLikesUser.remove(user)
-        recipe.Rec_conPickCount -= 1
+        if recipe.Rec_conPickCount == 0:
+            recipe.Rec_conPickCount == 0
+        else:
+            recipe.Rec_conPickCount -= 1
         recipe.save()
         message = '좋아요 취소'
     else:

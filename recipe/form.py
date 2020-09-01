@@ -1,4 +1,4 @@
-from django.contrib.auth import forms
+from django import forms
 from .models import RecipeContent, Reply
 
 class ReplyForm(forms.ModelForm):
