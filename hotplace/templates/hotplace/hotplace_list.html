@@ -44,19 +44,22 @@
         {% include "taggit/taggit_cloud2.html" %}
     </div>
 
-    <select id="sort-select" onchange="location = this.value;">
-        <option class="sort-modify_dt" value="/hotplace/">최신순</option>
-        <option class="sort-rating" value="?sort=rating">별점순</option>
-        <option class="sort-read_count" value="?sort=read_count">조회수순</option>
-      </select>
+   
 
-    {% if user.is_active %}
-    <div class="text-right mr-3" style="float:right;">
+    
+    <div class="text-right" style="float:right; margin-right:200px;">
+        <select id="sort-select" onchange="location = this.value;">
+            <option class="sort-modify_dt" value="/hotplace/">최신순</option>
+            <option class="sort-rating" value="?sort=rating">별점순</option>
+            <option class="sort-read_count" value="?sort=read_count">조회수순</option>
+        </select>
+        {% if user.is_active %}
         <a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'hotplace:add' %}">
             <i class="fas fa-pencil-alt"></i>글쓰기
         </a>
+        {% endif %}
     </div>
-    {% endif %}
+   
     <div class="container">
 
         <div class="row">
