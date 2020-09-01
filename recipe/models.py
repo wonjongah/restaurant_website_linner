@@ -131,12 +131,16 @@ class Reply(models.Model):
     # 댓글 번호
     Rep_conid = models.ForeignKey(RecipeContent, on_delete=models.CASCADE, related_name='content_id', blank=True, null=True)
     # 댓글 달 글번호
-    Rep_name = models.ForeignKey(RecipeContent, on_delete=models.CASCADE, related_name='content_member', blank=True, null=True)
+    Rep_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='content_member', blank=True, null=True)
     # 작성자
     Rep_content = models.TextField('CONTENT')
     # 댓글 내용
     Rep_date = models.DateTimeField(auto_now_add=True)
     # 댓글 작성 시간
+    Rep_update = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return (self.Rep_name.username if self.Rep_name else "무명")+ "의 댓글"
 
 
 class RecipeContentAttachFile(models.Model):

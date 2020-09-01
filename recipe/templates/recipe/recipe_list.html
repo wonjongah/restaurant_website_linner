@@ -15,7 +15,11 @@
         write</p>
 </a>
 {% endif %}
-
+<select id="sort-select" onchange="location = this.value;">
+    <option class="sort-date" value="?sort=Rec_conModify">최신순</option>
+    <option class="sort-view" value="?sort=Rec_conReadcount">조회순</option>
+    <option class="sort-likes" value="?sort=Rec_conLikesUser">좋아요순</option>
+</select>
 <hr>
 
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
@@ -200,8 +204,7 @@ body{
 {% if user.is_active %}
 
 <a href="{% url 'recipe:youtube_create' %}">
-    <p style="display:inline;font-family:georgia;float:right;font-size:33px;border-width: 2px;">
-        write</p>
+    <p style="display:inline;font-family:georgia;float:right;font-size:33px;border-width: 2px;">write</p>
 </a>
 {% endif %}
 <hr>
@@ -241,6 +244,32 @@ body{
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type='text/javascript'>
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+// 정렬방식 셀렉트 박스 유지
+$(document).ready(function(){
+  var sort = getUrlParameter('sort');
+  if(sort == 'likes'){
+    $('.sort-likes').prop('selected', 'selected')
+  }
+  else{
+    $('.sort-date').prop('selected', 'selected')
+  }
+});
+</script>
 <script type="text/javascript">
     $(".you_like").click(function () { // .like 버튼을 클릭 감지
         var pk = $(this).attr('name')  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -376,9 +405,36 @@ $(document).ready(function(){
     })
 }
 })
+</script>
+<script>
+    // get url query string
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
 
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
 
-
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+// 정렬방식 셀렉트 박스 유지
+$(document).ready(function(){
+  var sort = getUrlParameter('sort');
+  if(sort == 'Rec_conLikesUser'){
+    $('.sort-likes').prop('selected', 'selected')
+  }
+  else if(sort == 'Rec_conReadcount'){
+    $('.sort-view').prop('selected', 'selected')
+  }
+  else{
+    $('.sort-date').prop('selected', 'selected')
+  }
+});
 </script>
 
 </html>
