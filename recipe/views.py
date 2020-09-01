@@ -6,7 +6,6 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import ListView, DetailView
-# 부모클래스로 리스트뷰(목록보겠다)랑 디테일뷰(한 개를 자세히 보겠다)
 from django.views.generic.base import View
 
 from recipe.form import ReplyForm
@@ -72,28 +71,52 @@ class ImageView(TemplateView):
 
 class RecipeLV(ListView):
     context_object_name = 'recipe_list'
-    template_name = 'recipe/recipe_list.html'
-    queryset = RecipeContent.objects.all()
-    print(RecipeContent.objects.all())
+    # template_name = 'recipe/recipe_list.html'
+    # queryset = RecipeContent.objects.all()
+    # print(RecipeContent.objects.all())
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super(ListView, self).get_context_data(**kwargs)
+    #     context['youtube_list'] = YoutubeContent.objects.all()
+    #     # 한 뷰에 여러 개 모델 콘텍스트 가져오고 싶을 때!!!!!!!!!!!!!!!!!!!!!!!
+    #     return context
+    #
+    def get(self, request, *args, **kwargs):
 
-    def get_context_data(self, **kwargs):
-        context = super(ListView, self).get_context_data(**kwargs)
-        context['youtube_list'] = YoutubeContent.objects.all()
-        # 한 뷰에 여러 개 모델 콘텍스트 가져오고 싶을 때!!!!!!!!!!!!!!!!!!!!!!!
-        return context
 
-def index(request):
-    sort = request.GET.get('sort', '')
 
-    if sort == 'Rec_conPickCount':
-        recipe_list = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
-        return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
-    elif sort == 'Rec_conReadcount':
-        recipe_list = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
-        return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
-    else:
-        recipe_list = RecipeContent.objects.all().order_by('-Rec_conModify')
-        return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
+
+        queryset2 = YoutubeContent.objects.all()
+
+        sort = request.GET.get('sort', '')
+
+        if sort == 'Rec_conPickCount':
+            queryset = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset,
+               'youtube_list' : queryset2})
+        elif sort == 'Rec_conReadcount':
+            queryset = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset,
+               'youtube_list' : queryset2})
+        else:
+            queryset = RecipeContent.objects.all().order_by('-Rec_conModify')
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+
+
+
+#
+# def index(request):
+#     sort = request.GET.get('sort', '')
+#
+#     if sort == 'Rec_conPickCount':
+#         recipe_list = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
+#         return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
+#     elif sort == 'Rec_conReadcount':
+#         recipe_list = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
+#         return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
+#     else:
+#         recipe_list = RecipeContent.objects.all().order_by('-Rec_conModify')
+#         return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
 
 class RecipeDV(DetailView):
     model = RecipeContent
