@@ -85,8 +85,8 @@ class RecipeLV(ListView):
 def index(request):
     sort = request.GET.get('sort', '')
 
-    if sort == 'Rec_conLikesUser':
-        recipe_list = RecipeContent.objects.all().order_by('Rec_conPickCount', '-Rec_conModify')
+    if sort == 'Rec_conPickCount':
+        recipe_list = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
         return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
     elif sort == 'Rec_conReadcount':
         recipe_list = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
@@ -218,7 +218,7 @@ def recipe_like(request):
     if recipe.Rec_conLikesUser.filter(id=user.id).exists():
         recipe.Rec_conLikesUser.remove(user)
         if recipe.Rec_conPickCount == 0:
-            recipe.Rec_conPickCount == 0
+            recipe.Rec_conPickCount = 0
         else:
             recipe.Rec_conPickCount -= 1
         recipe.save()

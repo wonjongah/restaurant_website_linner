@@ -10,17 +10,16 @@
 {% endif %}
 <hr style="margin-left: -50%;margin-right: -50%;">
 <div class="container">
-    {% with count=1 %}
     <div class="row">
         {% for youtube in youtube_list %}
         <a href="{% url 'recipe:youtube_detail' youtube.You_conId %}">
 
             <div class="col-md-4 py-6">
                 <ul class="card" style="width:18em;max-height:300px;min-height:300px">
-                    <h2>{{ youtube.You_conName }}</h2>
-                    {{ youtube.You_conModify|date:"N d, Y" }}
-                    <p>{{ youtube.get_youtube_summary | safe}}</p>
 
+
+                    <p>{{ youtube.You_conContent | safe}}</p>
+                     <h2>{{ youtube.You_conName }}</h2>
 
                     <a class="btn btn-sm you_like" name="{{ youtube.You_conId }}" type="button" value="Like">
 
