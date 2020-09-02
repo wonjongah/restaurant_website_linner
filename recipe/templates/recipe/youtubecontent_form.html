@@ -60,30 +60,10 @@
 
 <script>
 
-<!--tinymce.init({-->
-<!--  selector: "textarea.tinymce",-->
-<!--  plugins: "media",-->
-<!--  toolbar1: "media",-->
-
-
-
-<!--  media_url_resolver: function (data, resolve/*, reject*/) {-->
-
-<!--      var embedHtml = '<iframe src="' + data.url.replace("watch?v=", "embed/") + '" width="300" height="200" allowfullscreen ></iframe>';-->
-<!--      resolve({html: embedHtml});-->
-
-<!--  }-->
-<!--});-->
-
-
-
-
-
-
 
 tinymce.init({
 	selector: 'textarea',
-	height: 600,
+	height: 400,
 	theme: 'modern',
 	plugins: [
 		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
@@ -91,8 +71,7 @@ tinymce.init({
 		'insertdatetime media nonbreaking save table contextmenu directionality',
 		'emoticons template paste textcolor colorpicker textpattern imagetools'
 	],
-	toolbar1: ' mySubmit | myButton | insertfile undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media fullscreen',
-	//toolbar2: 'print preview media | forecolor backcolor emoticons',
+	toolbar1: 'myButton',
 
 	image_advtab: true,
 	templates: [
