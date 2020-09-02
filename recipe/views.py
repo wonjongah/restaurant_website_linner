@@ -83,21 +83,16 @@ class RecipeLV(ListView):
     #
     def get(self, request, *args, **kwargs):
 
-
-
-
         queryset2 = YoutubeContent.objects.all()
 
         sort = request.GET.get('sort', '')
 
         if sort == 'Rec_conPickCount':
             queryset = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
-            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset,
-               'youtube_list' : queryset2})
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
         elif sort == 'Rec_conReadcount':
             queryset = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
-            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset,
-               'youtube_list' : queryset2})
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
         else:
             queryset = RecipeContent.objects.all().order_by('-Rec_conModify')
             return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
@@ -172,7 +167,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
 class YoutubeCreateView(LoginRequiredMixin, CreateView):
     model = YoutubeContent
-    fields = ['You_conName',  'You_conContent', 'You_conTags']
+    fields = ['You_conName', 'You_conContent', 'You_conTags']
     success_url = reverse_lazy('recipe:recipe_listview')
     template_name = 'recipe/youtubecontent_form.html'
 

@@ -17,6 +17,7 @@
         write</p>
 </a>
 {% endif %}
+&nbsp;&nbsp;
 <select id="sort-select" onchange="location = this.value;">
     <option class="sort-date" value="?sort=Rec_conModify">최신순</option>
     <option class="sort-view" value="?sort=Rec_conReadcount">조회순</option>
@@ -205,13 +206,13 @@ body{
 
 
         <div class="col-md-4 py-2">
-            <ul class="card" style="width:25em;height:18em">
+            <ul class="card" style="width:27em;height:23em">
                 <p>{{ youtube.You_conContent | safe}}</p>
-                <a href="{% url 'recipe:youtube_detail' youtube.You_conId %}">
-                    <h2>{{ youtube.You_conName }}</h2>
-                </a>
 
-                <br><br><br><br>
+                    <h4>{{ youtube.You_conName }}</h4>
+
+
+
 
                 <p style="display:inline;font-family:georgia;">by. {{youtube.You_conMemID}}
 
