@@ -2,6 +2,41 @@
 
 {% block title %}hotplace_archive.html{% endblock %}
 
+{% block extra-style %}
+
+<style>
+    .star_back{
+        width:100px;
+        position:relative;
+    }
+    .star{
+        background-color:gold;
+        position:absolute;
+        height:18px;
+        z-index:100;
+    }
+    .star_img{
+        width:100%;
+
+        position:absolute;
+        height:18px;
+        z-index:110;
+    }
+    .card-horizontal{
+        display:flex;
+        flex: 1 1 auto;
+    }
+    a{
+    color:black;
+    }
+
+
+
+
+
+
+</style>
+{% endblock %}
 
 {% block content %}
 <!--<h1>Hotplace Archives until {% now 'b d,Y' %}</h1>-->

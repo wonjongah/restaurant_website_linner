@@ -13,11 +13,30 @@ from django.db.models import Q
 from django.shortcuts import render
 from .forms import PostSearchForm
 
+import datetime
+
 class ImageView(TemplateView):
     template_name = 'tinymce/popup/photo_upload.html'
 
 class HomeView(TemplateView):
     template_name = 'home.html'
+
+class HomeView2(ListView):
+    model = Hotplace
+    template_name = 'home2.html'
+    context_object_name = 'hotplaces'
+
+    def get_queryset(self):
+        qs = super().get_queryset() 
+        # filter by a variable captured from url, for example
+        mon= datetime.datetime.now().month
+        return   qs.filter(create_dt__month= mon)
+        
+
+    def get_ordering(self):
+        orderBy = '-rating'
+        return orderBy
+
 class UserCreateView(CreateView):
     template_name = 'registration/signup.html'
     form_class = CreateUserForm

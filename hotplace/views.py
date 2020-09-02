@@ -24,9 +24,29 @@ class HotplaceLV(ListView):
     template_name = 'hotplace/hotplace_printlist.html'
     context_object_name = 'hotplaces'
 
+    def get_ordering(self):
+        orderBy = self.request.GET.get('sort')
+
+        if orderBy == 'rating' or orderBy =='read_count':
+            return '-'+orderBy
+        
+
+        return orderBy
+
 
 class HotplaceDV(DetailView):
     model = Hotplace
+    context_object_name = 'hotplace'
+    template_name = 'hotplace/hotplace_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        hotplace_post = self.get_object()
+        hotplace_post.read_count += 1
+        hotplace_post.save()
+        return context
+
+
 
 # Tag View
 class TagCloudTV(TemplateView):
@@ -111,8 +131,6 @@ def download(request,id):
     file_path = os.path.join(settings.MEDIA_ROOT,str(file.upload_file))
 
     return FileResponse(open(file_path,'rb'))
-
-
 
 
 

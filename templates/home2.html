@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}hotplace_list.html{% endblock %}
+
 
 {% block extra-style %}
 
@@ -31,52 +31,28 @@
     }
 
 
-
-
-
-
 </style>
 {% endblock %}
-
 {% block content %}
+
 <div>
-    <div class="container">
-        {% include "taggit/taggit_cloud2.html" %}
-    </div>
-
-   
-
-    
-    <div class="text-right" style="float:right; margin-right:200px;">
-        <select id="sort-select" onchange="location = this.value;">
-            <option class="sort-modify_dt" value="/hotplace/">최신순</option>
-            <option class="sort-rating" value="?sort=rating">별점순</option>
-            <option class="sort-read_count" value="?sort=read_count">조회수순</option>
-        </select>
-        {% if user.is_active %}
-        <a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'hotplace:add' %}">
-            <i class="fas fa-pencil-alt"></i>글쓰기
-        </a>
-        {% endif %}
-    </div>
-   
     <div class="container">
 
         <div class="row">
-            {% for hotplace in hotplaces %}
+            {% for hotplace in object_list %}
+            {% if hotplace.rating >= 4   %}
             <div class="col-lg-6  col-md-6 col-sm-12 my-3">
                 <div class="card">
                     <div class="card-horizontal">
-
+                        
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a class="card-link stretched-link" href="{% url 'hotplace:detail' hotplace.id %}">{{hotplace.title}}</a>
-                            </h4>
+                                <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">{{hotplace.title}}</a></h4>
                             <div style="height:15px;">
                                 <div class="star_back">
                                     <div class="star" style="width:calc(20% * {{hotplace.rating}})"></div>
-                                    <img alt="{{hotplace.rating}}" class="star_img"
-                                         src="{% static 'images/stars.png' %}"
+                                    <img class="star_img" src="{% static 'images/stars.png' %}"
+                                         alt="{{hotplace.rating}}"
                                          title="{{hotplace.rating}}">
                                 </div>
                             </div>
@@ -93,7 +69,7 @@
                         <div class="img-square-wrapper">
                             {% for file in hotplace.files.all|slice:":1" %}
                             <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">
-                                <img id="image" src="{% url 'hotplace:download' file.id %}" style="height:300px; width:400px;">
+                                <img id="image" src="{% url 'hotplace:download' file.id %}" style="height:100%; width:100%;">
                             </a>
                             {% endfor %}
 
@@ -103,6 +79,7 @@
                 </div>
 
             </div>
+            {% endif %}
             {% endfor %}
         </div>
 
@@ -111,36 +88,5 @@
 </div>
 
 {% endblock %}
-
 {% block extra-script %}
-<script>
-    var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-    };
-    // 정렬방식 셀렉트 박스 유지
-    $(document).ready(function(){
-    var sort = getUrlParameter('sort');
-    if(sort == 'rating'){
-        $('.sort-rating').prop('selected', 'selected')
-    }else if(sort == 'read_count'){
-        $('.sort-read_count').prop('selected', 'selected')
-    }else{
-        $('.sort-modify_dt').prop('selected', 'selected')
-    }
-    })
-    
-    
-
-</script>
 {% endblock %}
