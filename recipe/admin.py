@@ -10,7 +10,7 @@ class RecipeAdmin(admin.ModelAdmin):
     search_fields = ('Rec_conName','Rec_conContent')
 
     def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related('tags')
+        return super().get_queryset(request).prefetch_related('Rec_conTags')
 
     def tag_list(self,obj):
         return ','.join(o.name for o in obj.tags.all())

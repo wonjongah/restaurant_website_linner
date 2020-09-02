@@ -23,130 +23,210 @@
 
 
 
-
-
-
-<!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>사진 첨부하기 ::</title>
+    <title>youtube vidoe search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+</head>
+<body>
 
-	<style type="text/css">
+<br>
+<h1>Mini Youtube</h1>
+<br><br>
+<form id="form">
+    <div class="form-group">
+        <input type="text" class="form-control" id="search">
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-danger" value="Search">
+    </div>
+</form>
 
-		body,h1{font-family:'돋움',Dotum,Helvetica,sans-serif;font-size:12px; margin: 0; padding: 0;}
-		h1{color:#333;font-size:14px;letter-spacing:-1px}
-		button{width: 70px; height: 25px; font-weight: bold; cursor: pointer;}
+<div class="row">
+    <div class="col-md-12">
 
-		#pop_wrap{width:383px}
-		#pop_header{height:26px;padding:14px 0 0 20px;border-bottom:1px solid #ededeb;background:#f4f4f3}
-		.pop_container{padding:11px 20px 0}
-		#pop_footer{margin:21px 20px 0;padding:10px 0 16px;border-top:1px solid #e5e5e5;text-align:center}
-		.btn_area{word-spacing:2px}
-		.pop_container2{padding:46px 60px 20px}
-		.pop_container2 .dsc{margin-top:10px;color:#666;line-height:18px}
-		.pop_container2 .dsc strong{color:#13b72a}
-		.upload{margin:0 4px 0 0;_margin:0;padding:6px 0 4px 6px;border:solid 1px #d5d5d5;color:#a1a1a1;font-size:12px;border-right-color:#efefef;border-bottom-color:#efefef;length:300px;}
-
-	</style>
+        <div id="videos">
+        </div>
+    </div>
+</div>
 
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
 
 
+$(document).ready(function(){
 
-function submit_to()
-{
+    var API_KEY = "AIzaSyDKH4KaYVdOJjN5HTg-PxFlGBEWekU3pVc"
+    var video = ''
+
+    $('#form').submit(function(event){
+        event.preventDefault()
+
+        var search = $("#search").val()
+        videoSearch(API_KEY, search, 10)
+
+})
+
+      $('#videos').onclick(function(event){
+        event.preventDefault()
+
+        var link = $("#videos").val()
+
+
+      })
+
+    function videoSearch(key, search, maxResults){
+
+        $('#videos').empty()
+
+        $.get("https://www.googleapis.com/youtube/v3/search?key=" + key + "&type=video&part=snippet&maxResults="
+        + maxResults + "&q=" + search,function(data){
+        console.log(data);
+
+         data.items.forEach(item => {
+        video =`
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/${item.id.videoId}" frameborder="0" allowfullscreen></iframe>
+
+        `
+          $('#videos').append(video + "<p>haha ha</p>")
 
 
 
+        });
 
-    var frm = document.editor_upimage;
-    var tempImg2 = frm.rs_data;
-
-
-
-
-
-	var tempImg = "<p><img src='http://dev.songtory.com/play.jpg' /></p>";
-	opener.tinymce.activeEditor.execCommand("mceInsertContent",false, frm.uploadInputBox.value);
-
-
-
-	if(frm.uploadInputBox.value =="")
-	{
-		alert("파일을 추가해주세요.");
-		return false;
-	}
-
-	frm.submit();
-    self.close();
+    })
 }
-
-function pop_close(){
-
-	self.close();
-}
-
-
-
+})
 
 </script>
 
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--	<meta charset="UTF-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge" />-->
+<!--	<title>사진 첨부하기 ::</title>-->
+
+<!--	<style type="text/css">-->
+
+<!--		body,h1{font-family:'돋움',Dotum,Helvetica,sans-serif;font-size:12px; margin: 0; padding: 0;}-->
+<!--		h1{color:#333;font-size:14px;letter-spacing:-1px}-->
+<!--		button{width: 70px; height: 25px; font-weight: bold; cursor: pointer;}-->
+
+<!--		#pop_wrap{width:383px}-->
+<!--		#pop_header{height:26px;padding:14px 0 0 20px;border-bottom:1px solid #ededeb;background:#f4f4f3}-->
+<!--		.pop_container{padding:11px 20px 0}-->
+<!--		#pop_footer{margin:21px 20px 0;padding:10px 0 16px;border-top:1px solid #e5e5e5;text-align:center}-->
+<!--		.btn_area{word-spacing:2px}-->
+<!--		.pop_container2{padding:46px 60px 20px}-->
+<!--		.pop_container2 .dsc{margin-top:10px;color:#666;line-height:18px}-->
+<!--		.pop_container2 .dsc strong{color:#13b72a}-->
+<!--		.upload{margin:0 4px 0 0;_margin:0;padding:6px 0 4px 6px;border:solid 1px #d5d5d5;color:#a1a1a1;font-size:12px;border-right-color:#efefef;border-bottom-color:#efefef;length:300px;}-->
+
+<!--	</style>-->
+
+
+
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+<!--<script>-->
+
+
+
+
+<!--function submit_to()-->
+<!--{-->
+
+
+
+
+<!--    var frm = document.editor_upimage;-->
+<!--    var tempImg2 = frm.rs_data;-->
 
 
 
 
 
-    <style>
-  .thumb {
-    height: 75px;
-    border: 1px solid #000;
-    margin: 10px 5px 0 0;
-  }
-</style>
+<!--	var tempImg = "<p><img src='http://dev.songtory.com/play.jpg' /></p>";-->
+<!--	opener.tinymce.activeEditor.execCommand("mceInsertContent",false, frm.uploadInputBox.value);-->
 
-<input type="file" id="files" name="files[]" multiple />
-<output id="list"></output>
 
-<script>
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
 
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
+<!--	if(frm.uploadInputBox.value =="")-->
+<!--	{-->
+<!--		alert("파일을 추가해주세요.");-->
+<!--		return false;-->
+<!--	}-->
 
-      // Only process image files.
-      if (!f.type.match('image.*')) {
-        continue;
-      }
+<!--	frm.submit();-->
+<!--    self.close();-->
+<!--}-->
 
-      var reader = new FileReader();
+<!--function pop_close(){-->
 
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // Render thumbnail.
-          var span = document.createElement('span');
-          span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                            '" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('list').insertBefore(span, null);
-        };
-      })(f);
+<!--	self.close();-->
+<!--}-->
 
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
 
-    }
-  }
 
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-</script>
+
+<!--</script>-->
+
+
+
+
+
+
+<!--    <style>-->
+<!--  .thumb {-->
+<!--    height: 75px;-->
+<!--    border: 1px solid #000;-->
+<!--    margin: 10px 5px 0 0;-->
+<!--  }-->
+<!--</style>-->
+
+<!--<input type="file" id="files" name="files[]" multiple />-->
+<!--<output id="list"></output>-->
+
+<!--<script>-->
+<!--  function handleFileSelect(evt) {-->
+<!--    var files = evt.target.files; // FileList object-->
+
+<!--    // Loop through the FileList and render image files as thumbnails.-->
+<!--    for (var i = 0, f; f = files[i]; i++) {-->
+
+<!--      // Only process image files.-->
+<!--      if (!f.type.match('image.*')) {-->
+<!--        continue;-->
+<!--      }-->
+
+<!--      var reader = new FileReader();-->
+
+<!--      // Closure to capture the file information.-->
+<!--      reader.onload = (function(theFile) {-->
+<!--        return function(e) {-->
+<!--          // Render thumbnail.-->
+<!--          var span = document.createElement('span');-->
+<!--          span.innerHTML = ['<img class="thumb" src="', e.target.result,-->
+<!--                            '" title="', escape(theFile.name), '"/>'].join('');-->
+<!--          document.getElementById('list').insertBefore(span, null);-->
+<!--        };-->
+<!--      })(f);-->
+
+<!--      // Read in the image file as a data URL.-->
+<!--      reader.readAsDataURL(f);-->
+
+<!--    }-->
+<!--  }-->
+
+<!--  document.getElementById('files').addEventListener('change', handleFileSelect, false);-->
+<!--</script>-->
 
 
 
