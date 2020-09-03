@@ -151,7 +151,6 @@ html {
 
 body{
   font-family: 'Nunito', sans-serif;
-  padding: 50px;
 }
 .card{
     border-radius: 4px;
@@ -164,7 +163,6 @@ body{
 
 .card:hover{
      transform: scale(1.05);
-<!--  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);-->
 }
 
 .card h3{
@@ -202,12 +200,12 @@ body{
 <a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:youtube_create' %}" style="float:right;">
 <i class="fas fa-pencil-alt"></i>&nbsp;w r i t e</a>
 {% endif %}
-<select id="sort-select" onchange="location = this.value;">
+<select id="sort-select" onchange="location = this.value;"  style="float:right;margin-top:43px;margin-right:5px;">
     <option class="sort-date" value="?sort=You_conModify">최신순</option>
     <option class="sort-view" value="?sort=You_conReadcount">조회순</option>
     <option class="sort-likes" value="?sort=You_conPickCount">좋아요순</option>
 </select>
-<hr>
+<br><br><br>
 <div class="container">
 
     <div class="row">
