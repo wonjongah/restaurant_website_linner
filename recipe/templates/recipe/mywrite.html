@@ -34,14 +34,6 @@
 
 
         <a class="btn btn-sm rec_like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
-            <!--	  <span-->
-            <!--				  class="glyphicon-->
-            <!--				    {% if user in recipe.Rec_conLikesUser.all %}-->
-            <!--				      glyphicon-heart-->
-            <!--						{% else %}-->
-            <!--							glyphicon-heart-empty-->
-            <!--						{% endif %}"-->
-            <!--				  aria-hidden="true"></span>-->
 
             {% if user in recipe.Rec_conLikesUser.all %}
             <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
@@ -134,7 +126,7 @@ html {
 
 body{
   font-family: 'Nunito', sans-serif;
-  padding: 50px;
+<!--  padding: 50px;-->
 }
 .card{
     border-radius: 4px;
@@ -161,26 +153,7 @@ body{
   max-height: 120px;
 }
 
-.card-1{
-  background-image: url(https://ionicframework.com/img/getting-started/ionic-native-card.png);
-      background-repeat: no-repeat;
-    background-position: right;
-    background-size: 80px;
-}
 
-.card-2{
-   background-image: url(https://ionicframework.com/img/getting-started/components-card.png);
-      background-repeat: no-repeat;
-    background-position: right;
-    background-size: 80px;
-}
-
-.card-3{
-   background-image: url(https://ionicframework.com/img/getting-started/theming-card.png);
-      background-repeat: no-repeat;
-    background-position: right;
-    background-size: 80px;
-}
 
 @media(max-width: 990px){
   .card{

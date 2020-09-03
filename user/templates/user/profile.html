@@ -7,11 +7,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<style>
 		.round {border-radius: 50%;}
-</style>
+        </style>
 	</head>
 	<body class="no-sidebar is-preload">
 <!-- Nav -->
-{% include 'nav.html' %}
+        {% include 'nav.html' %}
 			<!-- Main -->
 			<div align="center">
 		<div class="card" style="width:400px" align="left">
@@ -24,22 +24,25 @@
 
     <div class="card-body">
         {% if user.profile.nickname %}
-        <h4 class="card-title">{{user.profile.nickname}}</h4>
+        <center>
+        <h4 class="card-title" style="font-family:'바탕체';font-weight:bold;">{{user.profile.nickname}}</h4>
         {% else %}
-        <h4 class="card-title">{{user.username}}</h4>
+        <h4 class="card-title" style="font-family:'바탕체';">{{user.username}}</h4>
         {% endif %}
 
-        <p class="card-text">email: {{user.email}}</p>
+        <p class="card-text" style="font-family:'바탕체';">email: {{user.email}}</p>
 
         {% if user.profile.intro %}
-        <p class="card-text">intro: {{user.profile.intro}}</p>
+        <p class="card-text" style="font-family:'바탕체';">intro: {{user.profile.intro}}</p>
         {% endif %}
 
         {% if user.profile.phone %}
-        <p class="card-text">phone: {{user.profile.phone}}</p>
-        {% endif %}
-
-        <a href="{% url 'user:profile_update' %}" class="btn btn-light">프로필 편집</a>
+        <p class="card-text" style="font-family:'바탕체';">phone: {{user.profile.phone}}</p>
+        {% endif %}</center>
+<center>
+    <br>
+        <a href="{% url 'user:profile_update' %}" class="btn btn-light" style="font-family:'바탕체';">프로필 편집</a>
+    </center>
     </div>
 </div>
 

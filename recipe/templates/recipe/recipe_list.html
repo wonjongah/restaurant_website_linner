@@ -7,36 +7,38 @@
 
     {% include "taggit/taggit_cloud3.html" %}
 
+
 </div>
 <hr>
-<p style="display:inline;font-family:georgia;font-size:50px"> our recipe </p>
+<br><br>
+<center>
+<p style="display:inline;font-family:georgia;font-size:50px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O U R &nbsp; R E C I P E </p>
 {% if user.is_active %}
 
-<a href="{% url 'recipe:recipe_create' %}">
-    <p style="display:inline;font-family:georgia;float:right;font-size:33px;border-width: 2px;">
-        write</p>
-</a>
+<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:recipe_create' %}" style="float:right;">
+<i class="fas fa-pencil-alt"></i>&nbsp;w r i t e</a>
 {% endif %}
 &nbsp;&nbsp;
-<select id="sort-select" onchange="location = this.value;">
+<select id="sort-select" onchange="location = this.value;" style="float:right;margin-top:43px;margin-right:5px;">
     <option class="sort-date" value="?sort=Rec_conModify">최신순</option>
     <option class="sort-view" value="?sort=Rec_conReadcount">조회순</option>
     <option class="sort-likes" value="?sort=Rec_conPickCount">좋아요순</option>
 </select>
-<hr>
 
+</center>
+<br><br><br>
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
-<div class="container">
+<div class="container" style="background-color:#FAFAFA;">
 
     <div class="row">
 
 
         {% for recipe in recipe_list|slice:":3" %}
         <div class="col-md-4 py-2">
-            <ul class="card" style="width:25em;height:18em">
-                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}">
-                    <h4>{{ recipe.Rec_conName }}</h4>
+            <ul class="card" style="width:27em;height:23.2em">
+                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}" style="color:black;">
+                    <p style="font-family:'바탕체';font-weight:bold;font-size:2em;">{{ recipe.Rec_conName }}</p>
 
                 </a>
 
@@ -44,12 +46,12 @@
                 {% for file in recipe.files.all %}
 
                 <img id="image" src="{% url 'recipe:recipe_download' file.id %}"
-                     style="float:right;width:10em;height:10em;">
+                     style="float:right;width:13em;height:12em;">
 
                 {% endfor %}
 
 
-                <p>{{ recipe.get_recipe_summary | safe}}</p>
+                <p style="font-family:'바탕체';">{{ recipe.get_recipe_summary | safe}}</p>
 
 
                 <br><br><br><br>
@@ -65,7 +67,7 @@
                         <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
                         {% endif %}
 
-                <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;">
+                <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;font-family:'바탕체';">
                     좋아요&nbsp;{{ recipe.Rec_conLikesUser.all.count }}개</p>
                 </a>
 
@@ -115,10 +117,9 @@
 <style>
 
 html {
-  background: #FAF7F2;
+
   background-image: url(https://s3.postimg.org/s1n3ji1ur/paper_fibers_2_X.png);
   box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
   font-size: 14px;
   font-weight: 400;
 }
@@ -150,12 +151,15 @@ html {
 
 body{
   font-family: 'Nunito', sans-serif;
-  padding: 50px;
+<<<<<<< HEAD
+=======
+  /* padding: 50px; */
+>>>>>>> firstpage
 }
 .card{
     border-radius: 4px;
     background: #fff;
-    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+
       transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
   padding: 14px 80px 18px 36px;
   cursor: pointer;
@@ -163,7 +167,6 @@ body{
 
 .card:hover{
      transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
 .card h3{
@@ -190,15 +193,23 @@ body{
 </style>
 
 <br>
-<hr>
-<p style="display:inline;font-family:georgia;font-size:50px;"> youtube recipe </p>
+<br>
+<br>
+
+<center>
+<p style="display:inline;font-family:georgia;font-size:50px">Y O U T U B E &nbsp; R E C I P E </p>
+    </center>
 {% if user.is_active %}
 
-<a href="{% url 'recipe:youtube_create' %}">
-    <p style="display:inline;font-family:georgia;float:right;font-size:33px;border-width: 2px;">write</p>
-</a>
+<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:youtube_create' %}" style="float:right;">
+<i class="fas fa-pencil-alt"></i>&nbsp;w r i t e</a>
 {% endif %}
-<hr>
+<select id="sort-select" onchange="location = this.value;"  style="float:right;margin-top:43px;margin-right:5px;">
+    <option class="sort-date" value="?sort=You_conModify">최신순</option>
+    <option class="sort-view" value="?sort=You_conReadcount">조회순</option>
+    <option class="sort-likes" value="?sort=You_conPickCount">좋아요순</option>
+</select>
+<br><br><br>
 <div class="container">
 
     <div class="row">
@@ -206,10 +217,10 @@ body{
 
 
         <div class="col-md-4 py-2">
-            <ul class="card" style="width:27em;height:26em">
-                <p>{{ youtube.You_conContent | safe}}</p>
+            <ul class="card" style="width:27em;height:29em">
+                <p style="font-family:'바탕체';">{{ youtube.You_conContent | safe}}</p>
 
-                    <h4>{{ youtube.You_conName }}</h4>
+                    <p style="font-family:'바탕체';font-weight:bold;font-size:1.9em;">{{ youtube.You_conName }}</p>
 
 
 
@@ -225,7 +236,7 @@ body{
                         <i class="far fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
                         {% endif %}
                     </a>
-                <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;">
+                <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;font-family:'바탕체';">
                     좋아요&nbsp;{{ youtube.You_conLikesUser.all.count }}개</p>
             </ul>
         </div>
@@ -324,6 +335,15 @@ $(document).ready(function(){
     $('.sort-likes').prop('selected', 'selected')
   }
   else if(sort == 'Rec_conReadcount'){
+    $('.sort-view').prop('selected', 'selected')
+  }
+  else if(sort == 'Rec_conModify'){
+    $('.sort-date').prop('selected', 'selected')
+  }
+  else if(sort == 'You_conLikesUser'){
+    $('.sort-likes').prop('selected', 'selected')
+  }
+  else if(sort == 'You_conReadcount'){
     $('.sort-view').prop('selected', 'selected')
   }
   else{

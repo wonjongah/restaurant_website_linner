@@ -1,5 +1,12 @@
+<head>
+    {% load static %}
+    {% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock %}
+</head>
+{% block content %}
 <br>
-<hr style="margin-left: -50%;margin-right: -50%;">
+<hr>
 <p style="display:inline;font-family:georgia;margin-left:-27%;font-size:50px"> youtube recipe </p>
 {% if user.is_active %}
 
@@ -8,7 +15,7 @@
         write</p>
 </a>
 {% endif %}
-<hr style="margin-left: -50%;margin-right: -50%;">
+<hr>
 <div class="container">
     <div class="row">
         {% for youtube in youtube_list %}

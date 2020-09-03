@@ -21,21 +21,35 @@ class ImageView(TemplateView):
 class HomeView(TemplateView):
     template_name = 'home.html'
 
+# class HomeView2(ListView):
+#     model = Hotplace
+#     template_name = 'home2.html'
+#     context_object_name = 'hotplaces'
+#
+#     def get_queryset(self):
+#         qs = super().get_queryset()
+#         # filter by a variable captured from url, for example
+#         mon= datetime.datetime.now().month
+#         return   qs.filter(create_dt__month= mon)
+#
+#
+#     def get_ordering(self):
+#         orderBy = '-rating'
+#         return orderBy
+
 class HomeView2(ListView):
-    model = Hotplace
-    template_name = 'home2.html'
-    context_object_name = 'hotplaces'
+    context_object_name = "hotplaces"
 
-    def get_queryset(self):
-        qs = super().get_queryset() 
-        # filter by a variable captured from url, for example
-        mon= datetime.datetime.now().month
-        return   qs.filter(create_dt__month= mon)
+    
+    def get(self, request, *args, **kwargs):
         
+        queryset = Hotplace.objects.all().order_by('-rating', '-read_count')[0:4]
+        queryset2 = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conReadcount')[0:4]
 
-    def get_ordering(self):
-        orderBy = '-rating'
-        return orderBy
+        return render(request, 'home2.html', {'recipe_list': queryset2, 'hotplaces': queryset})
+
+
+
 
 class UserCreateView(CreateView):
     template_name = 'registration/signup.html'
