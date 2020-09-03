@@ -15,8 +15,8 @@
 <p style="display:inline;font-family:georgia;font-size:50px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O U R &nbsp; R E C I P E </p>
 {% if user.is_active %}
 
-<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:recipe_create' %}" style="float:right;">
-<i class="fas fa-pencil-alt"></i>&nbsp;w r i t e</a>
+<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:recipe_create' %}" style="float:right;color:black;">
+<i class="fas fa-pencil-alt" style="color:black;"></i>&nbsp;w r i t e</a>
 {% endif %}
 &nbsp;&nbsp;
 <select id="sort-select" onchange="location = this.value;" style="float:right;margin-top:43px;margin-right:5px;">
@@ -199,8 +199,8 @@ body{
     </center>
 {% if user.is_active %}
 
-<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:youtube_create' %}" style="float:right;">
-<i class="fas fa-pencil-alt"></i>&nbsp;w r i t e</a>
+<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:youtube_create' %}" style="float:right;color:black;" >
+<i class="fas fa-pencil-alt" style="color:black;"></i >&nbsp;w r i t e</a>
 {% endif %}
 <br><br>
 <div class="container"  style="background-color:#FAFAFA;">
