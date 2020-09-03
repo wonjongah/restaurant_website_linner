@@ -40,14 +40,22 @@
 
 {% block content %}
 <div>
+    <hr>
     <div class="container">
+
         {% include "taggit/taggit_cloud2.html" %}
     </div>
+<hr>
+    <br><br>
 
    
-
+<center>
+<p style="display:inline;font-family:georgia;font-size:50px">H O T P L A C E</p>
+    <br>
+    <br>
+    </center>
     
-    <div class="text-right" style="float:right; margin-right:200px;">
+    <div class="text-right" style="float:right; margin-right:200px;margin-bottom:100px;">
         <select id="sort-select" onchange="location = this.value;">
             <option class="sort-modify_dt" value="/hotplace/">최신순</option>
             <option class="sort-rating" value="?sort=rating">별점순</option>
@@ -59,18 +67,18 @@
         </a>
         {% endif %}
     </div>
-   
-    <div class="container">
 
-        <div class="row">
+    <div class="container" >
+
+        <div class="row" >
             {% for hotplace in hotplaces %}
             <div class="col-lg-6  col-md-6 col-sm-12 my-3">
-                <div class="card">
+                <div class="card" >
                     <div class="card-horizontal">
 
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a class="card-link stretched-link" href="{% url 'hotplace:detail' hotplace.id %}">{{hotplace.title}}</a>
+                                <a class="card-link stretched-link" href="{% url 'hotplace:detail' hotplace.id %}" style="font-family:'바탕체';">{{hotplace.title}}</a>
                             </h4>
                             <div style="height:15px;">
                                 <div class="star_back">
@@ -79,13 +87,14 @@
                                          src="{% static 'images/stars.png' %}"
                                          title="{{hotplace.rating}}">
                                 </div>
+                                <br>
                             </div>
                             <div>
                                 <b>TAGS</b><i class="fas fa-tag"></i>
                                 {% load taggit_templatetags2_tags %}
                                 {% get_tags_for_object hotplace as "tags" %}
                                 {% for tag in tags %}
-                                <a href="{%url 'hotplace:tagged_object_list' tag.name%}">{{tag.name}}</a>
+                                <a href="{%url 'hotplace:tagged_object_list' tag.name%}" style="font-family:'바탕체';">{{tag.name}}</a>
                                 {% endfor %}
 
                             </div>
