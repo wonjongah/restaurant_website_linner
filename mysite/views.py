@@ -40,11 +40,15 @@ class HomeView(TemplateView):
 class HomeView2(ListView):
     context_object_name = "hotplaces"
 
+    
     def get(self, request, *args, **kwargs):
-        queryset = Hotplace.objects.all().order_by('-rating')
-        queryset2 = RecipeContent.objects.all().order_by('-Rec_conReadcount')
+        queryset = Hotplace.objects.all().order_by('-rating','-read_count')[0:4]
+        queryset2 = RecipeContent.objects.all().order_by('-Rec_conPickCount','-Rec_conReadcount')[0:4]
 
         return render(request, 'home2.html', {'recipe_list':queryset2, 'hotplaces':queryset})
+
+
+
 
 
 class UserCreateView(CreateView):
