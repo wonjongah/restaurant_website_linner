@@ -372,9 +372,9 @@ ul, ol {
                             <a class="btn btn-sm rec_like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
 
 
-                                {% if user in recipe.Rec_conLikesUser.all %}
+                                {% if user in recipe.Rec_conLikesUser.all %}&nbsp;
                                 <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
-                                {% else %}
+                                {% else %}&nbsp;
                                 <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
                                 {% endif %}
 

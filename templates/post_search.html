@@ -1,61 +1,66 @@
 {% extends "base.html" %}
 {% block title %}post_search.html{% endblock %}
 {% block content %}
+<div class="container">
 
-<h1>Search</h1>
 
-<br>
+    <br><br><br><br>
+    <center>
+        <p style="display:inline;font-family:georgia;font-size:50px;display:block;">S E A R C H </p>
+        <p style="font-size:1.2em;font-family:'바탕체';color:#848484;">검색어를 입력해주세요</p>
 
-<form action="." method="post"> {% csrf_token %}
+        <br>
+        <br>
+        <form action="." method="post"> {% csrf_token %}
 
-{{ form.as_table }}
+            {{ form.as_table }}
 
-<input type="submit" value="Submit" class="btn btn-primary btn-sm">
+            <input type="submit" value="Submit" class="btn btn-light btn-sm">
 
-</form>
+        </form>
 
-<br/>
-<br/>
+        <br/>
+        <br/>
 
-{% if recipe_search %}
+        {% if recipe_search %}
 
-{% for recipe in recipe_search %}
+        {% for recipe in recipe_search %}
 
-<h2><a href='{% url "recipe:recipe_detail" recipe.Rec_conId %}'>{{ recipe.Rec_conName }}</a></h2>
+        <h2><a href='{% url "recipe:recipe_detail" recipe.Rec_conId %}'>{{ recipe.Rec_conName }}</a></h2>
 
-{{ recipe.Rec_conModify|date:"N d, Y" }}
+        {{ recipe.Rec_conModify|date:"N d, Y" }}
         <p>{{ recipe.get_recipe_summary | safe}}</p>
 
-{% endfor %}
-{% endif %}
+        {% endfor %}
+        {% endif %}
 
-{% if youtube_search %}
+        {% if youtube_search %}
 
-{% for youtube in youtube_search %}
+        {% for youtube in youtube_search %}
 
-<h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}'>{{ youtube.You_conName }}</a></h2>
+        <h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}'>{{ youtube.You_conName }}</a></h2>
 
-{{ youtube.You_conModify|date:"N d, Y" }}
-<p>{{ youtube.get_youtube_summary | safe}}</p>
+        {{ youtube.You_conModify|date:"N d, Y" }}
+        <p>{{ youtube.get_youtube_summary | safe}}</p>
 
-{% endfor %}
-{% endif %}
+        {% endfor %}
+        {% endif %}
 
 
-{% if hot_search %}
+        {% if hot_search %}
 
-{% for hot in hot_search %}
+        {% for hot in hot_search %}
 
-<h2><a href="{% url 'hotplace:detail' hot.id %}">{{ hot.title }}</a></h2>
+        <h2><a href="{% url 'hotplace:detail' hot.id %}">{{ hot.title }}</a></h2>
 
-{{ hot.modify_dt|date:"N d, Y" }}
+        {{ hot.modify_dt|date:"N d, Y" }}
         <p>{{ hot.content | safe}}</p>
 
-{% endfor %}
+        {% endfor %}
 
-{% endif %}
-
-
+        {% endif %}
+</div>
+</center>
 
 
 {% endblock %}

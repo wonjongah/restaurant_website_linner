@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content%}
-<div align=center>
+{% load static %}
         {% include 'nav.html' %}
-</div>
+
 
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
@@ -11,11 +11,15 @@
     <div class="row">
 
 
-        {% for recipe in user_posts|slice:":3" %}
+
+    <div class="row">
+
+
+        {% for recipe in user_posts %}
         <div class="col-md-4 py-2">
-            <ul class="card" style="width:25em;height:18em">
-                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}">
-                    <h4>{{ recipe.Rec_conName }}</h4>
+            <ul class="card" style="width:23em;height:23.2em">
+                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}" style="color:black;">
+                    <p style="font-family:'바탕체';font-weight:bold;font-size:2em;">{{ recipe.Rec_conName }}</p>
 
                 </a>
 
@@ -23,12 +27,12 @@
                 {% for file in recipe.files.all %}
 
                 <img id="image" src="{% url 'recipe:recipe_download' file.id %}"
-                     style="float:right;width:10em;height:10em;">
+                     style="float:right;width:13em;height:12em;">
 
                 {% endfor %}
 
 
-                <p>{{ recipe.get_recipe_summary | safe}}</p>
+                <p style="font-family:'바탕체';">{{ recipe.get_recipe_summary | safe}}</p>
 
 
                 <br><br><br><br>
@@ -44,7 +48,7 @@
                         <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
                         {% endif %}
 
-                <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;">
+                <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;font-family:'바탕체';">
                     좋아요&nbsp;{{ recipe.Rec_conLikesUser.all.count }}개</p>
                 </a>
 
@@ -54,6 +58,7 @@
         </div>
         {% endfor %}
     </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -95,12 +100,9 @@
 <style>
 
 html {
-  background: #FAF7F2;
-  background-image: url(https://s3.postimg.org/s1n3ji1ur/paper_fibers_2_X.png);
+
   box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
+
 }
 
 *, *:before, *:after {
@@ -157,26 +159,6 @@ body{
   max-height: 120px;
 }
 
-.card-1{
-  background-image: url(https://ionicframework.com/img/getting-started/ionic-native-card.png);
-      background-repeat: no-repeat;
-    background-position: right;
-    background-size: 80px;
-}
-
-.card-2{
-   background-image: url(https://ionicframework.com/img/getting-started/components-card.png);
-      background-repeat: no-repeat;
-    background-position: right;
-    background-size: 80px;
-}
-
-.card-3{
-   background-image: url(https://ionicframework.com/img/getting-started/theming-card.png);
-      background-repeat: no-repeat;
-    background-position: right;
-    background-size: 80px;
-}
 
 @media(max-width: 990px){
   .card{

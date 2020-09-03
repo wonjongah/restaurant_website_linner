@@ -3,23 +3,24 @@
 
 
 
-<div align=center>
+
         {% include 'nav.html' %}
-</div>
+
 
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
 <div class="container">
 
+
     <div class="row">
-        {% for youtube in user_posts_you|slice:":3" %}
+        {% for youtube in user_posts_you %}
 
 
         <div class="col-md-4 py-2">
-            <ul class="card" style="width:27em;height:26em">
-                <p>{{ youtube.You_conContent | safe}}</p>
+            <ul class="card" style="width:23em;height:29em">
+                <p style="font-family:'바탕체';">{{ youtube.You_conContent | safe}}</p>
 
-                    <h4>{{ youtube.You_conName }}</h4>
+                    <p style="font-family:'바탕체';font-weight:bold;font-size:1.9em;">{{ youtube.You_conName }}</p>
 
 
 
@@ -35,7 +36,7 @@
                         <i class="far fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
                         {% endif %}
                     </a>
-                <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;">
+                <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;font-family:'바탕체';">
                     좋아요&nbsp;{{ youtube.You_conLikesUser.all.count }}개</p>
             </ul>
         </div>
@@ -85,12 +86,9 @@
 <style>
 
 html {
-  background: #FAF7F2;
-  background-image: url(https://s3.postimg.org/s1n3ji1ur/paper_fibers_2_X.png);
+
   box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
+
 }
 
 *, *:before, *:after {
