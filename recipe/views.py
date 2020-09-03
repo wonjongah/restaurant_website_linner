@@ -64,54 +64,39 @@ class RecipeTaggedObjectLV(ListView):
 
 
 
-
-
 class ImageView(TemplateView):
     template_name = 'recipe/tinymce/popup/photo_upload.html'
 
 class RecipeLV(ListView):
     context_object_name = 'recipe_list'
-    # template_name = 'recipe/recipe_list.html'
-    # queryset = RecipeContent.objects.all()
-    # print(RecipeContent.objects.all())
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super(ListView, self).get_context_data(**kwargs)
-    #     context['youtube_list'] = YoutubeContent.objects.all()
-    #     # 한 뷰에 여러 개 모델 콘텍스트 가져오고 싶을 때!!!!!!!!!!!!!!!!!!!!!!!
-    #     return context
-    #
+
     def get(self, request, *args, **kwargs):
 
+        queryset = RecipeContent.objects.all()
         queryset2 = YoutubeContent.objects.all()
 
         sort = request.GET.get('sort', '')
 
         if sort == 'Rec_conPickCount':
-            queryset = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
+            queryset = queryset.order_by('-Rec_conPickCount', '-Rec_conModify')
             return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
         elif sort == 'Rec_conReadcount':
-            queryset = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
+            queryset = queryset.order_by('-Rec_conReadcount', '-Rec_conModify')
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+        elif sort == 'Rec_conModify':
+            queryset = queryset.order_by('-Rec_conModify')
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+
+        elif sort == 'You_conPickCount':
+            queryset2 = queryset2.order_by('-You_conPickCount', '-You_conModify')
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+        elif sort == 'You_conReadcount':
+            queryset2 = queryset2.order_by('-You_conReadcount', '-You_conModify')
             return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
         else:
-            queryset = RecipeContent.objects.all().order_by('-Rec_conModify')
+            queryset2 = queryset2.order_by('-You_conModify')
             return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
 
-
-
-#
-# def index(request):
-#     sort = request.GET.get('sort', '')
-#
-#     if sort == 'Rec_conPickCount':
-#         recipe_list = RecipeContent.objects.all().order_by('-Rec_conPickCount', '-Rec_conModify')
-#         return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
-#     elif sort == 'Rec_conReadcount':
-#         recipe_list = RecipeContent.objects.all().order_by('-Rec_conReadcount', '-Rec_conModify')
-#         return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
-#     else:
-#         recipe_list = RecipeContent.objects.all().order_by('-Rec_conModify')
-#         return render(request, 'recipe/recipe_list.html', {'recipe_list': recipe_list})
 
 class RecipeDV(DetailView):
     model = RecipeContent
@@ -125,13 +110,6 @@ class RecipeDV(DetailView):
         recipe_post.Rec_conReadcount += 1
         recipe_post.save()
         return context
-
-# def RecipeDV(request, Rec_conId):
-#     recipe = get_object_or_404(RecipeContent, pk=Rec_conId)
-#     if request.method == "POST":
-#         reply_form = ReplyForm(request.POST)
-#         reply_form.instance.Rep_name_id = request.user.id
-#         reply_form.instance.Rep_conid_id =
 
 class YoutubeDV(DetailView):
     model = YoutubeContent
