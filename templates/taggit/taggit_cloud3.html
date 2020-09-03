@@ -1,7 +1,6 @@
 
 
 <style type="text/css">
-
     .tag-1{font-size:12px; }
     .tag-2{font-size:12px; }
     .tag-3{font-size:12px; }
@@ -17,8 +16,8 @@
     }
 
     .tag_cloud{
-        width:90%;
-        float:left;
+        width:100%;
+        float:center;
     }
     .btn-moreInfo{
 
@@ -43,7 +42,6 @@
         color:RGB(174, 174, 174);
 
 
-
     }
 
 
@@ -62,7 +60,7 @@
         {% if tag.num_times != 0%}
         <span class="tag-{{tag.weight|floatformat:0}}">
                 <span class="btn btn-light btn-sm tag_margin">
-                    <a href="{% url 'recipe:tagged_object_list' tag.name %}">
+                    <a href="{% url 'recipe:tagged_object_list' tag.name %}" style="font-family:'바탕체';color:black;font-size:1.2em">
                         {{tag.name}}
                     </a>
 
@@ -73,7 +71,7 @@
         {% endif %}
         {% endfor %}
     </div>
-    <span class="btn-moreInfo">더보기</span>
+    <span class="btn-moreInfo my-2" style="font-family:'바탕체';">더보기</span>
 
 </div>
 
@@ -94,6 +92,7 @@
         });
     });
 </script>
+
 
 
 

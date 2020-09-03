@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% block title%}LINNER Home{% endblock %}
+<!--타이틀 블럭을 다시 정의하겠다!!!!-->
+<!--재정의를 안 하면 장고웹어쩌구를 쓸 거고 재정의하면 홈 쓰겠다-->
+
 {% load static %}
 
 
@@ -40,6 +44,20 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
 </head>
 <style>
+
+.card{
+    border-radius: 4px;
+    background: #fff;
+
+      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  padding: 14px 80px 18px 36px;
+  cursor: pointer;
+}
+
+.card:hover{
+     transform: scale(1.05);
+<!--  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);-->
+}
 
 
     /** code by webdevtrick ( https://webdevtrick.com ) **/
@@ -127,7 +145,7 @@ ul, ol {
 
 </style>
 <body>
-  <div class="main">
+  <div class="main" id="header">
     <div class="slider">
       <ul class="slider-parent">
         <li class="images-list" data-slider="1"></li>
@@ -262,20 +280,32 @@ ul, ol {
     </script>
 </div>
 
-<br><br><br>
-<div>
+<br><br>
+<p style="font-family:georgia;float:right;font-size:3em;"> "&nbsp;L I N N E R &nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br><br>
+</p>
+ <p style="font-size:3em;font-family:'바탕체';"> &nbsp;&nbsp;오늘 하루 맛있는 한끼를 위해</p>
+<br><br>
+
+
+<br>
+<center>
+<p style="font-size:3em;font-family:'georgia';;">H O T P L A C E &nbsp; B E S T</p>
+<p style="font-size:1.2em;font-family:'바탕체';color:#848484;">LINNER RECOMMEND</p>
+</center>
+<br><br>
+<div style="background-color:#FAFAFA;">
     <div class="container">
 
         <div class="row">
-            {% for hotplace in object_list %}
-            {% if hotplace.rating >= 4   %}
+            {% for hotplace in hotplaces %}
             <div class="col-lg-6  col-md-6 col-sm-12 my-3">
                 <div class="card">
                     <div class="card-horizontal">
                         
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">{{hotplace.title}}</a></h4>
+                                <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link" style="font-family:'바탕체';">{{hotplace.title}}</a></h4>
                             <div style="height:15px;">
                                 <div class="star_back">
                                     <div class="star" style="width:calc(20% * {{hotplace.rating}})"></div>
@@ -285,11 +315,12 @@ ul, ol {
                                 </div>
                             </div>
                             <div>
-                                <b>TAGS</b><i class="fas fa-tag"></i>
+                                <br>
+                                <i class="fas fa-tag"></i>
                                 {% load taggit_templatetags2_tags %}
                                 {% get_tags_for_object hotplace as "tags" %}
                                 {% for tag in tags %}
-                                <a href="{%url 'hotplace:tagged_object_list' tag.name%}">{{tag.name}}</a>
+                                <a href="{%url 'hotplace:tagged_object_list' tag.name%}" style="font-family:'바탕체';">{{tag.name}}</a>
                                 {% endfor %}
 
                             </div>
@@ -307,7 +338,56 @@ ul, ol {
                 </div>
 
             </div>
-            {% endif %}
+            {% endfor %}
+        </div>
+
+
+    </div>
+</div>
+<br><br>
+<center>
+<p style="font-size:3em;font-family:'georgia';float:center;"> R E C I P E &nbsp; B E S T </p>
+<span style="font-size:1.2em;font-family:'바탕체';color:#848484;">LINNER RECOMMEND</span>
+</center>
+<br>
+<br>
+<div style="background-color:#FAFAFA;">
+    <div class="container">
+
+        <div class="row">
+            {% for recipe in recipe_list %}
+            <div class="col-lg-6  col-md-6 col-sm-12 my-3">
+                <div class="card">
+                    <div class="card-horizontal">
+
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}" class="card-link stretched-link" style="font-family:'바탕체';">{{recipe.Rec_conName}}</a></h4>
+
+                        </div>
+                        <div class="img-square-wrapper">
+                            {% for file in recipe.files.all|slice:":1" %}
+                                <img id="image1" src="{% url 'recipe:recipe_download' file.id %}" style="height:100%; width:100%;">
+                            {% endfor %}
+                        </div>
+
+
+                    <a class="btn btn-sm rec_like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
+
+
+                        {% if user in recipe.Rec_conLikesUser.all %}
+                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                        {% else %}
+                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                        {% endif %}
+
+                </a>
+
+
+                    </div>
+                </div>
+
+            </div>
             {% endfor %}
         </div>
 
@@ -315,6 +395,9 @@ ul, ol {
     </div>
 </div>
 
+<br><br>		<div style="position:fixed;bottom:5px;right:5ps;"><a href="#header">Top</a></div>
+
+</div>
 {% endblock %}
 {% block extra-script %}
 {% endblock %}
