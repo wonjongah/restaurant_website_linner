@@ -244,25 +244,6 @@ ul, ol {
         });
     });
 
-    sliderFaRight.on('click', function () {
-        runRight();
-    });
-    sliderFaLeft.on('click', function () {
-        runLeft();
-    });
-
-    slider.find('.fa').hover(function () {
-        clearInterval(resumeAndPause);
-    }, function () {
-        resumeAndPause = setInterval(sliderSetInt, sliderWait);
-    });
-});
-
-
-    </script>
-</div>
-
-<br><br><br>
 <div>
     <div class="container">
 
