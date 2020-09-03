@@ -1,14 +1,39 @@
 {% extends "base.html" %}
-<!--내가 쓸 기본 레이아웃이 뭐냐?-->
-{% block title%}LINNER Home{% endblock %}
-<!--타이틀 블럭을 다시 정의하겠다!!!!-->
-<!--재정의를 안 하면 장고웹어쩌구를 쓸 거고 재정의하면 홈 쓰겠다-->
-{% block content%}
-<div class="homename"><br><br>
-<!DOCTYPE html>
-<!-- code by webdevtrick ( https://webdevtrick.com ) -->
-<html>
+{% load static %}
 
+
+{% block extra-style %}
+
+<style>
+    .star_back{
+        width:100px;
+        position:relative;
+    }
+    .star{
+        background-color:gold;
+        position:absolute;
+        height:18px;
+        z-index:100;
+    }
+    .star_img{
+        width:100%;
+
+        position:absolute;
+        height:18px;
+        z-index:110;
+    }
+    .card-horizontal{
+        display:flex;
+        flex: 1 1 auto;
+    }
+    a{
+    color:black;
+    }
+
+
+</style>
+{% endblock %}
+{% block content %}
 <head>
   <meta charset="utf-8" />
   <title>Autoplay Slider With HTML CSS JS | Webdevtrick.com</title>
@@ -58,7 +83,7 @@ ul, ol {
     background-image: url(https://cdn.jamieoliver.com/home/wp-content/uploads/2016/06/2.jpg)
 }
 .slider .slider-parent .images-list:nth-of-type(5) {
-    background-image: url(https://www.thehealthy.com/wp-content/uploads/2019/02/This-Fast-Food-Chain-Makes-More-Money-Per-Store-Than-McDonald%E2%80%99s.jpg)
+    background-image: url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190326-pin-a-colada-bars-259-1555081178.jpg)
 }
 .slider .buttom-circles {
     position: absolute;
@@ -236,6 +261,60 @@ ul, ol {
 
     </script>
 </div>
-</html>
 
+<br><br><br>
+<div>
+    <div class="container">
+
+        <div class="row">
+            {% for hotplace in object_list %}
+            {% if hotplace.rating >= 4   %}
+            <div class="col-lg-6  col-md-6 col-sm-12 my-3">
+                <div class="card">
+                    <div class="card-horizontal">
+                        
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">{{hotplace.title}}</a></h4>
+                            <div style="height:15px;">
+                                <div class="star_back">
+                                    <div class="star" style="width:calc(20% * {{hotplace.rating}})"></div>
+                                    <img class="star_img" src="{% static 'images/stars.png' %}"
+                                         alt="{{hotplace.rating}}"
+                                         title="{{hotplace.rating}}">
+                                </div>
+                            </div>
+                            <div>
+                                <b>TAGS</b><i class="fas fa-tag"></i>
+                                {% load taggit_templatetags2_tags %}
+                                {% get_tags_for_object hotplace as "tags" %}
+                                {% for tag in tags %}
+                                <a href="{%url 'hotplace:tagged_object_list' tag.name%}">{{tag.name}}</a>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <div class="img-square-wrapper">
+                            {% for file in hotplace.files.all|slice:":1" %}
+                            <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">
+                                <img id="image" src="{% url 'hotplace:download' file.id %}" style="height:100%; width:100%;">
+                            </a>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}
+{% block extra-script %}
 {% endblock %}

@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}profile_update.html{% endblock %}
 {% block content %}
 
 <h1>Profile Update</h1>
@@ -11,9 +13,42 @@
     {% endif %}
 
     <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    <input type="submit" value="Update" />
+        <div class="form-group row">
+
+            {{user_form.email|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{user_form.email|add_class:"form-control"|attr:"autofocus"}}
+            </div>
+        </div>
+        <div class="form-group row">
+            {{profile_form.nickname|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{profile_form.nickname|add_class:"form-control"|attr:"autofocus"}}
+            </div>
+        </div>
+        <div class="form-group row">
+            {{profile_form.intro|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{profile_form.intro|add_class:"form-control"|attr:"autofocus"}}
+            </div>
+        </div>
+        <div class="form-group row">
+            {{profile_form.phone|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{profile_form.phone|add_class:"form-control"|attr:"autofocus"}}
+            </div>
+        </div>
+        <div class="form-group row">
+            {{profile_form.photo|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{profile_form.photo|add_class:"form-control"|attr:"autofocus"}}
+            </div>
+        </div>
+        <div class="form-group">
+        <div class="offset-sm-3 col-sm-5">
+            <input type="submit" value="update" class="btn btn-info"/>
+        </div>
+        </div>
     </form>
 </p>
 

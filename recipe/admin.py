@@ -3,15 +3,14 @@ from recipe.models import RecipeContent, YoutubeContent
 
 # Register your models here.
 
-# @admin.register(RecipeContent, YoutubeContent)
-# class RecipeAdmin(admin.ModelAdmin):
-#     list_display = ('id','title','modify_dt','tag_list')
-#     list_filter = ('modify_dt',)
-#     search_fields = ('title','content')
-#     prepopulated_fields = {'slug':('title',)}
-#
-#     def get_queryset(self, request):
-#         return super().get_queryset(request).prefetch_related('tags')
-#
-#     def tag_list(self,obj):
-#         return ','.join(o.name for o in obj.tags.all())
+@admin.register(RecipeContent)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('Rec_conName','Rec_conModify', 'Rec_conContent','tag_list')
+    list_filter = ('Rec_conModify',)
+    search_fields = ('Rec_conName','Rec_conContent')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('Rec_conTags')
+
+    def tag_list(self,obj):
+        return ','.join(o.name for o in obj.tags.all())

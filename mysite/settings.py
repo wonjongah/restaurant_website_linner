@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'linner_db',
         'HOST': 'localhost',#'192.168.56.1',#'192.168.0.29',
         'PORT':'3307',
-        'USER':'linneruser',
+        'USER':'root',
         'PASSWORD':'1234',
     }
 }
@@ -135,3 +135,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = None

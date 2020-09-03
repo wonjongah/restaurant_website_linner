@@ -7,7 +7,7 @@ from hotplace.models import *
 from django.views.generic import CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from mysite.views import OwnerOnlyMixin
+from mysite.views import OwnerOnlyMixin1
 
 #파일업로드
 from django.utils import timezone
@@ -24,9 +24,29 @@ class HotplaceLV(ListView):
     template_name = 'hotplace/hotplace_printlist.html'
     context_object_name = 'hotplaces'
 
+    def get_ordering(self):
+        orderBy = self.request.GET.get('sort')
+
+        if orderBy == 'rating' or orderBy =='read_count':
+            return '-'+orderBy
+        
+
+        return orderBy
+
 
 class HotplaceDV(DetailView):
     model = Hotplace
+    context_object_name = 'hotplace'
+    template_name = 'hotplace/hotplace_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        hotplace_post = self.get_object()
+        hotplace_post.read_count += 1
+        hotplace_post.save()
+        return context
+
+
 
 # Tag View
 class TagCloudTV(TemplateView):
@@ -77,7 +97,7 @@ class HotplaceCreateView(LoginRequiredMixin,CreateView):
             attach_file.save()
         return response
 
-class HotplaceUpdateView(OwnerOnlyMixin,UpdateView):
+class HotplaceUpdateView(OwnerOnlyMixin1,UpdateView):
     model = Hotplace
     fields = ['title','rating','content','tags','latitude','longtitude']
     success_url = reverse_lazy('hotplace:index')
@@ -100,7 +120,7 @@ class HotplaceUpdateView(OwnerOnlyMixin,UpdateView):
             attach_file.save()
         return response
 
-class HotplaceDeleteView(OwnerOnlyMixin,DeleteView):
+class HotplaceDeleteView(OwnerOnlyMixin1,DeleteView):
     model = Hotplace
     success_url = reverse_lazy('hotplace:index')
 
@@ -111,8 +131,6 @@ def download(request,id):
     file_path = os.path.join(settings.MEDIA_ROOT,str(file.upload_file))
 
     return FileResponse(open(file_path,'rb'))
-
-
 
 
 

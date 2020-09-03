@@ -7,6 +7,8 @@ from django.utils.text import slugify
 from tinymce.models import HTMLField
 from django.conf import settings
 
+from user.models import Profile
+
 
 class RecipeContent(models.Model):
     Rec_conId = models.AutoField(primary_key = True)
@@ -35,8 +37,9 @@ class RecipeContent(models.Model):
     )
 
     class Meta:
-
         verbose_name = 'recipe_post'
+        # verbose_name = 'recipe'
+        # verbose_name_plural = 'recipes'
         ordering = ('-Rec_conModify',)  # orderby 절,
 
     def __str__(self):
@@ -94,8 +97,8 @@ class YoutubeContent(models.Model):
         related_name='You_conLikesUser')
 
     class Meta:
-
-        verbose_name = 'youtube_post'
+        verbose_name = 'youtube'
+        verbose_name_plural = 'youtubes'
         ordering = ('-You_conModify',)  # orderby 절,
 
     def __str__(self):
@@ -128,10 +131,23 @@ class Reply(models.Model):
     # 댓글 번호
     Rep_conid = models.ForeignKey(RecipeContent, on_delete=models.CASCADE, related_name='content_id', blank=True, null=True)
     # 댓글 달 글번호
-    Rep_name = models.ForeignKey(RecipeContent, on_delete=models.CASCADE, related_name='content_member', blank=True, null=True)
+    Rep_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='content_member', blank=True, null=True)
     # 작성자
     Rep_content = models.TextField('CONTENT')
     # 댓글 내용
     Rep_date = models.DateTimeField(auto_now_add=True)
     # 댓글 작성 시간
+    Rep_update = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return (self.Rep_name.username if self.Rep_name else "무명")+ "의 댓글"
+
+
+class RecipeContentAttachFile(models.Model):
+    post = models.ForeignKey(RecipeContent, on_delete=models.CASCADE, related_name='files', blank=True, null=True)
+    upload_file = models.FileField(upload_to="%Y/%m/%d",null=True,blank=True,verbose_name='파일')
+    filename = models.CharField(max_length=64,null=True,verbose_name='첨부파일명')
+    content_type = models.CharField(max_length=128,null=True,verbose_name='MIME TYPE')
+    size = models.IntegerField('파일 크기')
+    def __str__(self):
+        return self.filename

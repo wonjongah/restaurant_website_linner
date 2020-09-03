@@ -1,7 +1,6 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}hotplace_archive_month.html{% endblock %}
-
+{% block title %} taggit_post_list2.html {%endblock%}
 
 {% block extra-style %}
 
@@ -27,10 +26,6 @@
         display:flex;
         flex: 1 1 auto;
     }
-    a{
-    color:black;
-    }
-
 
 
 
@@ -38,14 +33,11 @@
 
 </style>
 {% endblock %}
-
 {% block content %}
 
-<div>
-    {% include "hotplace_printlist.html" %}
-</div>
+
+    {% include "recipe_printlist.html" %}
+
+
 
 {% endblock %}
-
-{% block extra-script %} {% endblock %}
-

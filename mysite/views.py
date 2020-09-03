@@ -1,29 +1,41 @@
-from django.views.generic import TemplateView, CreateView, FormView, ListView
-from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import TemplateView, CreateView, DetailView, ListView, FormView
 from django.urls import reverse_lazy
+
+from .form import CreateUserForm
+from recipe.models import RecipeContent, YoutubeContent
+from hotplace.models import Hotplace
 
 # 유저
 from django.contrib.auth.mixins import AccessMixin
 from django.views.defaults import permission_denied
-from .form import CreateUserForm
-from recipe.models import RecipeContent, YoutubeContent
-from hotplace.models import Hotplace
 
 from django.db.models import Q
 from django.shortcuts import render
 from .forms import PostSearchForm
 
-from django.contrib.auth.models import User
-
-# 순수하게 html 템플릿만 운영할 수 있도록 도와주는
-# 공통 사용할 것~~~~~~~~~~~~~~~~~
+import datetime
 
 class ImageView(TemplateView):
     template_name = 'tinymce/popup/photo_upload.html'
 
-
 class HomeView(TemplateView):
     template_name = 'home.html'
+
+class HomeView2(ListView):
+    model = Hotplace
+    template_name = 'home2.html'
+    context_object_name = 'hotplaces'
+
+    def get_queryset(self):
+        qs = super().get_queryset() 
+        # filter by a variable captured from url, for example
+        mon= datetime.datetime.now().month
+        return   qs.filter(create_dt__month= mon)
+        
+
+    def get_ordering(self):
+        orderBy = '-rating'
+        return orderBy
 
 class UserCreateView(CreateView):
     template_name = 'registration/signup.html'
@@ -60,13 +72,14 @@ class OwnerOnlyMixin2(AccessMixin):
         self.object = self.get_object()  # 모델 인스턴스 얻기
         if self.request.user != self.object.You_conMemID:
             self.handle_no_permission()
+        print(self.request.user)
+        print(self.object.You_conMemID)
         return super().get(request, *args, **kwargs)
 
 
 
 # --- FormView
 class SearchFormView(FormView):
-
 
     form_class = PostSearchForm
     template_name = 'post_search.html'

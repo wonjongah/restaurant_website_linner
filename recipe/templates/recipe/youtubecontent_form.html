@@ -7,6 +7,7 @@
 <style>
     .hidden{display:none;}
 
+
 </style>
 {% if form.errors %}
 <div class="alert alert-danger">
@@ -60,42 +61,51 @@
 <script>
 
 
-        tinymce.init({
-          selector: "textarea",
-          theme: "modern",
-          paste_data_images: true,
-          plugins: [
-            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscreen",
-            "insertdatetime media nonbreaking save table contextmenu directionality",
-            "emoticons template paste textcolor colorpicker textpattern"
-          ],
-          toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-          toolbar2: "print preview media | forecolor backcolor emoticons",
-          image_advtab: true,
-          file_picker_callback: function(callback, value, meta) {
-            if (meta.filetype == 'image') {
-              $('#upload').trigger('click');
-              $('#upload').on('change', function() {
-                var file = this.files[0];
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                  callback(e.target.result, {
-                    alt: ''
-                  });
-                };
-                reader.readAsDataURL(file);
-              });
-            }
-          },
-          templates: [{
-            title: 'Test template 1',
-            content: 'Test 1'
-          }, {
-            title: 'Test template 2',
-            content: 'Test 2'
-          }]
-        });
+tinymce.init({
+	selector: 'textarea',
+	height: 400,
+	theme: 'modern',
+	plugins: [
+		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+		'searchreplace wordcount visualblocks visualchars code fullscreen',
+		'insertdatetime media nonbreaking save table contextmenu directionality',
+		'emoticons template paste textcolor colorpicker textpattern imagetools'
+	],
+	toolbar1: 'myButton',
+
+	image_advtab: true,
+	templates: [
+		{ title: 'Test template 1', content: 'Test 1' },
+		{ title: 'Test template 2', content: 'Test 2' }
+	],
+	content_css: [
+		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+		'//www.tinymce.com/css/codepen.min.css'
+	],
+
+	setup: function (editor) {
+		editor.addButton('myButton', {
+			text: '유튜브 업로드',
+			icon: false,
+			onclick: function (data) {
+				window.open('{% url 'recipe:image' %}','_fileupload','width=800, height=600');
+			}
+		});
+
+		editor.addButton('mySubmit', {
+			text: '문서저장하기',
+			icon: false,
+			onclick: function () {
+				if(confirm('저장하시겠습니까?'))
+				{
+					document.FORM_NAME.submit();
+				}
+			}
+		});
+	}
+
+});
+
 
 
 
