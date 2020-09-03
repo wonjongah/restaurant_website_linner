@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 {% block content%}
-
-
 <hr>
 <div class="container">
 
@@ -198,6 +196,11 @@ body{
     <p style="display:inline;font-family:georgia;float:right;font-size:33px;border-width: 2px;">write</p>
 </a>
 {% endif %}
+<select id="sort-select" onchange="location = this.value;">
+    <option class="sort-date" value="?sort=You_conModify">최신순</option>
+    <option class="sort-view" value="?sort=You_conReadcount">조회순</option>
+    <option class="sort-likes" value="?sort=You_conPickCount">좋아요순</option>
+</select>
 <hr>
 <div class="container">
 
@@ -324,6 +327,15 @@ $(document).ready(function(){
     $('.sort-likes').prop('selected', 'selected')
   }
   else if(sort == 'Rec_conReadcount'){
+    $('.sort-view').prop('selected', 'selected')
+  }
+  else if(sort == 'Rec_conModify'){
+    $('.sort-date').prop('selected', 'selected')
+  }
+  else if(sort == 'You_conLikesUser'){
+    $('.sort-likes').prop('selected', 'selected')
+  }
+  else if(sort == 'You_conReadcount'){
     $('.sort-view').prop('selected', 'selected')
   }
   else{
