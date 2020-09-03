@@ -7,29 +7,53 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
 <div class="container">
-    <!--    {% with count=1 %}-->
+
     <div class="row">
-        {% for i in list %}
-        <div class="col-md-4 py-6">
-            <a class="card" style="width:18em;max-height:300px;min-height:300px" href="{% url 'recipe:recipe_detail' i.Rec_conId %}">
-                <h2>{{i.Rec_conName}}</h2>
-                {{ i.Rec_conModify|date:"N d, Y" }}
-                <p>{{ i.get_recipe_summary | safe}}</p>
-                        <a class="btn btn-sm rec_like" name="{{ i.Rec_conId }}" type="button" value="Like">
-                            {% if user in i.Rec_conLikesUser.all %}
-                            <i class="fas fa-heart" id="rec_heart{{ i.Rec_conId }}"></i>
-                            {% else %}
-                            <i class="far fa-heart" id="rec_heart{{ i.Rec_conId }}"></i>
-                            {% endif %}
-                        </a>
-                        <p id="rec_count-{{ i.Rec_conId }}" style="font:bold 1em;">
-                        좋아요&nbsp;{{ i.Rec_conLikesUser.all.count }}개</p>
-            </a>
+
+
+        {% for recipe in list|slice:":3" %}
+        <div class="col-md-4 py-2">
+            <ul class="card" style="width:25em;height:18em">
+                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}">
+                    <h4>{{ recipe.Rec_conName }}</h4>
+
+                </a>
+
+
+                {% for file in recipe.files.all %}
+
+                <img id="image" src="{% url 'recipe:recipe_download' file.id %}"
+                     style="float:right;width:10em;height:10em;">
+
+                {% endfor %}
+
+
+                <p>{{ recipe.get_recipe_summary | safe}}</p>
+
+
+                <br><br><br><br>
+
+                <p style="display:inline;font-family:georgia;">by. {{recipe.Rec_conMemID}}
+
+                    <a class="btn btn-sm rec_like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
+
+
+                        {% if user in recipe.Rec_conLikesUser.all %}
+                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                        {% else %}
+                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                        {% endif %}
+
+                <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;">
+                    좋아요&nbsp;{{ recipe.Rec_conLikesUser.all.count }}개</p>
+                </a>
+
+                </p>
+
             </ul>
         </div>
         {% endfor %}
-</div>
-<!--{% endwith %}-->
+    </div>
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

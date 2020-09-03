@@ -124,6 +124,21 @@
         <br>
 
         {% include "kakao_map.html" %}
+
+    <div class="media border p-3">
+        <img src="{{hotplace.owner.profile.photo.url}}" alt="{{hotplace.owner.profile.nickname}}"
+         class="ml-3 mt-3 rounded-circle" style="width:60px;">
+    <div class="media-body">
+        <h4>
+            <a href="{% url 'user:userprofile' hotplace.owner.id %}">{{hotplace.owner.profile.nickname}}</a>
+        </h4>
+        <p>
+            {{hotplace.owner.profile.intro}}
+        </p>
+    </div>
+    </div>
+
+
         <div class="text-right my-3">
             {% for file in hotplace.files.all %}
             <a href="{% url 'hotplace:download' file.id %}" class="ml-4">

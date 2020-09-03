@@ -8,6 +8,7 @@ from .forms import UserForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from recipe.models import RecipeContent, YoutubeContent
+from hotplace.models import Hotplace
 from .models import Profile
 
 
@@ -71,6 +72,13 @@ def useryoutube(request):
     template_name='user/youtubepost_login.html'
     return render(request, template_name, {'user_posts_you':user_posts_you, 'user':user})
 
+@login_required
+def userhotplace(request):
+    user = request.user
+    user_posts_hot=Hotplace.objects.filter(owner_id=request.user)
+    template_name='user/hotplacepost_login.html'
+    return render(request, template_name, {'user_posts_hot':user_posts_hot, 'user':user})
+
 class PostUserProfile(DetailView):
     context_object_name = 'userprofile'
     model = User
@@ -87,18 +95,6 @@ class PostUserRecipe(ListView):
     model = RecipeContent
     context_object_name = "list"
 
-    # def get(self, request, *args, **kwargs):
-    #     queryset = RecipeContent.objects.filter(Rec_conMemID_id=kwargs['pk'])
-    #     ctx={
-    #         'list':queryset,
-    #     }
-    #     return render(request, 'user/recipepost_user.html', ctx)
-    #
-    # def get_context_data(self,**kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     userid = self.kwargs["pk"]
-    #     context["userid"] = userid
-    #     return context
     def get_queryset(self):
         userid = self.kwargs["pk"]
         return RecipeContent.objects.filter(Rec_conMemID=userid)
@@ -109,19 +105,11 @@ class PostUserRecipe(ListView):
         context["userid"] = userid
         return context
 
-
 class PostUserYoutube(ListView):
     template_name = 'user/youtubepost_user.html'
     model = YoutubeContent
     context_object_name = "youtube"
-    # def get(self, request, *args, **kwargs):
-    #     queryset = YoutubeContent.objects.filter(You_conMemID=kwargs['pk'])
-    #     ctx={
-    #         'youtube':queryset,
-    #     }
-    #     print(ctx)
-    #
-    #     return render(request, 'user/youtubepost_user.html', ctx)
+
     def get_queryset(self):
         userid = self.kwargs["pk"]
         return YoutubeContent.objects.filter(You_conMemID=userid)
@@ -131,3 +119,19 @@ class PostUserYoutube(ListView):
         userid = self.kwargs["pk"]
         context["userid"] = userid
         return context
+
+class PostUserHotplace(ListView):
+    template_name = 'user/hotplacepost_user.html'
+    model = Hotplace
+    context_object_name = "hotplace_user"
+
+    def get_queryset(self):
+        userid = self.kwargs["pk"]
+        return Hotplace.objects.filter(owner_id=userid)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        userid = self.kwargs["pk"]
+        context["userid"] = userid
+        return context
+        print(context)

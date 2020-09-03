@@ -10,26 +10,24 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
 <div class="container">
-    youtube posts
-    {% with count=1 %}
-    <div class="row">
-        {% for youtube in user_posts_you %}
-        <a href="{% url 'recipe:youtube_detail' youtube.You_conId %}">
 
-            <div class="col-md-4 py-6">
-                <ul class="card" style="width:18em;max-height:300px;min-height:300px">
-                    <h2>{{ youtube.You_conName }}</h2>
-                    {{ youtube.You_conModify|date:"N d, Y" }}
-                    <p>{{ youtube.get_youtube_summary | safe}}</p>
+    <div class="row">
+        {% for youtube in user_posts_you|slice:":3" %}
+
+
+        <div class="col-md-4 py-2">
+            <ul class="card" style="width:27em;height:26em">
+                <p>{{ youtube.You_conContent | safe}}</p>
+
+                    <h4>{{ youtube.You_conName }}</h4>
+
+
+
+
+                <p style="display:inline;font-family:georgia;">by. {{youtube.You_conMemID}}
+
+
                     <a class="btn btn-sm you_like" name="{{ youtube.You_conId }}" type="button" value="Like">
-                        <!--	  <span-->
-                        <!--				  class="glyphicon-->
-                        <!--				    {% if user in recipe.Rec_conLikesUser.all %}-->
-                        <!--				      glyphicon-heart-->
-                        <!--						{% else %}-->
-                        <!--							glyphicon-heart-empty-->
-                        <!--						{% endif %}"-->
-                        <!--				  aria-hidden="true"></span>-->
 
                         {% if user in youtube.You_conLikesUser.all %}
                         <i class="fas fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
@@ -37,14 +35,15 @@
                         <i class="far fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
                         {% endif %}
                     </a>
-                    <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;">
-                        좋아요&nbsp;{{ youtube.You_conLikesUser.all.count }}개</p>
-                </ul>
-            </div>
-        </a>
+                <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;">
+                    좋아요&nbsp;{{ youtube.You_conLikesUser.all.count }}개</p>
+            </ul>
+        </div>
+
         {% endfor %}
     </div>
-    {% endwith %}
+
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
