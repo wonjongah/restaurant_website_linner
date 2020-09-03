@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-
-<hr style="margin-left: -50%;margin-right: -50%;" xmlns:post="http://www.w3.org/1999/xhtml"
-    xmlns:recipe="http://www.w3.org/1999/xhtml">
 {% include 'nav2.html' %}
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
 <div class="container">
 
     <div class="row">
+
 
 
         {% for recipe in list|slice:":3" %}
@@ -128,7 +126,6 @@ html {
 
 body{
   font-family: 'Nunito', sans-serif;
-  padding: 50px;
 }
 .card{
     border-radius: 4px;
