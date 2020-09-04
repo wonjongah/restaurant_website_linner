@@ -2,16 +2,18 @@
 {% load widget_tweaks %}
 {% block title %}profile_update.html{% endblock %}
 {% block content %}
-
-<h1>Profile Update</h1>
-
+<div class="container">
+<center>
+<p style="font-size:3em;font-family:'georgia';">P R O F I L E &nbsp; U P D A T E</p>
+    </center>
+<div class="card">
     {% if error_msg %}
     <div class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Error</strong> {{error_msg}}
     </div>
     {% endif %}
-
+<br>
     <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="form-group row">
 
@@ -45,11 +47,13 @@
             </div>
         </div>
         <div class="form-group">
+
         <div class="offset-sm-3 col-sm-5">
-            <input type="submit" value="update" class="btn btn-info"/>
+            <input type="submit" value="profile update" class="btn btn-light"/>
         </div>
         </div>
     </form>
-</p>
+    </div>
+    </p></div>
 
 {% endblock %}

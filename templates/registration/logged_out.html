@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% block title %}logged_out.html{% endblock %}
 {% block content %}
-<h1>Logged out</h1>
-<br>
+<br><br><br>
+<center>
+<p style="display:inline;font-family:georgia;font-size:50px">L O G G E D &nbsp; O U T</p>
+<br><br>
 <div>
 <i class="fas fa-quote-left"></i>
-<span class="h6">&ensp;Thanks for spending your quality time with this website today.&ensp;</span>
-<i class="fas fa-quote-right"></i>
+<span class="h6" style="font-size:1.2em;font-family:'바탕체';color:#848484;">&ensp;Thanks for spending your quality time with LINNER.&ensp;</span>
+<i class="fas fa-quote-right"></i><br><br>
 </div>
-<p class="font-italic"><a href="{% url 'login' %}">Log in again</a></p>
+<p class="" style="font-size:1.2em;font-family:'바탕체';color:#848484;color:black;"><a href="{% url 'login' %}" style="font-size:1.2em;font-family:'바탕체';font-weight:bold;color:#848484;color:black;">Log in again</a></p>
+    </center>
 {% endblock %}

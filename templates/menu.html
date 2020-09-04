@@ -23,6 +23,7 @@
   transform-origin:left;
   transform:perspective(1200px) rotateY(90deg);
   transition:all 400ms ease;
+  z-index:9999;
 }
 #sidebar ul a {
   color:#ccc;
@@ -91,31 +92,31 @@
         <ul>
             <li class="nav-item dropdown mx-1 btn">
                 {% if user.is_active %}
-                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown" style="font-family:georgia;">
                     <i class="fas fa-user"></i>
                     &ensp;{% firstof user.get_short_name user.get_username %}&ensp;</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                    <a class="dropdown-item" href="{% url 'password_change' %}">
+                    <a class="dropdown-item" href="{% url 'logout' %}" style="font-family:georgia;">Logout</a>
+                    <a class="dropdown-item" href="{% url 'password_change' %}" style="font-family:georgia;">
                         Change Password</a>
                 </div>
-                <a class="btn" href="{% url 'user:profile' user.id %}">
+                <a class="btn" href="{% url 'user:profile' user.id %}" style="font-family:georgia;">
                     <span class="glyphicon glyphicon-heart"></span>
                     My Page</a>
-                <a type="button" href="{% url 'recipe:recipe_like_list' %}">My Pick</a>
+                <a type="button" href="{% url 'recipe:recipe_like_list' %}" style="font-family:georgia;">My Pick</a>
                 {% else %}
-                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown" style="font-family:georgia;">
                     <i class="fas fa-user"></i>&ensp;Anonymous&ensp;</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                    <a class="dropdown-item" href="{% url 'signup' %}">Register</a>
+                    <a class="dropdown-item" href="{% url 'login' %}" style="font-family:georgia;">Login</a>
+                    <a class="dropdown-item" href="{% url 'signup' %}" style="font-family:georgia;">Register</a>
                 </div>
                 {% endif %}
                 <div class="dropdown-divider"></div>
             </li>
-            <a type="button" href="{% url 'recipe:recipe_listview' %}">Recipe</a>
-            <a type="button" href="{% url 'hotplace:index' %}">Hot Place</a>
-            <a type="button" href="{% url 'search' %}">Search</a>
+            <a type="button" href="{% url 'recipe:recipe_listview' %}" style="font-family:georgia;">Recipe</a>
+            <a type="button" href="{% url 'hotplace:index' %}" style="font-family:georgia;">Hot Place</a>
+            <a type="button" href="{% url 'search' %}" style="font-family:georgia;">Search</a>
 
         </ul>
     </div>
@@ -124,9 +125,9 @@
         <span></span>
         <span></span>
 
-    </a>
-    <a href="{% url 'home' %}"><img alt="logo" style="margin-left:130px;" src="{% static 'images/linner.png' %}" type="button">
-    </a>
+    </a><center>
+    <a href="{% url 'home' %}"><img alt="logo"  src="{% static 'images/linner.png' %}" type="button">
+    </a></center>
 </div>
 
 
