@@ -9,7 +9,7 @@
 
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link" style="font-weight:bold;">{{hotplace.title}}</a></h4>
+                                <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link" style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{hotplace.title}}</a></h4>
                             <div style="height:15px;">
                                 <div class="star_back">
                                     <div class="star" style="width:calc(20% * {{hotplace.rating}})"></div>
@@ -18,12 +18,13 @@
                                          title="{{hotplace.rating}}">
                                 </div>
                             </div>
+                            <br>
                             <div>
                                 <b>TAGS</b><i class="fas fa-tag"></i>
                                 {% load taggit_templatetags2_tags %}
                                 {% get_tags_for_object hotplace as "tags" %}
                                 {% for tag in tags %}
-                               <a href="{%url 'hotplace:tagged_object_list' tag.name%}">{{tag.name}}</a>
+                               <a href="{%url 'hotplace:tagged_object_list' tag.name%}" style="font-family:'바탕체';color:black;">{{tag.name}}</a>
 
 
                                 {% endfor %}

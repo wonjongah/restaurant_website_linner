@@ -6,7 +6,26 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<style>
+
+
+		body{
+  font-family: sans-serif;
+}
 		.round {border-radius: 50%;}
+
+
+		.card{
+    border-radius: 4px;
+    background: #fff;
+
+      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  padding: 14px 80px 18px 36px;
+  cursor: pointer;
+}
+
+.card:hover{
+     transform: scale(1.05);
+}
         </style>
 	</head>
 	<body class="no-sidebar is-preload">
@@ -25,7 +44,7 @@
     <div class="card-body">
         {% if user.profile.nickname %}
         <center>
-        <h4 class="card-title" style="font-family:'바탕체';font-weight:bold;">{{user.profile.nickname}}</h4>
+        <h4 class="card-title" style="font-family:'바탕체';font-weight:bold;font-size:2em;">{{user.profile.nickname}}</h4>
         {% else %}
         <h4 class="card-title" style="font-family:'바탕체';">{{user.username}}</h4>
         {% endif %}

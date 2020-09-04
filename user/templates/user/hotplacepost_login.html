@@ -31,7 +31,6 @@
 
 
 
-
 </style>
 {% endblock %}
 {% load static %}
@@ -51,7 +50,7 @@
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a class="card-link stretched-link" href="{% url 'hotplace:detail' hotplace.id %}">
-                                    <p style="font-family:'바탕체';font-weight:bold;">{{hotplace.title}}</p></a>
+                                    <p style="font-family:'바탕체';font-weight:bold;font-size:1.2em;">{{hotplace.title}}</p></a>
                             </h4>
                             <div style="height:15px;">
                                 <div class="star_back">
@@ -62,6 +61,7 @@
                                 </div>
                                 <br>
                             </div>
+                            <br>
                             <div>
                                 <b>TAGS</b><i class="fas fa-tag"></i>
                                 {% load taggit_templatetags2_tags %}
@@ -75,7 +75,7 @@
                         <div class="img-square-wrapper">
                             {% for file in hotplace.files.all|slice:":1" %}
                             <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">
-                                <img id="image" src="{% url 'hotplace:download' file.id %}" style="height:300px; width:400px;">
+                                <img id="image" src="{% url 'hotplace:download' file.id %}" style="height:250px; width:350px;">
                             </a>
                             {% endfor %}
 
@@ -92,3 +92,4 @@
 </div>
 
 {% endblock %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">

@@ -313,7 +313,7 @@ ul, ol {
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link"
-                                   style="font-family:'바탕체';">{{hotplace.title}}</a></h4>
+                                   style="font-family:'바탕체';font-size:1.2em;color:black;">{{hotplace.title}}</a></h4>
                             <div style="height:15px;">
                                 <div class="star_back">
                                     <div class="star" style="width:calc(20% * {{hotplace.rating}})"></div>
@@ -373,7 +373,7 @@ ul, ol {
                             <h4 class="card-title"><br>
                                 <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}"
                                    class="card-link stretched-link"
-                                   style="font-family:'바탕체';">{{recipe.Rec_conName}}</a></h4>
+                                   style="font-family:'바탕체';font-size:1.2em;color:black;">{{recipe.Rec_conName}}</a></h4>
                             <a class="btn btn-sm rec_like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
 
 

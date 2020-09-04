@@ -4,7 +4,6 @@
 <div class="container">
 
 
-<<<<<<< HEAD
     <br><br><br><br>
     <center>
         <p style="display:inline;font-family:georgia;font-size:50px;display:block;">S E A R C H </p>
@@ -16,7 +15,7 @@
 
             {{ form.as_table }}
 
-            <input type="submit" value="Submit" class="btn btn-light btn-sm">
+            <input type="submit" value="search!" class="btn btn-light btn-sm">
 
         </form>
 
@@ -26,24 +25,26 @@
         {% if recipe_search %}
 
         {% for recipe in recipe_search %}
-
-        <h2><a href='{% url "recipe:recipe_detail" recipe.Rec_conId %}'>{{ recipe.Rec_conName }}</a></h2>
+<div class="col-md-4 py-2">
+            <ul class="card" style="width:27em;height:23.2em">
+        <h2><a href='{% url "recipe:recipe_detail" recipe.Rec_conId %}' style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ recipe.Rec_conName }}</a></h2>
 
         {{ recipe.Rec_conModify|date:"N d, Y" }}
-        <p>{{ recipe.get_recipe_summary | safe}}</p>
-
+        <p  style="font-family:'바탕체';color:black;">{{ recipe.get_recipe_summary | safe}}</p>
+            </ul></div>
         {% endfor %}
         {% endif %}
 
         {% if youtube_search %}
 
         {% for youtube in youtube_search %}
-
-        <h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}'>{{ youtube.You_conName }}</a></h2>
+<div class="col-md-4 py-2">
+            <ul class="card" style="width:27em;height:23.2em">
+        <h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}' style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ youtube.You_conName }}</a></h2>
 
         {{ youtube.You_conModify|date:"N d, Y" }}
-        <p>{{ youtube.get_youtube_summary | safe}}</p>
-
+        <p>{{ youtube.You_conContent | safe}}</p>
+            </ul></div>
         {% endfor %}
         {% endif %}
 
@@ -52,70 +53,12 @@
 
         {% for hot in hot_search %}
 
-        <h2><a href="{% url 'hotplace:detail' hot.id %}">{{ hot.title }}</a></h2>
+        <h2><a href="{% url 'hotplace:detail' hot.id %}" style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ hot.title }}</a></h2>
 
-        {{ hot.modify_dt|date:"N d, Y" }}
-        <p>{{ hot.content | safe}}</p>
+        <p style="font-family:'바탕체';color:black;">{{ hot.content | safe}}</p>
 
         {% endfor %}
-=======
 
-        
-        <h1>Search</h1>
-        
-        <br>
-        
-        <form action="." method="post"> {% csrf_token %}
-        
-        {{ form.as_table }}
-        
-        <input type="submit" value="Submit" class="btn btn-light btn-sm">
-        
-        </form>
-        
-        <br/>
-        <br/>
-        
-        {% if recipe_search %}
-        
-        {% for recipe in recipe_search %}
-        
-        <h2><a href='{% url "recipe:recipe_detail" recipe.Rec_conId %}'>{{ recipe.Rec_conName }}</a></h2>
-        
-        {{ recipe.Rec_conModify|date:"N d, Y" }}
-                <p>{{ recipe.get_recipe_summary | safe}}</p>
-        
-        {% endfor %}
-        {% endif %}
-        
-        {% if youtube_search %}
-        
-        {% for youtube in youtube_search %}
-        
-        <h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}'>{{ youtube.You_conName }}</a></h2>
-        
-        {{ youtube.You_conModify|date:"N d, Y" }}
-        <p>{{ youtube.get_youtube_summary | safe}}</p>
-        
-        {% endfor %}
-        {% endif %}
-        
-        
-        {% if hot_search %}
-        
-        {% for hot in hot_search %}
-        
-        <h2><a href="{% url 'hotplace:detail' hot.id %}">{{ hot.title }}</a></h2>
-        
-        {{ hot.modify_dt|date:"N d, Y" }}
-                <p>{{ hot.content | safe}}</p>
-        
-        {% endfor %}
-        
-        {% endif %}
-</div>
-
->>>>>>> firstpage
 
         {% endif %}
 </div>

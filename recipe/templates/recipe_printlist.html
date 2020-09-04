@@ -6,9 +6,9 @@
 
         {% for recipe in object_list %}
         <div class="col-md-4 py-2">
-            <ul class="card" style="width:25em;height:18em">
+            <ul class="card" style="width:27em;height:23.2em">
                 <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}">
-                    <h4>{{ recipe.Rec_conName }}</h4>
+                    <p  style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ recipe.Rec_conName }}</p>
 
                 </a>
 
