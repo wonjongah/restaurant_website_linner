@@ -69,10 +69,11 @@ class ImageView(TemplateView):
 
 class RecipeLV(ListView):
     context_object_name = 'recipe_list'
-
+    paginate_by = 3
     def get(self, request, *args, **kwargs):
 
         queryset = RecipeContent.objects.all()
+
         queryset2 = YoutubeContent.objects.all()
 
         sort = request.GET.get('sort', '')

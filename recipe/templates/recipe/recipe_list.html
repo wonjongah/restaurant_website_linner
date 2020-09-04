@@ -34,7 +34,18 @@
     <div class="row">
 
 
-        {% for recipe in recipe_list|slice:":3" %}
+        {% for recipe in recipe_list %}
+
+
+
+            <ul class="pagination pagination-lg justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+            <i class="fas fa-caret-left"></i></a></li>
+    {% endif %}
+
+
         <div class="col-md-4 py-2">
             <ul class="card" style="width:27em;height:23.2em">
                 <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}" style="color:black;">
@@ -75,6 +86,20 @@
 
             </ul>
         </div>
+
+
+
+
+                            {% if page_obj.has_next %}
+    <li class="page-item">
+<a class=" page-link" href="?page={{ page_obj.next_page_number }}">
+    <i class="fas fa-caret-right"></i></a></li>
+    {% endif %}
+    </ul>
+
+
+
+
         {% endfor %}
     </div>
 
@@ -209,10 +234,11 @@ body{
     <option class="sort-likes" value="?sort=You_conPickCount">좋아요순</option>
 </select>
 <br><br><br>
-<div class="container">
+<div class="container" style="background-color:#FAFAFA;">
 
     <div class="row">
-        {% for youtube in youtube_list|slice:":3" %}
+        {% for youtube in youtube_list %}
+
 
 
         <div class="col-md-4 py-2">

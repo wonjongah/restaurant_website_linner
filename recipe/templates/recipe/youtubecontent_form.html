@@ -2,8 +2,25 @@
 {% load widget_tweaks %}
 {% block title %}youtube_create.html{% endblock %}
 {% block content %}
-<h1>Youtube Post Create/Update {{user}}</h1>
-<p class="font-italic">This is a creation or update form for your post.</p>
+
+
+
+
+
+
+
+<br>
+<center>
+    <p style="font-size:3em;font-family:'georgia';">Y O U T U B E &nbsp; P O S T</p>
+    <p style="font-size:1.2em;font-family:'바탕체';color:#848484;">This is a creation or update form for your post.</p>
+</center>
+<br><br>
+
+
+
+
+
+
 <style>
     .hidden{display:none;}
 
@@ -48,7 +65,7 @@
 
         <div class="form-group">
             <div class="offset-sm-2 col-sm-5">
-                <input class="btn btn-info" type="submit" value="let's go"/>
+                <input class="btn btn-light" type="submit" value="let's go"/>
             </div>
         </div>
     </form>
@@ -63,7 +80,7 @@
 
 tinymce.init({
 	selector: 'textarea',
-	height: 400,
+	height: 320,
 	theme: 'modern',
 	plugins: [
 		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
