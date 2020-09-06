@@ -63,17 +63,22 @@
                     <a href="{% url 'recipe:tagged_object_list' tag.name %}" style="font-family:'바탕체';color:black;font-size:1.2em">
                         {{tag.name}}
                     </a>
-
                 </span>
-
-
+        </span>
+                <span class="tag-{{tag.weight|floatformat:0}}">
+                <span class="btn btn-light btn-sm tag_margin">
+                    <a href="{% url 'recipe:tagged_object_list2' tag.name %}" style="font-family:'바탕체';color:black;font-size:1.2em">
+                        {{tag.name}}
+                    </a>
+                </span>
         </span>
         {% endif %}
         {% endfor %}
     </div>
-    <span class="btn-moreInfo my-2" style="font-family:'바탕체';">더보기</span>
 
 </div>
+ <span class="btn-moreInfo my-2" style="font-family:'바탕체';">더보기</span>
+
 
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>

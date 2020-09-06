@@ -9,12 +9,19 @@
 </center>
 <br><br>
 
-<div class="container">
+{% if rooms.has_previous %}
+<a href="?page1={{rooms.number|add:-1}}" style="display:inline-block;"><i class="fas fa-chevron-left fa-4x"
+                                                                                    style="color:#d9d9d9;position:absolute;margin-top:92px;margin-left:284px;"></i></a>
+{% endif %}
+
+
+<div class="container" style="display:inline-block;margin-top:-100px; margin-left:390px; ">
+
 
     <div class="row">
 
 
-        {% for recipe in recipe|slice:":3" %}
+        {% for recipe in rooms %}
         <div class="col-md-4 py-2">
             <ul class="card" style="width:27em;height:23.2em">
                 <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}" style="color:black;">
@@ -43,9 +50,9 @@
 
 
                         {% if user in recipe.Rec_conLikesUser.all %}
-                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}" style="color:#bd1f00"></i>
                         {% else %}
-                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}" style="color:#bd1f00"></i>
                         {% endif %}
 
                 <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;font-family:'바탕체';">
@@ -57,6 +64,9 @@
             </ul>
         </div>
         {% endfor %}
+        {% if rooms.has_next %}
+<a href="?page1={{rooms.number|add:+1}}"><i class="fas fa-chevron-right fa-4x" style="color:#d9d9d9;margin-left:100px;position:absolute;margin-top:130px;"></i></a>
+{% endif %}
     </div>
 
 
@@ -133,15 +143,11 @@ html {
 
 body{
   font-family: 'Nunito', sans-serif;
-<<<<<<< HEAD
-=======
-  /* padding: 50px; */
->>>>>>> firstpage
+
 }
 .card{
     border-radius: 4px;
     background: #fff;
-    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
       transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
   padding: 14px 80px 18px 36px;
   cursor: pointer;
@@ -181,10 +187,14 @@ body{
 <p style="display:inline;font-family:georgia;font-size:50px">Y O U T U B E &nbsp; R E C I P E </p>
     </center>
 <br><br>
-<div class="container">
+
+{% if rooms2.has_previous %}
+<a href="?page2={{rooms2.number|add:-1}}"><i class="fas fa-chevron-left fa-4x" style="color:#d9d9d9;position:absolute;margin-top:183px;margin-left:284px;"></i></a>
+{% endif %}
+<div class="container" style="display:inline-block;margin-top:-100px; margin-left:390px;">
 
     <div class="row">
-        {% for youtube in youtube_list|slice:":3" %}
+        {% for youtube in rooms2%}
 
 
             <div class="col-md-4 py-2">
@@ -202,9 +212,9 @@ body{
                     <a class="btn btn-sm you_like" name="{{ youtube.You_conId }}" type="button" value="Like">
 
                         {% if user in youtube.You_conLikesUser.all %}
-                        <i class="fas fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
+                        <i class="fas fa-heart" id="you_heart{{ youtube.You_conId }}" style="color:#bd1f00"></i>
                         {% else %}
-                        <i class="far fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
+                        <i class="far fa-heart" id="you_heart{{ youtube.You_conId }}" style="color:#bd1f00"></i>
                         {% endif %}
                     </a>
                 <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;font-family:'바탕체';">
@@ -213,6 +223,11 @@ body{
         </div>
 
         {% endfor %}
+
+
+            {% if rooms2.has_next %}
+    <a href="?page2={{rooms2.number|add:+1}}"><i class="fas fa-chevron-right fa-4x" style="color:#d9d9d9;position:absolute;margin-top:183px;margin-left:100px;"></i></a>
+    {% endif %}
     </div>
 
 </div>

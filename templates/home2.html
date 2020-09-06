@@ -285,7 +285,7 @@ ul, ol {
 
 </script>
 </div>
-
+<br><br><br>
 <br><br>
 <p style="font-family:georgia;float:right;font-size:3em;"> "&nbsp;L I N N E R &nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <br><br>
@@ -307,7 +307,7 @@ ul, ol {
         <div class="row">
             {% for hotplace in hotplaces %}
             <div class="col-lg-6  col-md-6 col-sm-12 my-3">
-                <div class="card">
+                <div class="card" style="width:33.8em;height:14em">
                     <div class="card-horizontal">
 
                         <div class="card-body">
@@ -337,7 +337,7 @@ ul, ol {
                             {% for file in hotplace.files.all|slice:":1" %}
                             <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">
                                 <img id="image" src="{% url 'hotplace:download' file.id %}"
-                                     style="height:100%; width:100%;">
+                                     style="height:12em; width:15em;float:rihgt;">
                             </a>
                             {% endfor %}
 
@@ -366,7 +366,7 @@ ul, ol {
         <div class="row">
             {% for recipe in recipe_list %}
             <div class="col-lg-6  col-md-6 col-sm-12 my-3">
-                <div class="card">
+                <div class="card" style="width:33.8em;height:14em">
                     <div class="card-horizontal">
 
                         <div class="card-body">
@@ -378,13 +378,13 @@ ul, ol {
 
 
                                 {% if user in recipe.Rec_conLikesUser.all %}&nbsp;
-                                <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                                <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}" style="color:#bd1f00"></i>
                                 {% else %}&nbsp;
-                                <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                                <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}" style="color:#bd1f00"></i>
                                 {% endif %}
 
                             </a>
-<br>
+<br><br>
                             <i class="fas fa-tag"></i>
                             {% load taggit_templatetags2_tags %}
                             {% get_tags_for_object recipe as "tags" %}
@@ -395,12 +395,10 @@ ul, ol {
 
 
                         </div>
-                        <div class="img-square-wrapper">
                             {% for file in recipe.files.all|slice:":1" %}
                             <img id="image1" src="{% url 'recipe:recipe_download' file.id %}"
-                                 style="height:100%; width:100%;">
+                                 style="height:12em; width:15em;float:rihgt;">
                             {% endfor %}
-                        </div>
 
 
                     </div>

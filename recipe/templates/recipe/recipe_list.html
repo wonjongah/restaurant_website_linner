@@ -12,55 +12,52 @@
 <hr>
 <br><br>
 <center>
-<p style="display:inline;font-family:georgia;font-size:50px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O U R &nbsp; R E C I P E </p>
-{% if user.is_active %}
+    <p style="display:inline;font-family:georgia;font-size:50px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O
+        U R &nbsp; R E C I P E </p>
+    {% if user.is_active %}
 
-<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:recipe_create' %}" style="float:right;">
-<i class="fas fa-pencil-alt"></i>&nbsp;w r i t e</a>
-{% endif %}
-&nbsp;&nbsp;
-<select id="sort-select" onchange="location = this.value;" style="float:right;margin-top:43px;margin-right:5px;">
-    <option class="sort-date" value="?sort=Rec_conModify">최신순</option>
-    <option class="sort-view" value="?sort=Rec_conReadcount">조회순</option>
-    <option class="sort-likes" value="?sort=Rec_conPickCount">좋아요순</option>
-</select>
+    <a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:recipe_create' %}" style="float:right;color:black">
+        <i class="fas fa-pencil-alt" style="color:black;"></i>&nbsp;w r i t e</a>
+    {% endif %}
+    &nbsp;&nbsp;
+    <select id="sort-select" onchange="location = this.value;" style="float:right;margin-top:43px;margin-right:5px;">
+        <option class="sort-date" value="?sort=Rec_conModify">최신순</option>
+        <option class="sort-view" value="?sort=Rec_conReadcount">조회순</option>
+        <option class="sort-likes" value="?sort=Rec_conPickCount">좋아요순</option>
+    </select>
 
 </center>
 <br><br><br>
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
+<br>
 
-<div class="container" style="background-color:#FAFAFA;">
+{% if rooms.has_previous %}
+<a href="?page1={{rooms.number|add:-1}}" style="display:inline-block;"><i class="fas fa-chevron-left fa-4x"
+                                                                                    style="color:#d9d9d9;position:absolute;margin-top:92px;margin-left:267px;"></i></a>
+{% endif %}
+
+
+<div class="container" style="display:inline-block;margin-top:-100px; margin-left:390px; ">
 
     <div class="row">
 
-
-        {% for recipe in recipe_list %}
-
-
-
-            <ul class="pagination pagination-lg justify-content-center">
-    {% if page_obj.has_previous %}
-    <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-            <i class="fas fa-caret-left"></i></a></li>
-    {% endif %}
-
+        {% for recipe in rooms %}
 
         <div class="col-md-4 py-2">
             <ul class="card" style="width:27em;height:23.2em">
                 <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}" style="color:black;">
-                    <p style="font-family:'바탕체';font-weight:bold;font-size:2em;">{{ recipe.Rec_conName }}</p>
+                    <p style="font-family:'바탕체';font-weight:bold;font-size:2em;display:block;">{{ recipe.Rec_conName }}</p>
 
                 </a>
 
-
+<div>
                 {% for file in recipe.files.all %}
 
                 <img id="image" src="{% url 'recipe:recipe_download' file.id %}"
-                     style="float:right;width:13em;height:12em;">
+                     style="width:13em;height:12em;display:block;">
 
                 {% endfor %}
-
+</div>
 
                 <p style="font-family:'바탕체';">{{ recipe.get_recipe_summary | safe}}</p>
 
@@ -73,9 +70,9 @@
 
 
                         {% if user in recipe.Rec_conLikesUser.all %}
-                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}" style="color:#bd1f00"></i>
                         {% else %}
-                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
+                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}" style="color:#bd1f00"></i>
                         {% endif %}
 
                 <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;font-family:'바탕체';">
@@ -85,27 +82,22 @@
                 </p>
 
             </ul>
+
         </div>
-
-
-
-
-                            {% if page_obj.has_next %}
-    <li class="page-item">
-<a class=" page-link" href="?page={{ page_obj.next_page_number }}">
-    <i class="fas fa-caret-right"></i></a></li>
-    {% endif %}
-    </ul>
-
-
 
 
         {% endfor %}
     </div>
 
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript">
+{% if rooms.has_next %}
+<a href="?page1={{rooms.number|add:+1}}"><i class="fas fa-chevron-right fa-4x" style="color:#d9d9d9;margin-left:100px;position:absolute;margin-top:103px;"></i></a>
+{% endif %}
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
     $(".rec_like").click(function () { // .like 버튼을 클릭 감지
         var pk = $(this).attr('name')
         $.ajax({ // ajax로 서버와 통신
@@ -134,7 +126,8 @@
     })
 
 
-    </script>
+
+</script>
 
 
 </div>
@@ -214,6 +207,7 @@ body{
 
 
 
+
 </style>
 
 <br>
@@ -221,44 +215,47 @@ body{
 <br>
 
 <center>
-<p style="display:inline;font-family:georgia;font-size:50px">Y O U T U B E &nbsp; R E C I P E </p>
-    </center>
+    <p style="display:inline;font-family:georgia;font-size:50px">Y O U T U B E &nbsp; R E C I P E </p>
+</center>
 {% if user.is_active %}
 
-<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:youtube_create' %}" style="float:right;">
-<i class="fas fa-pencil-alt"></i>&nbsp;w r i t e</a>
+<a class="btn btn-light btn-sm tag_margin my-5" href="{% url 'recipe:youtube_create' %}" style="float:right;color:black;">
+    <i class="fas fa-pencil-alt" style="color:black"></i>&nbsp;w r i t e</a>
 {% endif %}
-<select id="sort-select" onchange="location = this.value;"  style="float:right;margin-top:43px;margin-right:5px;">
+<select id="sort-select" onchange="location = this.value;" style="float:right;margin-top:43px;margin-right:5px;">
     <option class="sort-date" value="?sort=You_conModify">최신순</option>
     <option class="sort-view" value="?sort=You_conReadcount">조회순</option>
     <option class="sort-likes" value="?sort=You_conPickCount">좋아요순</option>
 </select>
 <br><br><br>
-<div class="container" style="background-color:#FAFAFA;">
+
+{% if rooms2.has_previous %}
+<a href="?page2={{rooms2.number|add:-1}}"><i class="fas fa-chevron-left fa-4x" style="color:#d9d9d9;position:absolute;margin-top:183px;margin-left:267px;"></i></a>
+{% endif %}
+
+
+<div class="container" style="display:inline-block;margin-top:-100px; margin-left:390px;">
 
     <div class="row">
-        {% for youtube in youtube_list %}
-
+        {% for youtube in rooms2 %}
 
 
         <div class="col-md-4 py-2">
             <ul class="card" style="width:27em;height:29em">
                 <p style="font-family:'바탕체';">{{ youtube.You_conContent | safe}}</p>
 
-                    <p style="font-family:'바탕체';font-weight:bold;font-size:1.9em;">{{ youtube.You_conName }}</p>
+                <p style="font-family:'바탕체';font-weight:bold;font-size:1.9em;display:block;">{{ youtube.You_conName }}</p>
 
 
-
-
-                <p style="display:inline;font-family:georgia;">by. {{youtube.You_conMemID}}
+                <p style="font-family:georgia;">by. {{youtube.You_conMemID}}
 
 
                     <a class="btn btn-sm you_like" name="{{ youtube.You_conId }}" type="button" value="Like">
 
                         {% if user in youtube.You_conLikesUser.all %}
-                        <i class="fas fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
+                        <i class="fas fa-heart" id="you_heart{{ youtube.You_conId }}" style="color:#bd1f00"></i>
                         {% else %}
-                        <i class="far fa-heart" id="you_heart{{ youtube.You_conId }}"></i>
+                        <i class="far fa-heart" id="you_heart{{ youtube.You_conId }}"  style="color:#bd1f00"></i>
                         {% endif %}
                     </a>
                 <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;font-family:'바탕체';">
@@ -267,11 +264,22 @@ body{
         </div>
 
         {% endfor %}
+
+
+            {% if rooms2.has_next %}
+    <a href="?page2={{rooms2.number|add:+1}}"><i class="fas fa-chevron-right fa-4x" style="color:#d9d9d9;position:absolute;margin-top:183px;margin-left:100px;"></i></a>
+    {% endif %}
+
+
+
     </div>
 
+
+
+
 </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type='text/javascript'>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type='text/javascript'>
 
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -298,10 +306,11 @@ $(document).ready(function(){
   }
 });
 
-    </script>
+
+</script>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
     $(".you_like").click(function () { // .like 버튼을 클릭 감지
         var pk = $(this).attr('name')
         $.ajax({ // ajax로 서버와 통신
@@ -330,7 +339,8 @@ $(document).ready(function(){
     })
 
 
-    </script>
+
+</script>
 
 
 </div>
@@ -375,6 +385,7 @@ $(document).ready(function(){
     $('.sort-date').prop('selected', 'selected')
   }
 });
+
 
 </script>
 

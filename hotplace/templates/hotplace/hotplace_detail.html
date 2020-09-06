@@ -63,16 +63,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 </style>
 
 
@@ -88,11 +78,11 @@
         {% endfor %}
 
     </div>
-    <h1 style=" position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%);">
+    <p style=" position: absolute; top: 67%; left: 50%; transform: translate(-50%, -50%);font-weight:bold;font-family:'바탕체';font-size:7em;color:white;">
         {{hotplace.title}}
-    </h1>
-    <button class="btn1" id='prevBtn'><i class="fas fa-angle-double-left"></i></button>
-    <button class="btn2" id='nextBtn'><i class="fas fa-angle-double-right"></i></button>
+    </p>
+    <button class="btn1" id='prevBtn'><i class="fas fa-angle-double-left fa-5x" style="margin-top:340px;"></i></button>
+    <button class="btn2" id='nextBtn'><i class="fas fa-angle-double-right fa-5x" style="margin-top:340px;"></i></button>
 </div>
 
 <div class="container">
@@ -102,11 +92,12 @@
 
         <div>
 
-            <ul>
-                <li>한줄평 :{{hotplace.content | safe}}
-                </li>
-            </ul>
+
+                <p style="font-size:2em; font-family:'바탕체';font-weight:bold;">한줄평</p>
+            <p>{{hotplace.content | safe}}</p>
+
         </div>
+        <br>
         <div style="height:15px;">
             <div class="star_back">
                 <div class="star" style="width:calc(20% * {{hotplace.rating}})"></div>
@@ -115,6 +106,7 @@
                      title="{{hotplace.rating}}">
             </div>
         </div>
+        <br>
         <b>TAGS</b><i class="fas fa-tag"></i>
         {% load taggit_templatetags2_tags %}
         {% get_tags_for_object hotplace as "tags" %}
@@ -122,17 +114,19 @@
         <a href="{%url 'hotplace:tagged_object_list' tag.name%}">{{tag.name}}</a>
         {% endfor %}
         <br>
+<br><br>
 
         {% include "kakao_map.html" %}
-
+<br><br>
     <div class="media border p-3">
         <img src="{{hotplace.owner.profile.photo.url}}" alt="{{hotplace.owner.profile.nickname}}"
-         class="ml-3 mt-3 rounded-circle" style="width:60px;">
+         class="ml-3 mt-3 rounded-circle" style="width:100px;">
     <div class="media-body">
+        <br>
         <h4>
-            <a href="{% url 'user:userprofile' hotplace.owner.id %}">{{hotplace.owner.profile.nickname}}</a>
+            <a href="{% url 'user:userprofile' hotplace.owner.id %}" style="font-family:'바탕체';font-weight:bold;color:black;margin-left:20px;">{{hotplace.owner.profile.nickname}}</a>
         </h4>
-        <p>
+        <p style="font-family:'바탕체';color:black;margin-left:20px;">
             {{hotplace.owner.profile.intro}}
         </p>
     </div>
@@ -141,22 +135,23 @@
 
         <div class="text-right my-3">
             {% for file in hotplace.files.all %}
-            <a href="{% url 'hotplace:download' file.id %}" class="ml-4">
-                <i class="fas fa-download"></i>
+            <a href="{% url 'hotplace:download' file.id %}" class="ml-4" style="color:black;">
+                <i class="fas fa-download" style="color:black;"></i>
                 {{file.filename}} ({{file.size| filesizeformat}})
             </a>
             {% endfor %}
         </div>
-        <a href="{% url 'hotplace:index' %}">목록으로</a>
+        <a href="{% url 'hotplace:index' %}" class="btn btn-light">back to recipe</a>
     </div>
 
 
-    <div class="text-right">
-        <a href="{% url 'hotplace:update' hotplace.id %}" class="mr-3">
-            <i class="far fa-edit"></i> 수정</a>
+<a href="{% url 'hotplace:update' hotplace.id %}" class="mr-3" style="float:right;display:inline-block;color:black;padding:8px;">
+            <i class="far fa-edit"></i> edit</a>
 
-        <a href="{% url 'hotplace:delete' hotplace.id %}" class="text-danger mr-3">
-            <i class="fas fa-trash"></i> 삭제</a>
+<a class="btn" data-toggle="modal" href="#myModal" style="float:right;display:inline-block;"><i
+        class="fas fa-trash"></i> delete</a>
+
+
     </div>
 
 </div>
@@ -200,6 +195,64 @@
 
 
 </script>
+
+
+
+
+<!-- Modal HTML -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <td>
+                    <div class="swal2-icon swal2-question">
+                        <div class="swal2-icon-content">?</div>
+                    </div>
+                </td>
+                <h4 class="modal-title" style="text-align:center;">Are you sure?</h4>
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" data-dismiss="modal" type="button">Cancel</button>
+                <a href="{% url 'hotplace:delete' hotplace.id %}">
+                    <button class="btn btn-danger" type="button">Delete</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--<script>-->
+<!--            swal({-->
+<!--                title: "Are you sure?",-->
+<!--                text: "You will not be able to recover this Details!",-->
+<!--                type: "warning",   showCancelButton: true,-->
+<!--                confirmButtonColor: "#DD6B55",-->
+<!--                confirmButtonText: "Yes, delete it!",-->
+<!--                cancelButtonText: "No, cancel!",-->
+<!--                closeOnConfirm: false,   closeOnCancel: false-->
+<!--            }).then((result) => {-->
+<!--                if (result.value) {-->
+<!--                    swal(-->
+<!--                    'Deleted!',-->
+<!--                    'Your file has been deleted.',-->
+<!--                    'success'-->
+<!--                    )-->
+<!--                }-->
+<!--            })-->
+
+<!--</script>-->
+
+</div>
+</div>
+
+
+
+
 {% endblock %}
 
 

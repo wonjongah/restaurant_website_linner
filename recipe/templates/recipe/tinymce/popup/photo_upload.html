@@ -34,14 +34,14 @@
 <br>
     <p style="font-size:3em;font-family:'georgia';">Y O U T U B E &nbsp; S E A R C H</p>
 <br><br>
+
+
 <form id="form">
     <div class="form-group">
-                    <div class="col-sm-5">
-
         <input type="text" class="form-control" id="search">
-
-
-        <input type="submit" class="btn btn-danger" value="Search"></div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-danger" value="Search">
     </div>
 </form>
 
@@ -52,27 +52,27 @@
         <h3 id="title0"></h3>
         <div id="video0" display="inline">
             <input type="radio" id="check0" name="check" value="check0">
-            <label for="check0">1번 선택</label><br>
+            <label for="check0">1번 눌러줭</label><br>
         </div><br>
         <h3 id="title1"></h3>
             <div id="video1">
             <input type="radio" id="check1" name="check" value="check1">
-            <label for="check1">2번 선택</label><br>
+            <label for="check1">2번 눌러줭</label><br>
             </div><br>
          <h3 id="title2"></h3>
         <div id="video2">
             <input type="radio" id="check2" name="check" value="check2">
-            <label for="check2">3번 선택</label><br>
+            <label for="check2">3번 눌러줭</label><br>
         </div><br>
         <h3 id="title3"></h3>
         <div id="video3">
             <input type="radio" id="check3" name="check" value="check3">
-            <label for="check3">4번 선택</label><br>
+            <label for="check3">4번 눌러줭</label><br>
         </div><br>
          <h3 id="title4"></h3>
         <div id="video4">
             <input type="radio" id="check4" name="check" value="check4">
-            <label for="check4">5번 선택</label><br>
+            <label for="check4">5번 눌러줭</label><br>
         </div>
         <br><br>
         <button type="submit" id="yeah">확인</button>
@@ -94,7 +94,7 @@
 
 $(document).ready(function(){
 
-    var API_KEY = "AIzaSyDKH4KaYVdOJjN5HTg-PxFlGBEWekU3pVc"
+    var API_KEY = "AIzaSyCzDzAe8UNaq8CBBEl1q8oNBqDcR7p_FpU"
     var video = new Array();
 
     $('#form').submit(function(event){
@@ -152,11 +152,6 @@ $(document).ready(function(){
 
         $('#videos').empty()
 
-
-
-
-
-
         $.get("https://www.googleapis.com/youtube/v3/search?key=" + key + "&type=video&part=snippet&maxResults="
         + maxResults + "&q=" + search,function(data){
         console.log(data);
@@ -211,11 +206,3 @@ $(document).ready(function(){
 </script>
 
 </html>
-
-
-
-
-
-
-
-

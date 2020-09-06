@@ -124,6 +124,8 @@ class HotplaceDeleteView(OwnerOnlyMixin1,DeleteView):
     model = Hotplace
     success_url = reverse_lazy('hotplace:index')
 
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
 
 # 함수기반의 VIEW
 def download(request,id):
