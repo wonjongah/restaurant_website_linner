@@ -37,6 +37,7 @@
                 $("#rec_count-" + pk).html("좋아요&nbsp;" + response.rec_likes_count + "개"); // 좋아요 개수 변경
                 if (response.message == "좋아요")
                     //좋아요 눌렀을 때
+
                     {
                         $('#rec_heart' + pk).attr("class", "fas fa-heart")
                     } else if (response.message == "좋아요 취소")
