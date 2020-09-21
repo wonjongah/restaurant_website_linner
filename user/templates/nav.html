@@ -9,7 +9,7 @@
 
 			#nav > ul > li {
 				display: inline-block;
-				font-style: italic;
+
 				margin: 0 0.35em 0 0.35em;
 			}
 
@@ -43,11 +43,11 @@
 <div id="page-wrapper" align="center">
 						<nav id="nav">
 							<ul>
-								<li><a href="{% url 'user:profile' user.id %}">Profile</a></li>
-								<li><a href="{% url 'user:recipeprofile' %}">Recipe Posts</a></li>
-								<li><a href="{% url 'user:youtubeprofile' %}">Youtube Posts</a></li>
-								<li><a href="{% url 'user:hotplaceprofile' %}">Hotplace Posts</a></li>
+								<li><a href="{% url 'user:profile' user.id %}" style="font-family: '바탕체';font-weight:bold; font-size:1.2em">Profile</a></li>
+								<li><a href="{% url 'user:recipeprofile' %}"  style="font-family: '바탕체';font-weight:bold;font-size:1.2em">Recipe Posts</a></li>
+								<li><a href="{% url 'user:youtubeprofile' %}"  style="font-family: '바탕체';font-weight:bold;font-size:1.2em">Youtube Posts</a></li>
+								<li><a href="{% url 'user:hotplaceprofile' %}" style="font-family: '바탕체';font-weight:bold;font-size:1.2em">Hotplace Posts</a></li>
 							</ul>
 						</nav>
 		</div>
-<hr style="margin-left: -50%;margin-right: -50%;">
+<hr>

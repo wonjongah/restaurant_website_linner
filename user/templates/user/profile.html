@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
-{% include 'nav.html' %}
+{% load static %}
 	<head>
 		<title>Dopetrope by HTML5 UP</title>
 		<meta charset="utf-8" />
@@ -9,13 +8,10 @@
 		<style>
 		.round {border-radius: 50%;}
 </style>
-        <style>
-
-        </style>
 	</head>
 	<body class="no-sidebar is-preload">
-    {% load static %}
 <!-- Nav -->
+{% include 'nav.html' %}
 			<!-- Main -->
 			<div align="center">
 		<div class="card" style="width:400px" align="left">

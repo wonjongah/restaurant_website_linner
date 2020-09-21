@@ -63,6 +63,18 @@ class RecipeTaggedObjectLV(ListView):
         return context
 
 
+class YoutubeTaggedObjectLV(ListView):
+    template_name = 'taggit/taggit_post_list3.html'
+    model = YoutubeContent
+
+    def get_queryset(self):
+        return YoutubeContent.objects.filter(You_conTags__name=self.kwargs.get('tag'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tagname'] = self.kwargs['tag']
+        return context
+
 
 class ImageView(TemplateView):
     template_name = 'recipe/tinymce/popup/photo_upload.html'
@@ -73,29 +85,64 @@ class RecipeLV(ListView):
     def get(self, request, *args, **kwargs):
 
         queryset = RecipeContent.objects.all()
+
         queryset2 = YoutubeContent.objects.all()
+
+        paginator = Paginator(queryset, 3)
+
+        page = request.GET.get('page1', 1)
+
+        try:
+            rooms = paginator.page(page)
+        except PageNotAnInteger:
+            rooms = paginator.page(1)
+        except EmptyPage:
+            rooms = paginator.page(paginator.num_pages)
+
+
+        page = request.GET.get('page2', 1)
+        paginator2 = Paginator(queryset2, 3)
+
+        try:
+            rooms2 = paginator2.page(page)
+        except PageNotAnInteger:
+            rooms2 = paginator2.page(1)
+        except EmptyPage:
+            rooms2 = paginator2.page(paginator.num_pages)
 
         sort = request.GET.get('sort', '')
 
         if sort == 'Rec_conPickCount':
             queryset = queryset.order_by('-Rec_conPickCount', '-Rec_conModify')
-            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+            paginator = Paginator(queryset, 3)
+            rooms = paginator.get_page(page)
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2, 'rooms' : rooms, 'rooms2' : rooms2})
         elif sort == 'Rec_conReadcount':
             queryset = queryset.order_by('-Rec_conReadcount', '-Rec_conModify')
-            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+            paginator = Paginator(queryset, 3)
+            rooms = paginator.get_page(page)
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2, 'rooms' : rooms, 'rooms2' : rooms2})
         elif sort == 'Rec_conModify':
             queryset = queryset.order_by('-Rec_conModify')
-            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+            paginator = Paginator(queryset, 3)
+            rooms = paginator.get_page(page)
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2, 'rooms' : rooms, 'rooms2' : rooms2})
 
         elif sort == 'You_conPickCount':
             queryset2 = queryset2.order_by('-You_conPickCount', '-You_conModify')
-            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+            paginator2 = Paginator(queryset2, 3)
+            rooms2 = paginator2.get_page(page)
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2, 'rooms' : rooms, 'rooms2' : rooms2})
         elif sort == 'You_conReadcount':
             queryset2 = queryset2.order_by('-You_conReadcount', '-You_conModify')
-            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+            paginator2 = Paginator(queryset2, 3)
+            rooms2 = paginator2.get_page(page)
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2, 'rooms' : rooms, 'rooms2' : rooms2})
         else:
             queryset2 = queryset2.order_by('-You_conModify')
-            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2})
+            paginator2 = Paginator(queryset2, 3)
+            rooms2 = paginator2.get_page(page)
+            return render(request, 'recipe/recipe_list.html', {'recipe_list': queryset, 'youtube_list' : queryset2, 'rooms' : rooms, 'rooms2' : rooms2})
 
 
 class RecipeDV(DetailView):
@@ -242,9 +289,32 @@ class recipe_like_list(ListView):
         user = self.request.user
         queryset = user.Rec_conLikesUser.all()
         queryset2 = user.You_conLikesUser.all()
+        paginator = Paginator(queryset, 3)
+
+        page = request.GET.get('page1', 1)
+
+        try:
+            rooms = paginator.page(page)
+        except PageNotAnInteger:
+            rooms = paginator.page(1)
+        except EmptyPage:
+            rooms = paginator.page(paginator.num_pages)
+
+
+        page = request.GET.get('page2', 1)
+        paginator2 = Paginator(queryset2, 3)
+
+        try:
+            rooms2 = paginator2.page(page)
+        except PageNotAnInteger:
+            rooms2 = paginator2.page(1)
+        except EmptyPage:
+            rooms2 = paginator2.page(paginator.num_pages)
+
         ctx = {'recipe': queryset,
-               'youtube_list' : queryset2}
-        print(ctx)
+               'youtube_list' : queryset2,
+               'rooms' : rooms,
+               'rooms2' : rooms2}
         return render(request, 'recipe/recipe_list_like.html', ctx)
 
 

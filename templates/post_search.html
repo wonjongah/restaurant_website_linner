@@ -1,61 +1,68 @@
 {% extends "base.html" %}
 {% block title %}post_search.html{% endblock %}
 {% block content %}
-
-<h1>Search</h1>
-
-<br>
-
-<form action="." method="post"> {% csrf_token %}
-
-{{ form.as_table }}
-
-<input type="submit" value="Submit" class="btn btn-primary btn-sm">
-
-</form>
-
-<br/>
-<br/>
-
-{% if recipe_search %}
-
-{% for recipe in recipe_search %}
-
-<h2><a href='{% url "recipe:recipe_detail" recipe.Rec_conId %}'>{{ recipe.Rec_conName }}</a></h2>
-
-{{ recipe.Rec_conModify|date:"N d, Y" }}
-        <p>{{ recipe.get_recipe_summary | safe}}</p>
-
-{% endfor %}
-{% endif %}
-
-{% if youtube_search %}
-
-{% for youtube in youtube_search %}
-
-<h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}'>{{ youtube.You_conName }}</a></h2>
-
-{{ youtube.You_conModify|date:"N d, Y" }}
-<p>{{ youtube.get_youtube_summary | safe}}</p>
-
-{% endfor %}
-{% endif %}
+<div class="container">
 
 
-{% if hot_search %}
+    <br><br><br><br>
+    <center>
+        <p style="display:inline;font-family:georgia;font-size:50px;display:block;">S E A R C H </p>
+        <p style="font-size:1.2em;font-family:'바탕체';color:#848484;">검색어를 입력해주세요</p>
 
-{% for hot in hot_search %}
+        <br>
+        <br>
+        <form action="." method="post"> {% csrf_token %}
 
-<h2><a href="{% url 'hotplace:detail' hot.id %}">{{ hot.title }}</a></h2>
+            {{ form.as_table }}
 
-{{ hot.modify_dt|date:"N d, Y" }}
-        <p>{{ hot.content | safe}}</p>
+            <input type="submit" value="search!" class="btn btn-light btn-sm">
 
-{% endfor %}
+        </form>
 
-{% endif %}
+        <br/>
+        <br/>
+
+        {% if recipe_search %}
+
+        {% for recipe in recipe_search %}
+<div class="col-md-4 py-2">
+            <ul class="card" style="width:27em;height:23.2em">
+        <h2><a href='{% url "recipe:recipe_detail" recipe.Rec_conId %}' style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ recipe.Rec_conName }}</a></h2>
+
+        {{ recipe.Rec_conModify|date:"N d, Y" }}
+        <p  style="font-family:'바탕체';color:black;">{{ recipe.get_recipe_summary | safe}}</p>
+            </ul></div>
+        {% endfor %}
+        {% endif %}
+
+        {% if youtube_search %}
+
+        {% for youtube in youtube_search %}
+<div class="col-md-4 py-2">
+            <ul class="card" style="width:27em;height:23.2em">
+        <h2><a href='{% url "recipe:youtube_detail" youtube.You_conId %}' style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ youtube.You_conName }}</a></h2>
+
+        {{ youtube.You_conModify|date:"N d, Y" }}
+        <p>{{ youtube.You_conContent | safe}}</p>
+            </ul></div>
+        {% endfor %}
+        {% endif %}
 
 
+        {% if hot_search %}
+
+        {% for hot in hot_search %}
+
+        <h2><a href="{% url 'hotplace:detail' hot.id %}" style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ hot.title }}</a></h2>
+
+        <p style="font-family:'바탕체';color:black;">{{ hot.content | safe}}</p>
+
+        {% endfor %}
+
+
+        {% endif %}
+</div>
+</center>
 
 
 {% endblock %}

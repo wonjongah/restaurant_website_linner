@@ -4,44 +4,18 @@
     <div class="row">
 
 
-        {% for recipe in object_list %}
+        {% for youtube in object_list %}
         <div class="col-md-4 py-2">
             <ul class="card" style="width:27em;height:23.2em">
-                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}">
-                    <p  style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ recipe.Rec_conName }}</p>
+                <a href="{% url 'recipe:youtube_detail' youtube.You_conId %}">
+                    <p  style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ youtube.You_conName }}</p>
 
                 </a>
 
 
-                {% for file in recipe.files.all %}
 
-                <img id="image" src="{% url 'recipe:recipe_download' file.id %}"
-                     style="float:right;width:10em;height:10em;">
+                <p>{{ youtube.You_conContent | safe}}</p>
 
-                {% endfor %}
-
-
-                <p>{{ recipe.get_recipe_summary | safe}}</p>
-
-
-                <br><br><br><br>
-
-                <p style="display:inline;font-family:georgia;">by. {{recipe.Rec_conMemID}}
-
-                    <a class="btn btn-sm rec_like" name="{{ recipe.Rec_conId }}" type="button" value="Like">
-
-
-                        {% if user in recipe.Rec_conLikesUser.all %}
-                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
-                        {% else %}
-                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
-                        {% endif %}
-
-                <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;">
-                    좋아요&nbsp;{{ recipe.Rec_conLikesUser.all.count }}개</p>
-                </a>
-
-                </p>
 
             </ul>
         </div>
