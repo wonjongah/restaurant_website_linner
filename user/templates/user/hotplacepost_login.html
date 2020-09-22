@@ -71,6 +71,10 @@
                                 {% endfor %}
 
                             </div>
+                            <p> <a href="{% url 'hotplace:delete' hotplace.id %}">
+                    <button class="btn btn-dark" type="button"><i class="fas fa-trash"></i>Delete</button></a>
+                <a href="{% url 'hotplace:update' hotplace.id %}">
+                    <button class="btn btn-light" type="button"><i class="far fa-edit"></i>Update</button></a></p>
                         </div>
                         <div class="img-square-wrapper">
                             {% for file in hotplace.files.all|slice:":1" %}

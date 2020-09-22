@@ -119,8 +119,12 @@
         {% include "kakao_map.html" %}
 <br><br>
     <div class="media border p-3">
+        {% if hotplace.owner.profile.photo %}
         <img src="{{hotplace.owner.profile.photo.url}}" alt="{{hotplace.owner.profile.nickname}}"
          class="ml-3 mt-3 rounded-circle" style="width:100px;">
+        {% else%}
+        <img src="{% static 'User/images/default_profile.png' %}" class="ml-3 mt-3 rounded-circle" style="width:100px;">
+        {% endif %}
     <div class="media-body">
         <br>
         <h4>
@@ -141,16 +145,16 @@
             </a>
             {% endfor %}
         </div>
-        <a href="{% url 'hotplace:index' %}" class="btn btn-light">back to recipe</a>
+        <a href="{% url 'hotplace:index' %}" class="btn btn-light">back to hotplace</a>
     </div>
 
-
+{% if user.id == hotplace.owner_id %}
 <a href="{% url 'hotplace:update' hotplace.id %}" class="mr-3" style="float:right;display:inline-block;color:black;padding:8px;">
             <i class="far fa-edit"></i> edit</a>
 
 <a class="btn" data-toggle="modal" href="#myModal" style="float:right;display:inline-block;"><i
         class="fas fa-trash"></i> delete</a>
-
+{% endif %}
 
     </div>
 

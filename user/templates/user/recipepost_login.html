@@ -47,8 +47,12 @@
                 <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;">
                     좋아요&nbsp;{{ recipe.Rec_conLikesUser.all.count }}개</p>
                 </a>
-
                 </p>
+                <p>                <a href="{% url 'recipe:recipe_delete' recipe.Rec_conId %}">
+                    <button class="btn btn-dark" type="button"><i class="fas fa-trash"></i>Delete</button></a>
+                <a href="{% url 'recipe:recipe_update' recipe.Rec_conId %}">
+                    <button class="btn btn-light" type="button"><i class="far fa-edit"></i>Update</button></a></p>
+
 
             </ul>
         </div>
