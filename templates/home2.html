@@ -287,7 +287,7 @@ ul, ol {
 </div>
 <br><br><br>
 <br><br>
-<p style="font-family:georgia;float:right;font-size:3em;"> "&nbsp;L I N N E R &nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p style="font-family:georgia;float:right;font-size:3em;"> "&nbsp;L I N N E R&nbsp;"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <br><br>
 </p>
 <p style="font-size:3em;font-family:'바탕체';"> &nbsp;&nbsp;오늘 하루 맛있는 한끼를 위해</p>
@@ -337,7 +337,7 @@ ul, ol {
                             {% for file in hotplace.files.all|slice:":1" %}
                             <a href="{% url 'hotplace:detail' hotplace.id %}" class="card-link stretched-link">
                                 <img id="image" src="{% url 'hotplace:download' file.id %}"
-                                     style="height:12em; width:15em;float:rihgt;">
+                                     style="height:12em; width:15em;float:right;">
                             </a>
                             {% endfor %}
 
@@ -397,7 +397,7 @@ ul, ol {
                         </div>
                             {% for file in recipe.files.all|slice:":1" %}
                             <img id="image1" src="{% url 'recipe:recipe_download' file.id %}"
-                                 style="height:12em; width:15em;float:rihgt;">
+                                 style="height:12em; width:15em;float:right;">
                             {% endfor %}
 
 

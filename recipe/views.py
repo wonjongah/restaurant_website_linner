@@ -51,29 +51,34 @@ class RecipeTagCloudTV(TemplateView):
     template_name = 'taggit/taggit_cloud3.html'
 
 class RecipeTaggedObjectLV(ListView):
-    template_name = 'taggit/taggit_post_list2.html'
-    model = RecipeContent
-
-    def get_queryset(self):
-        return RecipeContent.objects.filter(Rec_conTags__name=self.kwargs.get('tag'))
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tagname'] = self.kwargs['tag']
-        return context
-
-
-class YoutubeTaggedObjectLV(ListView):
-    template_name = 'taggit/taggit_post_list3.html'
-    model = YoutubeContent
-
-    def get_queryset(self):
-        return YoutubeContent.objects.filter(You_conTags__name=self.kwargs.get('tag'))
+    # template_name = 'taggit/taggit_post_list2.html'
+    # model = RecipeContent
+    def get(self, request, *args, **kwargs):
+        queryset1 = RecipeContent.objects.filter(Rec_conTags__name=self.kwargs.get('tag'))
+        # queryset2 = YoutubeContent.objects.filter(You_conTags__name=self.kwargs.get('tag'))
+        ctx = {
+            'tag':queryset1,
+            # 'tag':queryset2
+        }
+        return render(request, 'taggit/taggit_post_list2.html', ctx)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tagname'] = self.kwargs['tag']
         return context
+
+#
+# class YoutubeTaggedObjectLV(ListView):
+#     template_name = 'taggit/taggit_post_list3.html'
+#     model = YoutubeContent
+#
+#     def get_queryset(self):
+#         return YoutubeContent.objects.filter(You_conTags__name=self.kwargs.get('tag'))
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['tagname'] = self.kwargs['tag']
+#         return context
 
 
 class ImageView(TemplateView):

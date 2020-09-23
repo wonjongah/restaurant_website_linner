@@ -26,7 +26,7 @@ urlpatterns = [
     path('download/<int:id>',recipe_download,name="recipe_download"),
     path('tag', RecipeTagCloudTV.as_view(), name='tag_cloud'),
     path('tag/<str:tag>', RecipeTaggedObjectLV.as_view(), name='tagged_object_list'),
-    path('youtag/<str:tag>', YoutubeTaggedObjectLV.as_view(), name = 'tagged_object_list2'),
+    # path('youtag/<str:tag>', YoutubeTaggedObjectLV.as_view(), name = 'tagged_object_list2'),
 
 ]
 
