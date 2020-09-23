@@ -244,7 +244,10 @@ body{
             <ul class="card" style="width:27em;height:29em">
                 <p style="font-family:'바탕체';">{{ youtube.You_conContent | safe}}</p>
 
-                <p style="font-family:'바탕체';font-weight:bold;font-size:1.9em;display:block;">{{ youtube.You_conName }}</p>
+                <a href="{% url 'recipe:youtube_detail' youtube.You_conId %}">
+                  <p  style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ youtube.You_conName }}</p>
+
+                </a>
 
 
                 <p style="font-family:georgia;">by. {{youtube.You_conMemID}}

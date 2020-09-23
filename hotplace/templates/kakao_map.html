@@ -39,7 +39,7 @@
         marker.setMap(map);
 
         var iwContent =
-            '<div style="padding:5px;">{{hotplace.title}} <br><a href="https://map.kakao.com/link/map/37.51140319431617 , 127.05685314259544" style="color:blue" target="_blank">카카오지도</a>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            '<div style="padding:5px;">{{hotplace.title}} <br>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
             iwPosition = new kakao.maps.LatLng(lat, lon); //인포윈도우 표시 위치입니다
 
         // 인포윈도우를 생성합니다
