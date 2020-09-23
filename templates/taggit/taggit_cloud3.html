@@ -65,13 +65,7 @@
                     </a>
                 </span>
         </span>
-                <span class="tag-{{tag.weight|floatformat:0}}">
-                <span class="btn btn-light btn-sm tag_margin">
-                    <a href="{% url 'recipe:tagged_object_list2' tag.name %}" style="font-family:'바탕체';color:black;font-size:1.2em">
-                        {{tag.name}}
-                    </a>
-                </span>
-        </span>
+      
         {% endif %}
         {% endfor %}
     </div>
