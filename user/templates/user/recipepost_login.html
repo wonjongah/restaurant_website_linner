@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content%}
-{% load static %}
+<div align=center>
         {% include 'nav.html' %}
-
+</div>
 
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,900" rel="stylesheet">
 
@@ -10,28 +10,28 @@
 
     <div class="row">
 
-        {% for recipe in user_posts %}
 
+        {% for recipe in user_posts|slice:":3" %}
         <div class="col-md-4 py-2">
-            <ul class="card" style="width:22em;height:19em">
-                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}" style="color:black;">
-                    <p style="font-family:'바탕체';font-weight:bold;font-size:2em;display:block;">{{ recipe.Rec_conName }}</p>
+            <ul class="card" style="width:25em;height:18em">
+                <a href="{% url 'recipe:recipe_detail' recipe.Rec_conId %}">
+                    <h4>{{ recipe.Rec_conName }}</h4>
 
                 </a>
 
-<div>
+
                 {% for file in recipe.files.all %}
 
                 <img id="image" src="{% url 'recipe:recipe_download' file.id %}"
-                     style="width:13em;height:12em;display:block;">
+                     style="float:right;width:10em;height:10em;">
 
                 {% endfor %}
-</div>
-
-                <p style="font-family:'바탕체';">{{ recipe.get_recipe_summary | safe}}</p>
 
 
-                <br><br>
+                <p>{{ recipe.get_recipe_summary | safe}}</p>
+
+
+                <br><br><br><br>
 
                 <p style="display:inline;font-family:georgia;">by. {{recipe.Rec_conMemID}}
 
@@ -39,27 +39,25 @@
 
 
                         {% if user in recipe.Rec_conLikesUser.all %}
-                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}" style="color:#bd1f00"></i>
+                        <i class="fas fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
                         {% else %}
-                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}" style="color:#bd1f00"></i>
+                        <i class="far fa-heart" id="rec_heart{{ recipe.Rec_conId }}"></i>
                         {% endif %}
 
-                <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;font-family:'바탕체';">
+                <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;">
                     좋아요&nbsp;{{ recipe.Rec_conLikesUser.all.count }}개</p>
                 </a>
-
                 </p>
+                <p>                <a href="{% url 'recipe:recipe_delete' recipe.Rec_conId %}">
+                    <button class="btn btn-dark" type="button"><i class="fas fa-trash"></i>Delete</button></a>
+                <a href="{% url 'recipe:recipe_update' recipe.Rec_conId %}">
+                    <button class="btn btn-light" type="button"><i class="far fa-edit"></i>Update</button></a></p>
+
 
             </ul>
-
         </div>
-
-
         {% endfor %}
     </div>
-
-</div>
-
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -101,9 +99,12 @@
 <style>
 
 html {
-
+  background: #FAF7F2;
+  background-image: url(https://s3.postimg.org/s1n3ji1ur/paper_fibers_2_X.png);
   box-sizing: border-box;
-
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 *, *:before, *:after {
@@ -133,11 +134,12 @@ html {
 
 body{
   font-family: 'Nunito', sans-serif;
-
+  padding: 50px;
 }
 .card{
     border-radius: 4px;
     background: #fff;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
       transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
   padding: 14px 80px 18px 36px;
   cursor: pointer;
@@ -159,6 +161,26 @@ body{
   max-height: 120px;
 }
 
+.card-1{
+  background-image: url(https://ionicframework.com/img/getting-started/ionic-native-card.png);
+      background-repeat: no-repeat;
+    background-position: right;
+    background-size: 80px;
+}
+
+.card-2{
+   background-image: url(https://ionicframework.com/img/getting-started/components-card.png);
+      background-repeat: no-repeat;
+    background-position: right;
+    background-size: 80px;
+}
+
+.card-3{
+   background-image: url(https://ionicframework.com/img/getting-started/theming-card.png);
+      background-repeat: no-repeat;
+    background-position: right;
+    background-size: 80px;
+}
 
 @media(max-width: 990px){
   .card{
