@@ -78,8 +78,19 @@
                 <p id="rec_count-{{ recipe.Rec_conId }}" style="font:bold 1em;font-family:'바탕체';">
                     좋아요&nbsp;{{ recipe.Rec_conLikesUser.all.count }}개</p>
                 </a>
+                
 
                 </p>
+                <!-- {% if user.id == recipe.Rec_conMemID_id %}
+   
+                      <p>                <a href="{% url 'recipe:recipe_delete' recipe.Rec_conId %}">
+                        <button class="btn btn-dark" type="button"><i class="fas fa-trash"></i>Delete</button></a>
+                    <a href="{% url 'recipe:recipe_update' recipe.Rec_conId %}">
+                        <button class="btn btn-light" type="button"><i class="far fa-edit"></i>Update</button></a></p>
+    
+                     
+                 {% endif %}   -->
+
 
             </ul>
 
@@ -244,16 +255,16 @@ body{
             <ul class="card" style="width:27em;height:29em">
                 <p style="font-family:'바탕체';">{{ youtube.You_conContent | safe}}</p>
 
-                <a href="{% url 'recipe:youtube_detail' youtube.You_conId %}">
-                  <p  style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ youtube.You_conName }}</p>
+                
+                <p  style="font-family:'바탕체';font-weight:bold;font-size:1.4em;color:black;">{{ youtube.You_conName }}</p>
 
-                </a>
+                
 
 
                 <p style="font-family:georgia;">by. {{youtube.You_conMemID}}
 
 
-                    <a class="btn btn-sm you_like" name="{{ youtube.You_conId }}" type="button" value="Like">
+                    <a class="btn btn-sm you_like" name="{{ youtube.You_conId }}" type="button" value="Like"></a>
 
                         {% if user in youtube.You_conLikesUser.all %}
                         <i class="fas fa-heart" id="you_heart{{ youtube.You_conId }}" style="color:#bd1f00"></i>
@@ -261,9 +272,18 @@ body{
                         <i class="far fa-heart" id="you_heart{{ youtube.You_conId }}"  style="color:#bd1f00"></i>
                         {% endif %}
                     </a>
-                <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;font-family:'바탕체';">
+                <p id="you_count-{{ youtube.You_conId }}" style="font:bold 1em;font-family:'바탕체'; margin-bottom: 5px;">
                     좋아요&nbsp;{{ youtube.You_conLikesUser.all.count }}개</p>
-            </ul>
+            
+                {% if user.id == youtube.You_conMemID_id %}
+                <p> <a href="{% url 'recipe:youtube_delete' youtube.You_conId %}">
+                    <button class="btn btn-dark" type="button"><i class="fas fa-trash"></i>Delete</button></a>
+                <a href="{% url 'recipe:youtube_update' youtube.You_conId %}">
+                    <button class="btn btn-light" type="button"><i class="far fa-edit"></i>Update</button></a></p>
+
+                {% endif %}
+
+                  </ul>
         </div>
 
         {% endfor %}
