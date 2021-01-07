@@ -53,3 +53,11 @@ open source - bootstrap4, kakao API, youtube API, jquery, ajax
 유저 모델 확장, 마이페이지, 좋아요 글 모아보기, 첨부파일 입삭제 가능, Recipe 게시판, TinyMCE로 사진 및 글 입력 가능, DB 입출력,
 
 검색 기능, 좋아요 기능, Hotplace 게시판, kakaoAPI, 별점 구현, 슬라이드 이미지 구현 
+
+
+
+![](C:\Users\automata13\Downloads\1.PNG)
+
+![](C:\Users\automata13\Downloads\2.PNG)
+
+![](C:\Users\automata13\Downloads\3.PNG)
