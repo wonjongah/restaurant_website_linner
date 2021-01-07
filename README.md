@@ -56,8 +56,6 @@ open source - bootstrap4, kakao API, youtube API, jquery, ajax
 
 
 
-![screenshot1](C:\Users\automata13\Downloads\1.PNG)
-
-![screenshot2](C:\Users\automata13\Downloads\2.PNG)
-
-![screenshot3](C:\Users\automata13\Downloads\3.PNG)
+![1](https://user-images.githubusercontent.com/50413112/103845408-5b064a00-50df-11eb-97bc-2c856272b244.PNG)
+![2](https://user-images.githubusercontent.com/50413112/103845427-648fb200-50df-11eb-90a8-4e5749df630d.PNG)
+![3](https://user-images.githubusercontent.com/50413112/103845434-69546600-50df-11eb-868f-066d3dafbfc9.PNG)
