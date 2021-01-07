@@ -54,10 +54,10 @@ open source - bootstrap4, kakao API, youtube API, jquery, ajax
 
 검색 기능, 좋아요 기능, Hotplace 게시판, kakaoAPI, 별점 구현, 슬라이드 이미지 구현 
 
-![1](C:\Users\automata13\Downloads\1.PNG)
 
-![](C:\Users\automata13\Downloads\1.PNG)
 
-![](C:\Users\automata13\Downloads\2.PNG)
+![screenshot1](C:\Users\automata13\Downloads\1.PNG)
 
-![](C:\Users\automata13\Downloads\3.PNG)
+![screenshot2](C:\Users\automata13\Downloads\2.PNG)
+
+![screenshot3](C:\Users\automata13\Downloads\3.PNG)
