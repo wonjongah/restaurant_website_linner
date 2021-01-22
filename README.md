@@ -1,3 +1,6 @@
+## < 맛집을 좋아하는 이용자를 위한 웹사이트 LINNER > 
+ 
+
 1. **주제**
 
 
@@ -55,8 +58,8 @@ open source - bootstrap4, kakao API, youtube API, jquery, ajax
 검색 기능, 좋아요 기능, Hotplace 게시판, kakaoAPI, 별점 구현, 슬라이드 이미지 구현 
 
 
-![스크린샷(151)](https://user-images.githubusercontent.com/50413112/105450737-77e57480-5cbe-11eb-994a-43927c4d14c1.png)
-![스크린샷(152)](https://user-images.githubusercontent.com/50413112/105450739-787e0b00-5cbe-11eb-905e-27a2a0730d1a.png)
+![스크린샷(148)](https://user-images.githubusercontent.com/50413112/105451124-46b97400-5cbf-11eb-9a64-e474c4d343e4.png)
+![스크린샷(149)](https://user-images.githubusercontent.com/50413112/105451130-47eaa100-5cbf-11eb-96d5-27f48c33ac5c.png)
 ![1](https://user-images.githubusercontent.com/50413112/103845408-5b064a00-50df-11eb-97bc-2c856272b244.PNG)
 ![2](https://user-images.githubusercontent.com/50413112/103845427-648fb200-50df-11eb-90a8-4e5749df630d.PNG)
 ![3](https://user-images.githubusercontent.com/50413112/103845434-69546600-50df-11eb-868f-066d3dafbfc9.PNG)
